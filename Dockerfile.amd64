@@ -1,0 +1,8 @@
+FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
+
+RUN sudo apt-get update && apt-get install -y build-essential git libopenblas-dev liblapack-dev libopencv-dev
+
+ADD incubator-mxnet /
+WORKDIR /incubator-mxnet
+
+RUN make -j4 USE_OPENCV=1 USE_BLAS=openblas USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_CUDNN=1
