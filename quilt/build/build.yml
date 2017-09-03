@@ -9,3 +9,5 @@ contents:
       file: train.data 
       transform: csv 
       sep: ","
+  README:
+    file: README.md
