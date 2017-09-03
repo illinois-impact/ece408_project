@@ -1,4 +1,27 @@
-# README #
+# README
+
+This is the skeleton code for the 2017 Fall ECE408 / CS483 course project.
+In this project, you will get experience with practical neural network artifacts, face the challenges of modifying existing real-world code, and demonstrate command of basic CUDA optimization techniques.
+Specifically, you will get experience with
+
+* Managing a simple machine-learning dataset.
+* Using, profiling, and modifying MxNet a standard open-source neural-network framework.
+
+You will demonstrate your CUDA expertise by
+
+* Implementing an optimized neural network layer
+* merged layer
+* fp16
+* anything else?
+
+The project will be broken up into 3 milestones
+
+## Milestone 1: Getting Started Due ()
+
+
+## Milestone 2: A New Layer in MxNet
+
+## Final Submission: An optimized layer
 
     https://mxnet.incubator.apache.org/get_started/install.html
 
