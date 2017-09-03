@@ -27,4 +27,5 @@ ENV LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/incubator-mxnet/lib"
 # Install python bindings
 WORKDIR python
 RUN pip install --upgrade pip
+RUN pip install -U scikit-learn scipy
 RUN pip install .
