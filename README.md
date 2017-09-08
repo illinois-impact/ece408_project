@@ -19,6 +19,18 @@ The project will be broken up into 3 milestones
 ## Milestone 1: Getting Started Due ()
 
 
+### Augment the fashion-mnist dataset
+
+### Train and Test the base implementation
+
+You should achieve an accuracy of XXX after XXX iterations.
+
+### Generate a NVPROF Profile
+
+Once you've gotten the appropriate accuracy results, generate a profile.
+
+    nvprof fashion-mnist.py
+
 ## Milestone 2: A New Layer in MxNet
 
 ## Final Submission: An optimized layer
