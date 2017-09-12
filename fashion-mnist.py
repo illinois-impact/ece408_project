@@ -68,7 +68,7 @@ fc2 = mx.sym.FullyConnected(data=tanh3, num_hidden=10)
 lenet = mx.sym.SoftmaxOutput(data=fc2, name='softmax')
 
 # create a trainable module on GPU 0
-lenet_model = mx.mod.Module(symbol=lenet, context=mx.cpu())
+lenet_model = mx.mod.Module(symbol=lenet, context=mx.gpu())
 # train with the same
 lenet_model.fit(train_iter,
                 eval_data=test_iter,
@@ -76,8 +76,8 @@ lenet_model.fit(train_iter,
                 optimizer_params={'learning_rate': 0.1},
                 eval_metric='acc',
                 batch_end_callback=mx.callback.Speedometer(
-                    batch_size, 10),
-                num_epoch=1)
+                    batch_size, 100),
+                num_epoch=100)
 
 print "training done"
 
