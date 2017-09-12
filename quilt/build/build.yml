@@ -1,12 +1,23 @@
 contents:
   fashion_mnist:
-    test:
-      file: test.data # required
-      transform: csv # optional
-      # if transform is omitted, Quilt will attempt to find a transform from the file extension, falling back on transform: id, which copies raw data
-      sep: "," # optional;
-    train:
-      file: train.data 
+    test_labels:
+      file: test_labels.data # required
+      transform: csv
+      sep: ","
+    train_labels:
+      file: train_labels.data 
+      transform: csv 
+      sep: ","
+    train_images:
+      file: train_images.data 
+      transform: csv 
+      sep: ","
+    test_images:
+      file: test_images.data 
+      transform: csv 
+      sep: ","
+    label_strings:
+      file: label_strings.data 
       transform: csv 
       sep: ","
   README:
