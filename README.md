@@ -34,24 +34,13 @@ The MxNet instructions are available [here](https://mxnet.incubator.apache.org/g
 
     sudo apt install -y build-essential git libopenblas-dev liblapack-dev libopencv-dev
 
-### Build mxnet 
+### Build mxnet library
 
-Modify `make/config.mk`.
+Build the skeleton code
 
-    USE_BLAS = openblas
-
-If you want to use CUDA, you can do
-
-    USE_CUDA = 1
-    USE_CUDA_PATH = /usr/local/cuda
-
-If you installed CuDNN, you can also do
-
-    USE_CUDNN = 1
-
-Then
-
+    cd mxnet-newop
     make
+
 
 ### Build Python Bindings
 
