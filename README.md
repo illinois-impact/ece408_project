@@ -24,9 +24,9 @@ On your first clone, do
 
     git submodule update --init --recursive
 
-otherwise, you can pull an update version of the submodules with 
+otherwise, you can pull an updated version of the submodules with 
 
-    git submodule update --recursive
+    git submodule update --recursive --remote
 
 ### Install Prerequisites for Building `mxnet`.
 
@@ -65,9 +65,10 @@ Adjust your performance expectations based on whether you're using CUDA or CUDNN
 
 | Context  | Performance  |
 |---|---|
-| i7-5820  | 450 images/sec  |
-| GTX 1070  | 8k images/sec  |
-| GTX 1070 w/cudnn  | 50k images/sec  | 
+| i7-5820          | 450 images/sec  |
+| GTX 1070         | 8k images/sec   |
+| GTX 1060 w/cudnn | 14k images/sec  |
+| GTX 1070 w/cudnn | 50k images/sec  | 
 
 You should achieve an accuracy of XXX after XXX iterations.
 
@@ -79,9 +80,7 @@ Once you've gotten the appropriate accuracy results, generate a profile.
 
 ## Milestone 2: A New Convolution Layer in MxNet
 
-    https://mxnet.incubator.apache.org/get_started/install.html
 
-This README would normally document whatever steps are necessary to get your application up and running.
 
 
 

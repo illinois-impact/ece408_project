@@ -33,10 +33,12 @@ assert np.array_equal(b.asnumpy(), np.array(
     [[3.,  3.,  3.], [3.,  3.,  3.]], dtype=np.float32))
 print "yes"
 
+print "reshape image data...",
 train_images = train_images.values.reshape((60000, 1, 28, 28))
 train_labels = train_labels.values.reshape(60000)
 test_images = test_images.values.reshape((10000, 1, 28, 28))
 test_labels = test_labels.values.reshape(10000)
+print "done"
 
 # train_images = train_images[:10]
 # train_labels = train_labels[:10]
@@ -49,7 +51,11 @@ test_iter = mx.io.NDArrayIter(
 
 data = mx.sym.var('data')
 # first conv layer
-conv1 = mx.sym.Convolution(data=data, kernel=(5, 5), num_filter=20)  # 20
+conv1 = mx.sym.Ece408Convolution(
+    data=data, kernel=(5, 5), num_filter=20, no_bias=True)
+# conv1 = mx.sym.ece408conv(data=data, kernel=(5, 5), num_filter=20)
+# conv1 = mx.sym.Convolution(data=data, kernel=(
+#     5, 5), num_filter=20, no_bias=True)  # 20
 tanh1 = mx.sym.Activation(data=conv1, act_type="tanh")
 pool1 = mx.sym.Pooling(data=tanh1, pool_type="max",
                        kernel=(2, 2), stride=(2, 2))
@@ -68,7 +74,7 @@ fc2 = mx.sym.FullyConnected(data=tanh3, num_hidden=10)
 lenet = mx.sym.SoftmaxOutput(data=fc2, name='softmax')
 
 # create a trainable module on GPU 0
-lenet_model = mx.mod.Module(symbol=lenet, context=mx.gpu())
+lenet_model = mx.mod.Module(symbol=lenet, context=mx.cpu())
 # train with the same
 lenet_model.fit(train_iter,
                 eval_data=test_iter,
@@ -76,8 +82,8 @@ lenet_model.fit(train_iter,
                 optimizer_params={'learning_rate': 0.1},
                 eval_metric='acc',
                 batch_end_callback=mx.callback.Speedometer(
-                    batch_size, 100),
-                num_epoch=100)
+                    batch_size, 1),
+                num_epoch=10)
 
 print "training done"
 
