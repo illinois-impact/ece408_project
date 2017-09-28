@@ -1,3 +1,4 @@
-[submodule "mxnet-newop"]
-	path = mxnet-newop
-	url = git@bitbucket.org:hwuligans/mxnet-newop.git
+[submodule "2017fa_ece408_mxnet_skeleton"]
+	path = 2017fa_ece408_mxnet_skeleton
+	url = git@bitbucket.org:hwuligans/2017fa_ece408_mxnet_skeleton.git
+	branch = skeleton

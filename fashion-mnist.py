@@ -51,16 +51,19 @@ test_iter = mx.io.NDArrayIter(
 
 data = mx.sym.var('data')
 # first conv layer
-conv1 = mx.sym.Ece408Convolution(
-    data=data, kernel=(5, 5), num_filter=20, no_bias=True)
+# conv1 = mx.sym.Ece408Convolution(
+#     data=data, kernel=(5, 5), num_filter=20, no_bias=True)
 # conv1 = mx.sym.ece408conv(data=data, kernel=(5, 5), num_filter=20)
-# conv1 = mx.sym.Convolution(data=data, kernel=(
-#     5, 5), num_filter=20, no_bias=True)  # 20
+conv1 = mx.sym.Convolution(data=data, kernel=(
+    5, 5), num_filter=20, no_bias=True)  # 20
+# conv1 = mx.sym.New(data=data, kernel=(5, 5), num_filter=20)
 tanh1 = mx.sym.Activation(data=conv1, act_type="tanh")
 pool1 = mx.sym.Pooling(data=tanh1, pool_type="max",
                        kernel=(2, 2), stride=(2, 2))
 # second conv layer
-conv2 = mx.sym.Convolution(data=pool1, kernel=(5, 5), num_filter=50)  # 50
+conv2 = mx.sym.Convolution(data=pool1, kernel=(
+    5, 5), num_filter=50, no_bias=True)  # 50
+# conv2 = mx.sym.New(data=pool1, kernel=(5, 5), num_filter=50)  # 50
 tanh2 = mx.sym.Activation(data=conv2, act_type="tanh")
 pool2 = mx.sym.Pooling(data=tanh2, pool_type="max",
                        kernel=(2, 2), stride=(2, 2))
@@ -74,7 +77,7 @@ fc2 = mx.sym.FullyConnected(data=tanh3, num_hidden=10)
 lenet = mx.sym.SoftmaxOutput(data=fc2, name='softmax')
 
 # create a trainable module on GPU 0
-lenet_model = mx.mod.Module(symbol=lenet, context=mx.cpu())
+lenet_model = mx.mod.Module(symbol=lenet, context=mx.gpu())
 # train with the same
 lenet_model.fit(train_iter,
                 eval_data=test_iter,
@@ -83,7 +86,7 @@ lenet_model.fit(train_iter,
                 eval_metric='acc',
                 batch_end_callback=mx.callback.Speedometer(
                     batch_size, 1),
-                num_epoch=10)
+                num_epoch=2)
 
 print "training done"
 
