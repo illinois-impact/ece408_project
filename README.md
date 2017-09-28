@@ -18,17 +18,17 @@ The project will be broken up into 3 milestones
 
 ## Deliverables Overview
 
-1. [Milestone 1: Getting Started: Due ()](#1)
-    1. [Train the baseline network on the CPU.](#1.1)
-    2. [Train the baseline network on the GPU.](#1.2)
-    3. [Generate a profile of the GPU training using `nvprof`.](#1.3)
-2. [Milestone 2: A New Layer in MXNet: Due ()](#2)
-    1. ()
-3. [Final Submission 3: Optimized GPU Forward Implementation](#3)
-    1. ()
-    2. A Report
+1. [Milestone 1: Getting Started: Due ()](#markdown-header-milestone-1)
+    1. [Train the baseline network on the CPU.]()
+    2. [Train the baseline network on the GPU.]()
+    3. [Generate a profile of the GPU training using `nvprof`.]()
+2. [Milestone 2: A New Layer in MXNet: Due ()](#markdown-header-milestone-2)
+    1. []()
+3. [Final Submission 3: Optimized GPU Forward Implementation](#markdown-header-milestone-3)
+    1. []()
+    2. [Final Report](#markdown-header-final-report)
 
-## <a name="1"></a>Milestone 1: Getting Started: Due ()
+## Milestone 1
 
 ### Getting Set Up and Getting Bugfixes
 
@@ -39,6 +39,8 @@ Clone this repository and skeleton code submodule.
 If a bug in the skeleton code is fixed, you can pull an updated version of the skeleton code with 
 
     git submodule update --recursive --remote
+
+There may be unstable "improvements" in the `develop` branch of this repository.
 
 ### Install Prerequisites for Building `mxnet`.
 
@@ -70,7 +72,7 @@ This will uninstall anything installed with `--user` before anything else.
 
 ### (optional) Augment the fashion-mnist dataset
 
-### <a name="1.1"></a>1.1 Train the baseline CPU implementation
+### 1.1 Train the baseline CPU implementation
 
 Install quilt to get an update version of the data:
 
@@ -90,7 +92,7 @@ Adjust your performance expectations based on whether you're using CUDA or CUDNN
 
 You should achieve an accuracy of XXX after XXX iterations.
 
-### <a name="1.2"></a>1.2 Train the baseline GPU implementation
+### 1.2 Train the baseline GPU implementation
 
 ### 1.3 Generate a NVPROF Profile
 
@@ -98,19 +100,18 @@ Once you've gotten the appropriate accuracy results, generate a profile.
 
     nvprof fashion-mnist.py
 
-## <a name="2"></a>Milestone 2: A New Convolution Layer in MxNet: Due ()
+## Milestone 2: A New Convolution Layer in MxNet: Due ()
 
 
-### <a name="2.1"></a>2.1 Add a simple CPU forward implementation
-
+### 2.1 Add a simple CPU forward implementation
 
 Modify `src/operator/custom/ece408.cc` to implement the forward CPU operator. 
 
-## <a name="3"></a>Final Submission: An optimized layer
+## Final Submission: An optimized layer
 
-### <a name="3.1"></a>Optimized Layer
+### Optimized Layer
 
-### <a name="3.2"></a>Final Report
+### Final Report
 
 ## Extras
 
