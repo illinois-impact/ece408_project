@@ -16,15 +16,27 @@ You will demonstrate your CUDA expertise by
 
 The project will be broken up into 3 milestones
 
-## Milestone 1: Getting Started Due ()
+## Deliverables Overview
 
-### Getting Set Up
+1. [Milestone 1: Getting Started: Due ()](#1)
+    1. [Train the baseline network on the CPU.](#1.1)
+    2. [Train the baseline network on the GPU.](#1.2)
+    3. [Generate a profile of the GPU training using `nvprof`.](#1.3)
+2. [Milestone 2: A New Layer in MXNet: Due ()](#2)
+    1. ()
+3. [Final Submission 3: Optimized GPU Forward Implementation](#3)
+    1. ()
+    2. A Report
 
-On your first clone, do 
+## <a name="1"></a>Milestone 1: Getting Started: Due ()
 
-    git submodule update --init --recursive
+### Getting Set Up and Getting Bugfixes
 
-otherwise, you can pull an updated version of the submodules with 
+Clone this repository and skeleton code submodule.
+
+    git clone https://cwpearson@bitbucket.org/hwuligans/2017fa_ece408_project.git --recursive
+
+If a bug in the skeleton code is fixed, you can pull an updated version of the skeleton code with 
 
     git submodule update --recursive --remote
 
@@ -38,9 +50,8 @@ The MxNet instructions are available [here](https://mxnet.incubator.apache.org/g
 
 Build the skeleton code
 
-    cd mxnet-newop
+    cd 2017fa_ece408_mxnet_skeleton
     make
-
 
 ### Build Python Bindings
 
@@ -57,36 +68,49 @@ You can always uninstall the python package with
 
 This will uninstall anything installed with `--user` before anything else.
 
-### Augment the fashion-mnist dataset
+### (optional) Augment the fashion-mnist dataset
 
-### Train and Test the base implementation
+### <a name="1.1"></a>1.1 Train the baseline CPU implementation
+
+Install quilt to get an update version of the data:
+
+    pip install --user quilt
+
+A simple convolutional neural network is implemented in `fashion-mnist-base.py`.
+Read the comments in that file to understand the structure of the network.
 
 Adjust your performance expectations based on whether you're using CUDA or CUDNN.
 
 | Context  | Performance  |
 |---|---|
-| i7-5820          | 450 images/sec  |
-| GTX 1070         | 8k images/sec   |
-| GTX 1060 w/cudnn | 14k images/sec  |
-| GTX 1070 w/cudnn | 50k images/sec  | 
+| (CPU) Core i7-5820k          | 450 images/sec  |
+| (GPU) GTX 1070         | 8k images/sec   |
+| (GPU) GTX 1060 w/cudnn | 14k images/sec  |
+| (GPU) GTX 1070 w/cudnn | 70k images/sec  | 
 
 You should achieve an accuracy of XXX after XXX iterations.
 
-### Generate a NVPROF Profile
+### <a name="1.2"></a>1.2 Train the baseline GPU implementation
+
+### 1.3 Generate a NVPROF Profile
 
 Once you've gotten the appropriate accuracy results, generate a profile.
 
     nvprof fashion-mnist.py
 
-## Milestone 2: A New Convolution Layer in MxNet
+## <a name="2"></a>Milestone 2: A New Convolution Layer in MxNet: Due ()
 
 
+### <a name="2.1"></a>2.1 Add a simple CPU forward implementation
 
 
+Modify `src/operator/custom/ece408.cc` to implement the forward CPU operator. 
 
+## <a name="3"></a>Final Submission: An optimized layer
 
+### <a name="3.1"></a>Optimized Layer
 
-## Final Submission: An optimized layer
+### <a name="3.2"></a>Final Report
 
 ## Extras
 
