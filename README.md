@@ -29,6 +29,7 @@ The project will be broken up into 3 milestones
     2. [Final Report](#markdown-header-final-report)
 
 ## Milestone 1
+**Getting Started: Due ()**
 
 ### Getting Set Up and Getting Bugfixes
 
@@ -78,7 +79,7 @@ Install quilt to get an update version of the data:
 
     pip install --user quilt
 
-A simple convolutional neural network is implemented in `fashion-mnist-base.py`.
+A simple convolutional neural network is implemented in `fashion-mnist.py`.
 Read the comments in that file to understand the structure of the network.
 
 Adjust your performance expectations based on whether you're using CUDA or CUDNN.
@@ -100,8 +101,8 @@ Once you've gotten the appropriate accuracy results, generate a profile.
 
     nvprof fashion-mnist.py
 
-## Milestone 2: A New Convolution Layer in MxNet: Due ()
-
+## Milestone 2
+**A New Convolution Layer in MxNet: Due ()**
 
 ### 2.1 Add a simple CPU forward implementation
 
@@ -112,6 +113,7 @@ Modify `src/operator/custom/ece408.cc` to implement the forward CPU operator.
 ### Optimized Layer
 
 ### Final Report
+**Due ()**
 
 ## Extras
 
