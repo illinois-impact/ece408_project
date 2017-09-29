@@ -1,6 +1,6 @@
 rai:
   version: 0.2 # this is required
-  image: webgpu/cuda:ppc64le-8.0-devel
+  image: cwpearson/2017fa_ece408_mxnet_docker
 resources:
   cpu:
     architecture: ppc64le
