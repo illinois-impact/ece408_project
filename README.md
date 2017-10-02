@@ -47,25 +47,47 @@ You will be using rai to develop and submit your project.
 
 A simple convolutional neural network is implemented in `fashion-mnist.py`.
 Read the comments in that file to understand the structure of the network.
+Check that `fashion-mnist.py` is using the CPU, and using the built-in MXNet convolution, and only training for 1 epoch:
 
-Adjust your performance expectations based on whether you're using CUDA or CUDNN.
+    conv1 = mx.sym.Convolution(...
+    # ...
+    conv2 = mx.sym.Convolution(...
+    # ...
+    lenet_model = ... context=mx.cpu())
+    # ...
+    ... num_epoch=1)
 
-| Context  | Performance  |
-|---|---|
-| (CPU) Core i7-5820k    | 450 images/sec  |
-| (GPU) GTX 1070         | 8k images/sec   |
-| (GPU) GTX 1060 w/cudnn | 14k images/sec  |
-| (GPU) GTX 1070 w/cudnn | 70k images/sec  | 
+Train  the `fashion-mnist` network for one epoch by submitting the job to RAI
 
-You should achieve an accuracy of XXX after XXX iterations.
+    rai
+
+This will execute the actions in `rai_build.yml`. The `image:` key in `rai_build.yml` specifies the environment that the rest of the execution will occur in. That environment has a pre-build MXnet, so you will not need to wait on a full rebuild every time you submit to rai.
+
+The contents of this directory will be sent to the RAI backend (running on an IBM 8335-GTB "Minsky"). `build.sh` will be executed, and then `python fashion-mnist.py`.
+
+`build.sh` copies the files in `ece408_src` to `src/operator/custom/` in the MXNet source tree in the rai environment, and rebuilds MXNet to include your new code. It then installs the Python bindings into the environment.
+
+You should achieve an accuracy of XXX after the single epoch finishes.
 
 ### 1.2 Train the baseline GPU implementation
 
+The baseline GPU implementation is much faster. Modify `fashion-mnist.py` to train for a few more epochs, and execute on the GPU:
+
+    lenet_model = ... context=mx.gpu())
+    # ...
+    ... num_epoch=10)
+
+Again, submit to rai
+
+    rai
+
+You should see much greater performance, and again an accuracy of XXX after the training is done.
+
 ### 1.3 Generate a NVPROF Profile
 
-Once you've gotten the appropriate accuracy results, generate a profile.
+Once you've gotten the appropriate accuracy results, generate a profile. Modify `rai_build.yml` to generate a profile instead of just execuing the code.
 
-    nvprof fashion-mnist.py
+    nvprof python fashion-mnist.py
 
 ## Milestone 2
 **A New Convolution Layer in MxNet: Due ()**
@@ -121,3 +143,12 @@ You can always uninstall the python package with
     pip uninstall mxnet
 
 This will uninstall anything installed with `--user` before anything else.
+
+Your training performance will depend on what kind of system you have.
+
+| Context  | Performance  |
+|---|---|
+| (CPU) Core i7-5820k    | 450 images/sec  |
+| (GPU) GTX 1070         | 8k images/sec   |
+| (GPU) GTX 1060 w/cudnn | 14k images/sec  |
+| (GPU) GTX 1070 w/cudnn | 70k images/sec  | 
