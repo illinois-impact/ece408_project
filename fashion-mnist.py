@@ -13,14 +13,6 @@ train_images, train_labels = load_mnist(path="fashion-mnist", kind="train")
 test_images, test_labels = load_mnist(path="fashion-mnist", kind="t10k")
 print "done"
 
-# Check that the MXNet bindings got installed
-print "Sanity check mxnet bindings...",
-a = mx.nd.ones((2, 3))
-b = a * 2 + 1
-assert np.array_equal(b.asnumpy(), np.array(
-    [[3.,  3.,  3.], [3.,  3.,  3.]], dtype=np.float32))
-print "yes"
-
 # Reshape the data to the format expected by MXNet's default convolutional layers
 train_images = train_images.reshape((60000, 1, 28, 28))
 train_labels = train_labels.reshape(60000)
