@@ -1,32 +1,17 @@
 #!/usr/bin/env python
 
-import quilt
 import mxnet as mx
 import numpy as np
 import logging
+from reader import load_mnist
 
 # Log to stdout for MXNet
 logging.getLogger().setLevel(logging.DEBUG)  # logging to stdout
 
-# Force a check to Update to the lastest data. set foce=False to skip data check
-quilt.install("pearson/ece408", force=True)
-
-# Make the data available
-from quilt.data.pearson import ece408
-
-print "Checking fashion-mnist data dimensions are as expected...",
-train_images = ece408.fashion_mnist.train_images()
-test_images = ece408.fashion_mnist.test_images()
-train_labels = ece408.fashion_mnist.train_labels()
-test_labels = ece408.fashion_mnist.test_labels()
-label_strings = ece408.fashion_mnist.label_strings()
-
-assert train_labels.shape == (60000, 1)
-assert test_labels.shape == (10000, 1)
-assert train_images.shape == (60000, 784)
-assert test_images.shape == (10000, 784)
-assert label_strings.shape == (10, 1)
-print "yes"
+print "Loading fashion-mnist data...",
+train_images, train_labels = load_mnist(path="fashion-mnist", kind="train")
+test_images, test_labels = load_mnist(path="fashion-mnist", kind="t10k")
+print "done"
 
 # Check that the MXNet bindings got installed
 print "Sanity check mxnet bindings...",
@@ -37,10 +22,10 @@ assert np.array_equal(b.asnumpy(), np.array(
 print "yes"
 
 # Reshape the data to the format expected by MXNet's default convolutional layers
-train_images = train_images.values.reshape((60000, 1, 28, 28))
-train_labels = train_labels.values.reshape(60000)
-test_images = test_images.values.reshape((10000, 1, 28, 28))
-test_labels = test_labels.values.reshape(10000)
+train_images = train_images.reshape((60000, 1, 28, 28))
+train_labels = train_labels.reshape(60000)
+test_images = test_images.reshape((10000, 1, 28, 28))
+test_labels = test_labels.reshape(10000)
 
 # You can reduce the size of the train or test datasets by uncommenting the following lines
 # train_images = train_images[:10]
