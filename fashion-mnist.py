@@ -109,7 +109,7 @@ lenet_model.fit(train_iter,
                 eval_metric='acc',
                 batch_end_callback=mx.callback.Speedometer(
                     batch_size, 10),
-                num_epoch=100)
+                num_epoch=1)
 print "training done"
 
 # Evaluate the network
