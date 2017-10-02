@@ -74,7 +74,7 @@ data = mx.sym.var('data')
 # switch the commented-out lines to use your implementation.
 conv1 = mx.sym.Convolution(data=data, kernel=(
     5, 5), num_filter=20, no_bias=True)  # 20
-#conv1 = mx.sym.Ece408(data=data, kernel=(5, 5), num_filter=20)
+# conv1 = mx.sym.New(data=data, kernel=(5, 5), num_filter=20)
 
 tanh1 = mx.sym.Activation(data=conv1, act_type="tanh")
 pool1 = mx.sym.Pooling(data=tanh1, pool_type="max",
@@ -83,7 +83,7 @@ pool1 = mx.sym.Pooling(data=tanh1, pool_type="max",
 # Switch the commented out lines to use your implementation
 conv2 = mx.sym.Convolution(data=pool1, kernel=(
     5, 5), num_filter=50, no_bias=True)
-#conv2 = mx.sym.Ece408(data=data, kernel=(5, 5), num_filter=50)
+# conv2 = mx.sym.New(data=data, kernel=(5, 5), num_filter=50)
 
 tanh2 = mx.sym.Activation(data=conv2, act_type="tanh")
 pool2 = mx.sym.Pooling(data=tanh2, pool_type="max",
@@ -108,7 +108,7 @@ lenet_model.fit(train_iter,
                 optimizer_params={'learning_rate': 0.1},
                 eval_metric='acc',
                 batch_end_callback=mx.callback.Speedometer(
-                    batch_size, 100),
+                    batch_size, 10),
                 num_epoch=100)
 print "training done"
 
