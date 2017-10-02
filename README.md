@@ -33,51 +33,17 @@ The project will be broken up into 3 milestones
 
 ### Getting Set Up and Getting Bugfixes
 
-Clone this repository and skeleton code submodule.
+Clone this repository.
 
-    git clone https://cwpearson@bitbucket.org/hwuligans/2017fa_ece408_project.git --recursive
+    git clone https://cwpearson@bitbucket.org/hwuligans/2017fa_ece408_project.git
 
-If a bug in the skeleton code is fixed, you can pull an updated version of the skeleton code with 
+This will put you on the `master` branch. There may be unstable "improvements" in the `develop` branch of this repository.
 
-    git submodule update --recursive --remote
-
-There may be unstable "improvements" in the `develop` branch of this repository.
-
-### Install Prerequisites for Building `mxnet`.
-
-The MxNet instructions are available [here](https://mxnet.incubator.apache.org/get_started/install.html). A short form of them follows.
-
-    sudo apt install -y build-essential git libopenblas-dev liblapack-dev libopencv-dev
-
-### Build mxnet library
-
-Build the skeleton code
-
-    cd 2017fa_ece408_mxnet_skeleton
-    make
-
-### Build Python Bindings
-
-    sudo apt install -y python-dev python-setuptools python-numpy python-pip
-
-Install the python binding
-
-    cd python
-    pip install --user -e .
-
-You can always uninstall the python package with
-
-    pip uninstall mxnet
-
-This will uninstall anything installed with `--user` before anything else.
+You will be using rai to develop and submit your project.
 
 ### (optional) Augment the fashion-mnist dataset
 
 ### 1.1 Train the baseline CPU implementation
-
-Install quilt to get an update version of the data:
-
-    pip install --user quilt
 
 A simple convolutional neural network is implemented in `fashion-mnist.py`.
 Read the comments in that file to understand the structure of the network.
@@ -86,7 +52,7 @@ Adjust your performance expectations based on whether you're using CUDA or CUDNN
 
 | Context  | Performance  |
 |---|---|
-| (CPU) Core i7-5820k          | 450 images/sec  |
+| (CPU) Core i7-5820k    | 450 images/sec  |
 | (GPU) GTX 1070         | 8k images/sec   |
 | (GPU) GTX 1060 w/cudnn | 14k images/sec  |
 | (GPU) GTX 1070 w/cudnn | 70k images/sec  | 
@@ -121,3 +87,37 @@ Modify `src/operator/custom/ece408.cc` to implement the forward CPU operator.
 
     sudo apt install python-pip
     pip install --user quilt numpy pylint pep8 autopep8
+
+### Developing on your own with MXNet
+
+### Install Prerequisites for Building `mxnet`.
+
+The MxNet instructions are available [here](https://mxnet.incubator.apache.org/get_started/install.html). A short form of them follows.
+
+    sudo apt install -y build-essential git libopenblas-dev liblapack-dev libopencv-dev
+
+Install quilt to get an update version of the data:
+
+    pip install --user quilt
+
+### Build mxnet library
+
+Build the skeleton code
+
+    cd 2017fa_ece408_mxnet_skeleton
+    make
+
+### Build Python Bindings
+
+    sudo apt install -y python-dev python-setuptools python-numpy python-pip
+
+Install the python binding
+
+    cd python
+    pip install --user -e .
+
+You can always uninstall the python package with
+
+    pip uninstall mxnet
+
+This will uninstall anything installed with `--user` before anything else.
