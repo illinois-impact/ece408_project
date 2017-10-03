@@ -4,17 +4,13 @@ This is the skeleton code for the 2017 Fall ECE408 / CS483 course project.
 In this project, you will get experience with practical neural network artifacts, face the challenges of modifying existing real-world code, and demonstrate command of basic CUDA optimization techniques.
 Specifically, you will get experience with
 
-* Managing a simple machine-learning dataset.
-* Using, profiling, and modifying MxNet a standard open-source neural-network framework.
+* Using, profiling, and modifying MxNet, a standard open-source neural-network framework.
 
-You will demonstrate your CUDA expertise by
+You will demonstrate command of CUDA and optimization approaches by
 
-* Implementing an optimized neural network layer
-* merged layer
-* fp16
-* anything else?
+* Implementing an optimized neural-network convolution layer forward pass
 
-The project will be broken up into 3 milestones
+The project will be broken up into 3 milestones. Read the description of the final report before starting, so you can collect the necessary info along the way.
 
 ## Deliverables Overview
 
@@ -103,48 +99,68 @@ Modify `src/operator/custom/ece408.cc` to implement the forward CPU operator.
 ### Final Report
 **Due ()**
 
+You should provide a brief final report, with the following content.
+
+1. Milestone 1
+    1. built-in CPU performance results
+        1. execution time
+    2. built-in GPU performance results
+        1. execution time
+        2. `nvprof` profile
+2. Milestone 2
+    1. baseline solution CPU performance results
+        1. execution time
+3. **Optimization Approach**
+    * how you identified the optimization opportunity
+    * why you thought the approach would be fruitful
+    * the effect of the optimization. was it fruitful, and why or why not. Use nvprof as needed
+    * Any external references used during identification or development of the optimization
+4. References (if needed)
+
+Do not make your report longer than it needs to 
+
 ## Extras
 
-### Setting up Visual Studio Code
+**None of the following is needed to complete the course project.**
 
-    sudo apt install python-pip
-    pip install --user quilt numpy pylint pep8 autopep8
+If you'd like to develop using a local copy of mxnet, you may do so. Keep in mind your project will be evaluated through rai. Your submission must work through rai.
 
-### Developing on your own with MXNet
+The MxNet instructions are available [here](https://mxnet.incubator.apache.org/get_started/install.html). A short form of them follows for Ubuntu.
 
-### Install Prerequisites for Building `mxnet`.
-
-The MxNet instructions are available [here](https://mxnet.incubator.apache.org/get_started/install.html). A short form of them follows.
-
-    sudo apt install -y build-essential git libopenblas-dev liblapack-dev libopencv-dev
-
-Install quilt to get an update version of the data:
-
-    pip install --user quilt
-
-### Build mxnet library
-
-Build the skeleton code
-
-    cd 2017fa_ece408_mxnet_skeleton
-    make
-
-### Build Python Bindings
-
-    sudo apt install -y python-dev python-setuptools python-numpy python-pip
-
-Install the python binding
-
-    cd python
-    pip install --user -e .
+    # install some prereqs
+    sudo apt install -y build-essential git libopenblas-dev liblapack-dev libopencv-dev python-pip python-dev python-setuptools python-numpy
+    # download mxnet release 0.11.0
+    git clone git@github.com:apache/incubator-mxnet.git --recursive --branch 0.11.0
+    # build mxnet
+    nice -n20 make -C incubator-mxnet -j$(nrpoc) USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_OPENCV=1 USE_CUDNN=1 USE_BLAS=openblas
+    # install python bindings
+    pip install --user -e incubator-mxnet/python
 
 You can always uninstall the python package with
 
     pip uninstall mxnet
 
-This will uninstall anything installed with `--user` before anything else.
+Download the fashion-mnist dataset
 
-Your training performance will depend on what kind of system you have.
+
+    mkdir fashion_mnist
+    wget -P fashion_mnist \
+        http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz \
+        http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz \
+        http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz \
+        http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz
+
+Modify `test_fashion_mnist.py` to point to where you downloaded fashion-mnist
+
+    ... load_mnist(path="fashion-mnist", ...)
+
+Modify `build.sh` to point at your mxnet code.
+
+    ...
+    MXNET_SRC_ROOT=<your incubator-mxnet path here>
+    ...
+
+If you want to experiment with training or defining a different network architecture (neither is part of the project), you can use `train_fashion_mnist.py`. Some example performance numbers using the built-in MXNet operators.
 
 | Context  | Performance  |
 |---|---|
@@ -152,10 +168,3 @@ Your training performance will depend on what kind of system you have.
 | (GPU) GTX 1070         | 8k images/sec   |
 | (GPU) GTX 1060 w/cudnn | 14k images/sec  |
 | (GPU) GTX 1070 w/cudnn | 70k images/sec  | 
-
-You can download the datasets yourself
-
-    wget http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz \
-        http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz \
-        http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz \
-        http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz
