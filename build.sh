@@ -23,7 +23,14 @@ for src in $SRCS; do
 done
 
 # Build MXNet
-nice -n20 make -j`nproc` -C "$MXNET_SRC_ROOT"
+nice -n20 \
+    make -j`nproc` \
+        -C "$MXNET_SRC_ROOT" \
+        USE_CUDA=1 \
+        USE_CUDA_PATH=/usr/local/cuda \
+        USE_OPENCV=1 \
+        USE_CUDNN=1 \
+        USE_BLAS=openblas
 
 # Install python bindings
 pip install --user -e "$MXNET_SRC_ROOT/python"
