@@ -6,10 +6,10 @@ resources:
     architecture: ppc64le
   gpu:
     architecture: pascal
-    count: 1 # tell the system that you're using a gpu
+    count: 0 # tell the system that you're using a gpu
   network: false
 commands:
   build:
     - echo "Building project"
-    - ./build.sh
-    - python fashion-mnist.py
+    - bash -C /src/build.sh || exit -1
+    - python test_fashion_mnist.py
