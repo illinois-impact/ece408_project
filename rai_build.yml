@@ -1,6 +1,6 @@
 rai:
   version: 0.2 # this is required
-  image: cwpearson/2017fa_ece408_mxnet_docker:ppc64le-gpu-latest
+  image: cwpearson/2017fa_ece408_mxnet_docker:ppc64le-cpu-latest
 resources:
   cpu:
     architecture: ppc64le

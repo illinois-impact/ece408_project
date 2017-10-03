@@ -20,10 +20,10 @@ test_images = test_images.reshape((10000, 1, 28, 28))
 test_labels = test_labels.reshape(10000)
 
 # You can reduce the size of the train or test datasets by uncommenting the following lines
-# train_images = train_images[:10]
-# train_labels = train_labels[:10]
-# test_images = test_images[:10]
-# test_labels = test_labels[:10]
+train_images = train_images[:1000]
+train_labels = train_labels[:1000]
+test_images = test_images[:1000]
+test_labels = test_labels[:1000]
 
 # Batch size of 100
 batch_size = 100
@@ -78,6 +78,7 @@ lenet = mx.sym.SoftmaxOutput(data=fc2, name='softmax')
 # adjust to context=mx.gpu() to run on the GPU
 lenet_model = mx.mod.Module(symbol=lenet, context=mx.cpu())
 
+
 # Train the network
 lenet_model.fit(train_iter,
                 eval_data=test_iter,
@@ -86,10 +87,18 @@ lenet_model.fit(train_iter,
                 eval_metric='acc',
                 batch_end_callback=mx.callback.Speedometer(
                     batch_size, 10),
+                epoch_end_callback=mx.callback.module_checkpoint(
+                    lenet_model, prefix='model'),
                 num_epoch=1)
 print "training done"
 
 # Evaluate the network
+acc = mx.metric.Accuracy()
+lenet_model.score(test_iter, acc)
+print(acc)
+
+# Evaluate the network
+lenet_model.load(prefix='model', epoch=1)
 acc = mx.metric.Accuracy()
 lenet_model.score(test_iter, acc)
 print(acc)

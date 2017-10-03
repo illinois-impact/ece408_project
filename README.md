@@ -152,3 +152,10 @@ Your training performance will depend on what kind of system you have.
 | (GPU) GTX 1070         | 8k images/sec   |
 | (GPU) GTX 1060 w/cudnn | 14k images/sec  |
 | (GPU) GTX 1070 w/cudnn | 70k images/sec  | 
+
+You can download the datasets yourself
+
+    wget http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz \
+        http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz \
+        http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz \
+        http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz
