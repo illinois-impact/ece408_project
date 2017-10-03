@@ -11,5 +11,5 @@ resources:
 commands:
   build:
     - echo "Building project"
-    - bash -C /src/build.sh || exit -1
-    - python test_fashion_mnist.py
+    - /src/build.sh
+    - python /src/test_baseline_fashion_mnist.py
