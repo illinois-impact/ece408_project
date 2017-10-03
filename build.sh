@@ -12,7 +12,9 @@ echo $SCRIPTPATH
 SRC_DIR="$SCRIPTPATH/ece408_src"
 SRCS=`find $SRC_DIR -type f`
 
-# Where MXNet source lives. MXNET_SRC_ROOT is defined in the rai execution environment, if you are developing locally you can define it yourself, or enter it below
+# Where MXNet source lives. 
+# MXNET_SRC_ROOT is defined in the rai execution environment.
+# if you are developing locally you can define it yourself or enter it below
 if [ -z ${MXNET_SRC_ROOT+x} ]; then
     MXNET_SRC_ROOT="$HOME/repos/incubator-mxnet"
 fi
@@ -24,13 +26,8 @@ done
 
 # Build MXNet
 nice -n20 \
-    make -j`nproc` \
-        -C "$MXNET_SRC_ROOT" \
-        USE_CUDA=1 \
-        USE_CUDA_PATH=/usr/local/cuda \
-        USE_OPENCV=1 \
-        USE_CUDNN=1 \
-        USE_BLAS=openblas
+    make -j`nproc` -C "$MXNET_SRC_ROOT"
 
 # Install python bindings
 pip install --user -e "$MXNET_SRC_ROOT/python"
+
