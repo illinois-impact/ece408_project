@@ -3,12 +3,19 @@
 # Cause the script to fail on errors
 set -eou pipefail -x
 
+SCRIPT=$(readlink -f "$0")
+# Absolute path this script is in, thus /home/user/bin
+SCRIPTPATH=$(dirname "$SCRIPT")
+echo $SCRIPTPATH
+
 # Where the sources for the new layer are
-SRC_DIR="./ece408_src"
+SRC_DIR="$SCRIPTPATH/ece408_src"
 SRCS=`find $SRC_DIR -type f`
 
-# Where MXNet source lives 
-MXNET_SRC_ROOT="$HOME/repos/2017fa_ece408_mxnet_skeleton"
+# Where MXNet source lives. MXNET_SRC_ROOT is defined in the rai execution environment, if you are developing locally you can define it yourself, or enter it below
+if [ -z ${MXNET_SRC_ROOT+x} ]; then
+    MXNET_SRC_ROOT="$HOME/repos/incubator-mxnet"
+fi
 
 # Copy our files to the custom operator directory
 for src in $SRCS; do
