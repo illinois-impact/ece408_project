@@ -1,15 +1,15 @@
 rai:
-  version: 0.2 # this is required
+  version: 0.2
   image: cwpearson/2017fa_ece408_mxnet_docker:ppc64le-cpu-latest
 resources:
   cpu:
     architecture: ppc64le
   gpu:
     architecture: pascal
-    count: 0 # tell the system that you're using a gpu
+    count: 0
   network: false
 commands:
   build:
     - echo "Building project"
     - /src/build.sh
-    - python /src/test_baseline_fashion_mnist.py
+    - python /src/m1.1_forward_mxnet_conv.py
