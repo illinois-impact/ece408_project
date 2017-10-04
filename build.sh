@@ -3,10 +3,9 @@
 # Cause the script to fail on errors
 set -eou pipefail -x
 
+# Absolute path this script is in
 SCRIPT=$(readlink -f "$0")
-# Absolute path this script is in, thus /home/user/bin
 SCRIPTPATH=$(dirname "$SCRIPT")
-echo $SCRIPTPATH
 
 # Where the sources for the new layer are
 SRC_DIR="$SCRIPTPATH/ece408_src"

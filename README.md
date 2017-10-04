@@ -1,5 +1,7 @@
 # README
 
+## Introduction
+
 This is the skeleton code for the 2017 Fall ECE408 / CS483 course project.
 In this project, you will get experience with practical neural network artifacts, face the challenges of modifying existing real-world code, and demonstrate command of basic CUDA optimization techniques.
 Specifically, you will get experience with
@@ -14,90 +16,121 @@ The project will be broken up into 3 milestones. Read the description of the fin
 
 ## Deliverables Overview
 
-1. [Milestone 1: Getting Started: Due ()](#markdown-header-milestone-1)
-    1. [Train the baseline network on the CPU.]()
-    2. [Train the baseline network on the GPU.]()
-    3. [Generate a profile of the GPU training using `nvprof`.]()
-2. [Milestone 2: A New Layer in MXNet: Due ()](#markdown-header-milestone-2)
+1. [Milestone 1: Getting Started: Due 11/14/2017](#markdown-header-milestone-1)
+    1. [Run the MXNet baseline forward CPU pass.]()
+    2. [Run the MXNet baseline forward GPU pass.]()
+    3. [Generate a profile of the GPU forward pass using `nvprof`.]()
+2. [Milestone 2: A New Layer in MXNet: Due 11/21/2017](#markdown-header-milestone-2)
     1. []()
-3. [Final Submission 3: Optimized GPU Forward Implementation](#markdown-header-milestone-3)
+3. [Final Submission: Optimized GPU Forward Implementation: Due 12/15/2017](#markdown-header-milestone-3)
     1. []()
     2. [Final Report](#markdown-header-final-report)
 
 ## Milestone 1
-**Getting Started: Due ()**
+**Getting Started: Due November 14th, 2017**
 
 ### Getting Set Up and Getting Bugfixes
 
-Clone this repository.
+Clone this repository to get the project directory.
 
     git clone https://cwpearson@bitbucket.org/hwuligans/2017fa_ece408_project.git
 
 This will put you on the `master` branch. There may be unstable "improvements" in the `develop` branch of this repository.
 
-You will be using rai to develop and submit your project.
+We suggest using rai to develop your project. **You will use rai to submit your project**.
 
-### (optional) Augment the fashion-mnist dataset
+### 1.1: Run the Baseline Forward Pass
 
-### 1.1 Train the baseline CPU implementation
+The neural network architecture used for this project is shown below.
 
-A simple convolutional neural network is implemented in `fashion-mnist.py`.
-Read the comments in that file to understand the structure of the network.
-Check that `fashion-mnist.py` is using the CPU, and using the built-in MXNet convolution, and only training for 1 epoch:
+| Layer |       Desc      |
+|-------|-----------------|
+| 0     | input           |
+| 1     | convolution     |
+| 2     | tanh            |
+| 3     | pooling         |
+| 4     | convolution     |
+| 5     | tanh            |
+| 6     | pooling         |
+| 7     | fully connected |
+| 8     | tanh            |
+| 9     | fully connected |
+| 10    | softmax         |
 
-    conv1 = mx.sym.Convolution(...
-    # ...
-    conv2 = mx.sym.Convolution(...
-    # ...
-    lenet_model = ... context=mx.cpu())
-    # ...
-    ... num_epoch=1)
-
-Train  the `fashion-mnist` network for one epoch by submitting the job to RAI
+Use RAI to run a batch forward pass on some test data.
 
     rai
 
-This will execute the actions in `rai_build.yml`. The `image:` key in `rai_build.yml` specifies the environment that the rest of the execution will occur in. That environment has a pre-build MXnet, so you will not need to wait on a full rebuild every time you submit to rai.
+This will upload your project directory to rai (running on an IBM 8335-GTB "Minsky") and move it to `/src`, where the execution specified in `rai_build.yml` will occur. For this CPU run, leave `rai_build.yml` untouched, but look at its contents.
 
-The contents of this directory will be sent to the RAI backend (running on an IBM 8335-GTB "Minsky"). `build.sh` will be executed, and then `python fashion-mnist.py`.
+The `image:` key specifies the environment that the rest of the execution will occur in.
+This environment includes a prebuilt MXNet (so rai will only do a partial compile with your code) as well as the model definition and the training data.
 
-`build.sh` copies the files in `ece408_src` to `src/operator/custom/` in the MXNet source tree in the rai environment, and rebuilds MXNet to include your new code. It then installs the Python bindings into the environment.
+The `resources:` key specifies what computation resources will be available to the execution.
 
-You should achieve an accuracy of XXX after the single epoch finishes.
+The `commands:` key specifies the recipe that rai will execute. `./build.sh` copies the files in `ece408_src` to `src/operator/custom/` in the MXNet source tree, and then compiles MXNet and installs the MXNet python bindings into the environment.
+You do not need to modify `build.sh` to successfully complete the project, but look at it if you are curious.
+`python /src/m1.1_forward_mxnet_conv.py` runs the `m1.1_forward_mxnet_conv.py` python program.
 
-### 1.2 Train the baseline GPU implementation
+You should see the following output:
 
-The baseline GPU implementation is much faster. Modify `fashion-mnist.py` to train for a few more epochs, and execute on the GPU:
+    output
+    output
+    output
 
-    lenet_model = ... context=mx.gpu())
-    # ...
-    ... num_epoch=10)
+The accuracy should be exactly XXX. 
+There is no specific deliverable for this portion.
+
+### 1.2: Run the baseline GPU implementation
+
+To switch to a GPU run, you will need to modify rai_build.yml.
+
+| original line | replacement line | 
+| -- | -- | 
+| `image: cwpearson/2017fa_ece408_mxnet_docker:ppc64le-cpu-latest` | `image: cwpearson/2017fa_ece408_mxnet_docker:ppc64le-gpu-latest` |
+| `count: 0` | `count: 1` |
+| `python /src/m1.1_forward_mxnet_conv.py` | `python /src/m1.2_forward_mxnet_conv.py` |
+
+This uses a rai environment with MXNet built for CUDA, tells rai to use a GPU, and runs `m1.2_forward_mxnet_conv.py` instead of `m1.1_forward_mxnet_conv.py`.
+
+Compare `m1.2_forward_mxnet_conv.py` and `m1.1_forward_mxnet_conv.py`. You'll see that it is the same, except for `mx.gpu()` has been substituted for `mx.cpu()`. This is how we tell MXNet that we wish to use a GPU instead of a CPU.
 
 Again, submit to rai
 
     rai
 
-You should see much greater performance, and again an accuracy of XXX after the training is done.
+You should see the same accuracy as the CPU version. 
+There is no specific deliverable for this portion.
 
 ### 1.3 Generate a NVPROF Profile
 
-Once you've gotten the appropriate accuracy results, generate a profile. Modify `rai_build.yml` to generate a profile instead of just execuing the code.
+Once you've gotten the appropriate accuracy results, generate a profile using nvprof. You will be able to use nvprof to evaluate how effective your optimizations are.
+As described above, make sure `rai_build.yml` is configured for a GPU run.
+Then, modify `rai_build.yml` to generate a profile instead of just execuing the code.
 
-    nvprof python fashion-mnist.py
+    nvprof python m1.2_forward_mxnet_conv.py
+
+You should see something that looks like the following:
+
+    output 
+    output
+    output
+
+You can see how much time MXNet is spending on a variety of the operators. Look for `XXX` and report the cumulative time that MXNet spends on that operation.
 
 ## Milestone 2
-**A New Convolution Layer in MxNet: Due ()**
+**A New Convolution Layer in MxNet: Due November 21st, 2017**
 
 ### 2.1 Add a simple CPU forward implementation
 
-Modify `src/operator/custom/ece408.cc` to implement the forward CPU operator. 
+Modify `src/operator/custom/ece408.cc` to implement the forward CPU operator.
 
 ## Final Submission: An optimized layer
 
 ### Optimized Layer
 
 ### Final Report
-**Due ()**
+**Due December 15, 2017 11:59pm**
 
 You should provide a brief final report, with the following content.
 
@@ -167,4 +200,6 @@ If you want to experiment with training or defining a different network architec
 | (CPU) Core i7-5820k    | 450 images/sec  |
 | (GPU) GTX 1070         | 8k images/sec   |
 | (GPU) GTX 1060 w/cudnn | 14k images/sec  |
-| (GPU) GTX 1070 w/cudnn | 70k images/sec  | 
+| (GPU) GTX 1070 w/cudnn | 70k images/sec  |
+
+`train_fashion_mnist.py` was used to generate the network weights that the forward pass uses.
