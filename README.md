@@ -16,18 +16,24 @@ The project will be broken up into 3 milestones. Read the description of the fin
 
 ## Deliverables Overview
 
-1. [Milestone 1: Getting Started: Due 11/14/2017](#markdown-header-milestone-1)
+This is an overview of the deliverables and deadlines.
+See the individual sections for details.
+You may wish to stay ahead of these deadlines (particularly, allow more than two weeks between milestone 3 and the final submission).
+
+1. [Milestone 1: Getting Started: Due 11/10/2017](#markdown-header-milestone-1)
     1. [Run the MXNet baseline forward CPU pass.]()
     2. [Run the MXNet baseline forward GPU pass.]()
     3. [Generate a profile of the GPU forward pass using `nvprof`.]()
-2. [Milestone 2: A New Layer in MXNet: Due 11/21/2017](#markdown-header-milestone-2)
+2. [Milestone 2: A New CPU Layer in MXNet: Due 11/17/2017](#markdown-header-milestone-2)
     1. []()
-3. [Final Submission: Optimized GPU Forward Implementation: Due 12/15/2017](#markdown-header-milestone-3)
+2. [Milestone 3: A GPU Layer in MXNet: Due 12/1/2017](#markdown-header-milestone-3)
+    1. []()
+3. [Final Submission: Optimized GPU Forward Implementation: Due 12/15/2017](#markdown-header-final-submission)
     1. []()
     2. [Final Report](#markdown-header-final-report)
 
 ## Milestone 1
-**Getting Started: Due November 14th, 2017**
+**Getting Started: Due Friday November 10th, 2017**
 
 ### Getting Set Up and Getting Bugfixes
 
@@ -119,18 +125,25 @@ You should see something that looks like the following:
 You can see how much time MXNet is spending on a variety of the operators. Look for `XXX` and report the cumulative time that MXNet spends on that operation.
 
 ## Milestone 2
-**A New Convolution Layer in MxNet: Due November 21st, 2017**
+**A New CPU Convolution Layer in MxNet: Due Friday November 17th, 2017**
 
 ### 2.1 Add a simple CPU forward implementation
 
 Modify `src/operator/custom/ece408.cc` to implement the forward CPU operator.
 
-## Final Submission: An optimized layer
+## Milestone 3
+**A New GPU Convolution Layer in MxNet: Due Friday December 1st, 2017**
+
+### 2.1 Add a simple CPU forward implementation
+
+Modify `src/operator/custom/ece408.cc` to implement the forward CPU operator.
+
+## Final Submission
+**An Optimized Layer and Final Report: Due Friday December 15th, 2017**
 
 ### Optimized Layer
 
 ### Final Report
-**Due December 15, 2017 11:59pm**
 
 You should provide a brief final report, with the following content.
 
