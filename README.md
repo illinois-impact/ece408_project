@@ -254,8 +254,8 @@ Download the trained models (for the existing mxnet implementation and your impl
     && wget -P models \
         https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/baseline-0001.params \
         https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/baseline-symbol.json \
-        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/baseline-0001.params \
-        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/baseline-symbol.json
+        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/ece408-0001.params \
+        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/ece408-symbol.json
 
 Modify `build.sh` to point at your mxnet code.
 
