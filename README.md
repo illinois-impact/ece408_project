@@ -237,8 +237,8 @@ You can always uninstall the python package with
 
 Download the fashion-mnist dataset
 
-    mkdir fashion_mnist
-    wget -P fashion_mnist \
+    mkdir fashion-mnist \
+    && wget -P fashion-mnist \
         http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz \
         http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz \
         http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz \
@@ -248,22 +248,20 @@ Modify the python forward convolution scripts to point to where you downloaded f
 
     ... load_mnist(path="fashion-mnist", ...)
 
+Download the trained models (for the existing mxnet implementation and your implementation)
+
+    mkdir models \
+    && wget -P models \
+        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/baseline-0001.params \
+        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/baseline-symbol.json \
+        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/baseline-0001.params \
+        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/baseline-symbol.json
+
 Modify `build.sh` to point at your mxnet code.
 
     ...
     MXNET_SRC_ROOT=<your incubator-mxnet path here>
     ...
-
-If you want to experiment with training or defining a different network architecture (neither is part of the project), you can use `train_fashion_mnist.py`. Some example performance numbers using the built-in MXNet operators.
-
-| Context  | Performance  |
-|---|---|
-| (CPU) Core i7-5820k    | 450 images/sec  |
-| (GPU) GTX 1070         | 8k images/sec   |
-| (GPU) GTX 1060 w/cudnn | 14k images/sec  |
-| (GPU) GTX 1070 w/cudnn | 70k images/sec  |
-
-`train_fashion_mnist.py` was used to generate the network weights that the forward pass uses.
 
 
 ## License
