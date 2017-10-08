@@ -25,11 +25,11 @@ You may wish to stay ahead of these deadlines (particularly, allow more than two
     2. [Run the MXNet baseline forward GPU pass.]()
     3. [Generate a profile of the GPU forward pass using `nvprof`.]()
 2. [Milestone 2: A New CPU Layer in MXNet: Due 11/17/2017](#markdown-header-milestone-2)
-    1. []()
+    1. [Implement a CPU convolution pass in MXNet]()
 2. [Milestone 3: A GPU Layer in MXNet: Due 12/1/2017](#markdown-header-milestone-3)
-    1. []()
+    1. [Implement a GPU convolution in MXNet]()
 3. [Final Submission: Optimized GPU Forward Implementation: Due 12/15/2017](#markdown-header-final-submission)
-    1. []()
+    1. [Implement an optimized GPU convolution in MXNet]()
     2. [Final Report](#markdown-header-final-report)
 
 ## Milestone 1
@@ -127,16 +127,23 @@ You can see how much time MXNet is spending on a variety of the operators. Look 
 ## Milestone 2
 **A New CPU Convolution Layer in MxNet: Due Friday November 17th, 2017**
 
+See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information.
+
 ### 2.1 Add a simple CPU forward implementation
 
-Modify `src/operator/custom/ece408.cc` to implement the forward CPU operator.
+Modify `ece408_src/new-forward.h` to implement the forward convolution described in [Chapter 16 of the textbook](https://wiki.illinois.edu/wiki/display/ECE408Fall2017/Textbook+Chapters).
+The performance of the CPU convolution is not part of the project evaluation.
 
 ## Milestone 3
 **A New GPU Convolution Layer in MxNet: Due Friday December 1st, 2017**
 
-### 2.1 Add a simple CPU forward implementation
+### 3.1 Add a simple GPU forward implementation
 
-Modify `src/operator/custom/ece408.cc` to implement the forward CPU operator.
+Modify `ece408_src/new-forward.cuh` to implement a forward GPU convolution. The operator does not need to be optimized for this milestone.
+
+### 3.2 Create a profile with `nvprof`.
+
+Provide a profile showing that the forward pass is running on the GPU.
 
 ## Final Submission
 **An Optimized Layer and Final Report: Due Friday December 15th, 2017**
@@ -164,6 +171,23 @@ You should provide a brief final report, with the following content.
 4. References (if needed)
 
 Do not make your report longer than it needs to 
+
+## Skeleton Code Description
+
+The provided skeleton code in `new-inl.h`, `new.cc`, and `new.cu` does the work of describing the convolution layer to MXNet. You will not need to modify these files, though you can if you want to.
+
+| File | Function | Description |
+| -- | -- | -- |
+| `new-inl.h` | `InferShape()` | Computes shape of output tensor from input and kernel shape |
+| `new-inl.h` | `InferType()` | Computes type of the output tensor based on the inputs. |
+| `new-inl.h` | `Forward()` | Defines the operations of the forward pass. Calls our implementation. |
+| `new-inl.h` | `Backward()` | Defines the operations of the backward (training) pass. Not used in this project. |
+| `new-inl.h` | `struct NewParam` | Defines the arguments passed to the operator in python. |
+| `new.cc` | `CreateOperatorEx()` | Called by MXNet to create the appropriate operator for a CPU or GPU execution. |
+| `new.cc` | `CreateOp<cpu>()` | Creates the CPU operator. |
+| `new.cu` | `CreateOp<gpu>()` | Creates the GPU operator when CUDA is enabled. |
+
+`forward()` in `new-forward.h` is called by `Forward()` in `new-inl.h`, the overloaded function that MXNet uses during the forward pass.
 
 ## Extras
 
