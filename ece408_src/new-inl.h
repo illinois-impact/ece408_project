@@ -108,9 +108,7 @@ public:
 
 
   forward<xpu, DType>(y_4d, x_4d, w_4d);
-          
-
-    
+              
   }
 
   virtual void Backward(const OpContext &ctx,
@@ -129,25 +127,6 @@ public:
 
 protected:
   NewParam param_;
-  index_t channel_axis_;         // channel axis of the input
-  index_t channels_;             // number of channels of input image
-  index_t num_spatial_axes_;     // number of spatial axes
-  index_t num_;                  // batch size
-  index_t group_;                // number of groups
-  index_t conv_out_channels_;    // number of output channels (num_filter)
-  index_t conv_out_spatial_dim_; // number of pixels of output images per channel
-  index_t conv_in_channels_;     // number of input channels
-  index_t kernel_dim_;           // number of input channels per group * kernel size
-  index_t weight_offset_;        // number of output channels per group * kernel_dim_
-  index_t col_offset_;
-  index_t output_offset_;
-  index_t col_buffer_size_;
-  index_t input_dim_;
-  index_t output_dim_;
-  index_t num_kernels_im2col_;
-  index_t num_kernels_col2im_;
-  bool bias_term_; // has bias term?
-  bool is_1x1_;
 }; // class NewOp
 
 template <typename xpu>
@@ -169,25 +148,6 @@ public:
   {
     using namespace mshadow;
     param_.Init(kwargs);
-    /*
-    if (param_.kernel.ndim() == 1) {
-      param_.layout = param_.layout? param_.layout.value() : mshadow::kNCW;
-      if (param_.stride.ndim() == 0) param_.stride = Shape1(1);
-      if (param_.dilate.ndim() == 0) param_.dilate = Shape1(1);
-      if (param_.pad.ndim() == 0) param_.pad = Shape1(0);
-    } else if (param_.kernel.ndim() == 2) {
-      param_.layout = param_.layout ? param_.layout.value() : mshadow::kNCHW;
-      if (param_.stride.ndim() == 0) param_.stride = Shape2(1, 1);
-      if (param_.dilate.ndim() == 0) param_.dilate = Shape2(1, 1);
-      if (param_.pad.ndim() == 0) param_.pad = Shape2(0, 0);
-    } else {
-      CHECK_EQ(param_.kernel.ndim(), 3U) << param_.kernel.ndim() << "D convolution not supported";
-      param_.layout = param_.layout ? param_.layout.value(): mshadow::kNCDHW;
-      if (param_.stride.ndim() == 0) param_.stride = Shape3(1, 1, 1);
-      if (param_.dilate.ndim() == 0) param_.dilate = Shape3(1, 1, 1);
-      if (param_.pad.ndim() == 0) param_.pad = Shape3(0, 0, 0);
-    }
-    */
   }
 
   std::map<std::string, std::string> GetParams() const override
@@ -212,42 +172,14 @@ public:
     const int C = dshp[1];
     const int H = dshp[2];
     const int W = dshp[3];
-
     const int M = param_.num_filter;
 
-    // 2d conv
-
     Shape<4> dshape = dshp.get<4>();
-    // Shape<4> dshape = ConvertLayout(dshp.get<4>(), param_.layout.value(), kNCHW);
     Shape<4> wshape = Shape4(M, C, K, K);
-    // Shape<4> wshape = Shape4(param_.num_filter / param_.num_group,
-    //                          dshape[1] / param_.num_group,
-    //                          param_.kernel[0], param_.kernel[1]);
-    // wshape = ConvertLayout(wshape, kNCHW, param_.layout.value());
     SHAPE_ASSIGN_CHECK(*in_shape, conv::kWeight, wshape);
 
     Shape<4> oshape = Shape4(dshape[0], M, H - K + 1, W - K + 1);
     SHAPE_ASSIGN_CHECK(*out_shape, 0, oshape);
-    // Perform incomplete shape inference. Fill in the missing values in data shape.
-    // 1) We can always fill in the batch_size.
-    // 2) We can back-calculate the input height/width if the corresponding stride is 1.
-
-    // dshape[0] = oshape[0];
-    // if (oshape[2] && param_.stride[0] == 1) {
-    //   dshape[2] = oshape[2] + dilated_ksize_y - 1 - 2 * param_.pad[0];
-    // }
-    // if (oshape[3] && param_.stride[1] == 1) {
-    //   dshape[3] = oshape[3] + dilated_ksize_x - 1 - 2 * param_.pad[1];
-    // }
-    // SHAPE_ASSIGN_CHECK(*in_shape, conv::kData,
-    //                     ConvertLayout(dshape, kNCHW, param_.layout.value()));
-    // // Check whether the kernel sizes are valid
-    // if (dshape[2] != 0) {
-    //   CHECK_LE(dilated_ksize_y, AddPad(dshape[2], param_.pad[0])) << "kernel size exceed input";
-    // }
-    // if (dshape[3] != 0) {
-    //   CHECK_LE(dilated_ksize_x, AddPad(dshape[3], param_.pad[1])) << "kernel size exceed input";
-    // }
     return true;
   }
 
@@ -289,25 +221,6 @@ public:
     return "New";
   }
 
-  std::vector<int> DeclareBackwardDependency(
-      const std::vector<int> &out_grad,
-      const std::vector<int> &in_data,
-      const std::vector<int> &out_data) const override
-  {
-    return {out_grad[conv::kOut], in_data[conv::kData], in_data[conv::kWeight]};
-  }
-
-  std::vector<ResourceRequest> ForwardResource(
-      const std::vector<TShape> &in_shape) const override
-  {
-    return {ResourceRequest::kTempSpace};
-  }
-
-  std::vector<ResourceRequest> BackwardResource(
-      const std::vector<TShape> &in_shape) const override
-  {
-    return {ResourceRequest::kTempSpace};
-  }
 
   Operator *CreateOperator(Context ctx) const override
   {
