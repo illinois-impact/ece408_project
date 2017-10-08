@@ -12,12 +12,10 @@ You will demonstrate command of CUDA and optimization approaches by
 
 * Implementing an optimized neural-network convolution layer forward pass
 
-The project will be broken up into 3 milestones. Read the description of the final report before starting, so you can collect the necessary info along the way.
+The project will be broken up into 3 milestones and a final submission. Read the description of the final report before starting, so you can collect the necessary info along the way.
 
 ## Deliverables Overview
 
-This is an overview of the deliverables and deadlines.
-See the individual sections for details.
 You may wish to stay ahead of these deadlines (particularly, allow more than two weeks between milestone 3 and the final submission).
 
 1. [Milestone 1: Getting Started: Due 11/10/2017](#markdown-header-milestone-1)
@@ -26,11 +24,19 @@ You may wish to stay ahead of these deadlines (particularly, allow more than two
     3. [Generate a profile of the GPU forward pass using `nvprof`.]()
 2. [Milestone 2: A New CPU Layer in MXNet: Due 11/17/2017](#markdown-header-milestone-2)
     1. [Implement a CPU convolution pass in MXNet]()
-2. [Milestone 3: A GPU Layer in MXNet: Due 12/1/2017](#markdown-header-milestone-3)
+2. [Milestone 3: A New GPU Layer in MXNet: Due 12/1/2017](#markdown-header-milestone-3)
     1. [Implement a GPU convolution in MXNet]()
 3. [Final Submission: Optimized GPU Forward Implementation: Due 12/15/2017](#markdown-header-final-submission)
     1. [Implement an optimized GPU convolution in MXNet]()
     2. [Final Report](#markdown-header-final-report)
+
+## Remote Development Environment
+
+The easiest way to develop the project is to use rai through the following prebuilt binaries. You can also use the Linux machines on [EWS](http://it.engineering.illinois.edu/ews) for RAI.
+
+**NOTE:** Even if you use your own local development environment, your final code must run within the RAI system. 
+
+See the [Client Documentation Page](https://github.com/rai-project/rai) for information on how to download, setup, and use the client on your own laptop or desktop.
 
 ## Milestone 1
 **Getting Started: Due Friday November 10th, 2017**
@@ -40,8 +46,6 @@ You may wish to stay ahead of these deadlines (particularly, allow more than two
 Clone this repository to get the project directory.
 
     git clone https://cwpearson@bitbucket.org/hwuligans/2017fa_ece408_project.git
-
-This will put you on the `master` branch. There may be unstable "improvements" in the `develop` branch of this repository.
 
 We suggest using rai to develop your project. **You will use rai to submit your project**.
 
@@ -139,28 +143,35 @@ The performance of the CPU convolution is not part of the project evaluation.
 
 ### 3.1 Add a simple GPU forward implementation
 
-Modify `ece408_src/new-forward.cuh` to implement a forward GPU convolution. The operator does not need to be optimized for this milestone.
+Modify `ece408_src/new-forward.cuh` to implement a forward GPU convolution.
 
 ### 3.2 Create a profile with `nvprof`.
 
 Provide a profile showing that the forward pass is running on the GPU.
+You should see output that looks something like this:
+
+    output
+    output
+    output
 
 ## Final Submission
 **An Optimized Layer and Final Report: Due Friday December 15th, 2017**
 
 ### Optimized Layer
 
+Optimize your GPU convolution.
+
 ### Final Report
 
-You should provide a brief final report, with the following content.
+You should provide a brief PDF final report, with the following content.
 
-1. Milestone 1
+1. **Milestone 1**
     1. built-in CPU performance results
         1. execution time
     2. built-in GPU performance results
         1. execution time
         2. `nvprof` profile
-2. Milestone 2
+2. **Milestone 2**
     1. baseline solution CPU performance results
         1. execution time
 3. **Optimization Approach**
@@ -168,15 +179,21 @@ You should provide a brief final report, with the following content.
     * why you thought the approach would be fruitful
     * the effect of the optimization. was it fruitful, and why or why not. Use nvprof as needed
     * Any external references used during identification or development of the optimization
-4. References (if needed)
+4. **References** (as needed)
 
 Do not make your report longer than it needs to 
 
 ## Skeleton Code Description
 
-The provided skeleton code in `new-inl.h`, `new.cc`, and `new.cu` does the work of describing the convolution layer to MXNet. You will not need to modify these files, though you can if you want to.
+`new-forward.h` and `new-forward.cuh` contain skeleton implementations for CPU and GPU convolutions. You can complete the project by modifying only these two files. These functions are called from `Forward()` in `new-inl.h`.
+
+The code in `new-inl.h`, `new.cc`, and `new.cu` describes the convolution layer to MXNet. You will not need to modify these files, though you can if you want to.
 
 | File | Function | Description |
+| -- | -- | -- |
+| `new-forward.h` | `forward()` | Your CPU implementation goes here. |
+| `new-forward.cuh` | `forward()` | Your GPU host code goes here. |
+| `new-forward.cuh` | `forward_kernel()` | Your GPU kernel implementation goes here. |
 | -- | -- | -- |
 | `new-inl.h` | `InferShape()` | Computes shape of output tensor from input and kernel shape |
 | `new-inl.h` | `InferType()` | Computes type of the output tensor based on the inputs. |
@@ -187,9 +204,17 @@ The provided skeleton code in `new-inl.h`, `new.cc`, and `new.cu` does the work 
 | `new.cc` | `CreateOp<cpu>()` | Creates the CPU operator. |
 | `new.cu` | `CreateOp<gpu>()` | Creates the GPU operator when CUDA is enabled. |
 
-`forward()` in `new-forward.h` is called by `Forward()` in `new-inl.h`, the overloaded function that MXNet uses during the forward pass.
-
 ## Extras
+
+### Checking for Errors
+
+Within MXNet, you can use `MSHADOW_CUDA_CALL(...);` as is done in `new-forward.cuh`.
+Or, you can define a macro/function similar to `wbCheck` used in WebGPU.
+
+### Comparing GPU implementation to CPU implementation
+
+It may be hard to directly debug by inspecting values during the forward pass since the weights are already trained and the input data is from a real dataset.
+You can always extract your implementations into a separate set of files, generate your own test data, and modify `rai_build.yml` to build execute your separate test code instead of the MXNet code while developing.
 
 **None of the following is needed to complete the course project.**
 
@@ -202,7 +227,7 @@ The MxNet instructions are available [here](https://mxnet.incubator.apache.org/g
     # download mxnet release 0.11.0
     git clone git@github.com:apache/incubator-mxnet.git --recursive --branch 0.11.0
     # build mxnet
-    nice -n20 make -C incubator-mxnet -j$(nrpoc) USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_OPENCV=1 USE_CUDNN=1 USE_BLAS=openblas
+    nice -n20 make -C incubator-mxnet -j$(nrpoc) USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_CUDNN=1 USE_BLAS=openblas
     # install python bindings
     pip install --user -e incubator-mxnet/python
 
@@ -212,7 +237,6 @@ You can always uninstall the python package with
 
 Download the fashion-mnist dataset
 
-
     mkdir fashion_mnist
     wget -P fashion_mnist \
         http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz \
@@ -220,7 +244,7 @@ Download the fashion-mnist dataset
         http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz \
         http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz
 
-Modify `test_fashion_mnist.py` to point to where you downloaded fashion-mnist
+Modify the python forward convolution scripts to point to where you downloaded fashion-mnist
 
     ... load_mnist(path="fashion-mnist", ...)
 
@@ -240,3 +264,8 @@ If you want to experiment with training or defining a different network architec
 | (GPU) GTX 1070 w/cudnn | 70k images/sec  |
 
 `train_fashion_mnist.py` was used to generate the network weights that the forward pass uses.
+
+
+## License
+
+NCSA/UIUC © [Carl Pearson](https://cwpearson.github.io)
