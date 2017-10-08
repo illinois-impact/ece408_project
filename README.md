@@ -257,6 +257,10 @@ Download the trained models (for the existing mxnet implementation and your impl
         https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/ece408-0001.params \
         https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/ece408-symbol.json
 
+Modify the python forward convolution scripts to point to where you downloaded fashion-mnist
+
+    lenet_model = mx.mod.Module.load( prefix='models/baseline' ... 
+
 Modify `build.sh` to point at your mxnet code.
 
     ...
