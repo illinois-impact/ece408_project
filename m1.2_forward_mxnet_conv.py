@@ -17,8 +17,8 @@ test_labels = test_labels.reshape(10000)
 # test_labels = test_labels[:1000]
 print "done"
 
-# Batch size of 100
-batch_size = 100
+# Do everything in a single batch
+batch_size = len(test_images)
 
 # Get iterators that cover the dataset
 test_iter = mx.io.NDArrayIter(
