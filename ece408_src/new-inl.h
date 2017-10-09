@@ -17,6 +17,8 @@
 #include "../operator_common.h"
 #include "../nn/im2col.h"
 
+#include <chrono>
+
 namespace mxnet
 {
 namespace op
@@ -107,7 +109,11 @@ public:
         Shape4(xshape[0], xshape[1], xshape[2], xshape[3]), s);
 
 
+  auto start = std::chrono::high_resolution_clock::now();
   forward<xpu, DType>(y_4d, x_4d, w_4d);
+  auto end = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> elapsed_seconds = end-start;
+  fprintf(stdout, "Time %f\n", elapsed_seconds.count());
               
   }
 

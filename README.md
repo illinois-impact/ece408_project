@@ -206,6 +206,16 @@ The code in `new-inl.h`, `new.cc`, and `new.cu` describes the convolution layer 
 
 ## Extras
 
+### Multiple Datasets
+
+We will be checking final submissions on a dataset you are not provided.
+To check your implementation, you can use the two provided datasets in `/models`.
+
+* `/models/ece408-low` for a low-accuracy model (accuracy = 0.6965 for `t10k`)
+* `/models/ece408-high` for a high-accuracy model ( accuracy = 0.8000 for `t10k`)
+
+The result should be the same for both the CPU and GPU convolutions.
+
 ### Checking for Errors
 
 Within MXNet, you can use `MSHADOW_CUDA_CALL(...);` as is done in `new-forward.cuh`.
