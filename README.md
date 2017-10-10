@@ -203,6 +203,7 @@ The code in `new-inl.h`, `new.cc`, and `new.cu` describes the convolution layer 
 
 ## Extras
 
+<<<<<<< HEAD
 ### Provided Model Weights
 
 The execution environment provides two models for the new convolutional layer you implement:
@@ -220,6 +221,17 @@ There is also one model used in milestone 1.
 | Prefix | Test Set Accuracy |
 | -- | -- |
 | `models/baseline` | 0.8673 |
+=======
+### Multiple Datasets
+
+We will be checking final submissions on a dataset you are not provided.
+To check your implementation, you can use the two provided datasets in `/models`.
+
+* `/models/ece408-low` for a low-accuracy model (accuracy = 0.6964 for `t10k`)
+* `/models/ece408-high` for a high-accuracy model ( accuracy = 0.8458 for `t10k`)
+
+The result should be the same for both the CPU and GPU convolutions.
+>>>>>>> b31c581833324fc3d06f039a11ed343363fa2600
 
 ### Checking for Errors
 
@@ -274,12 +286,14 @@ Modify the python forward convolution scripts to point to where you downloaded f
 
 Download the trained models (for the existing mxnet implementation and your implementation)
 
-    mkdir models \
+    mkdir -p models \
     && wget -P models \
         https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/baseline-0001.params \
         https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/baseline-symbol.json \
-        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/ece408-0001.params \
-        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/ece408-symbol.json
+        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/ece408-high-0001.params \
+        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/ece408-high-symbol.json \
+        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/ece408-low-0001.params \
+        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/ece408-low-symbol.json
 
 Modify the python forward convolution scripts to point to where you downloaded fashion-mnist
 
