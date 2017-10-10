@@ -127,12 +127,14 @@ You can see how much time MXNet is spending on a variety of the operators. Look 
 ## Milestone 2
 **A New CPU Convolution Layer in MxNet: Due Friday November 17th, 2017**
 
-See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information.
+See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information, including the data storage layout of the tensors.
 
 ### 2.1 Add a simple CPU forward implementation
 
 Modify `ece408_src/new-forward.h` to implement the forward convolution described in [Chapter 16 of the textbook](https://wiki.illinois.edu/wiki/display/ECE408Fall2017/Textbook+Chapters).
 The performance of the CPU convolution is not part of the project evaluation.
+
+
 
 ## Milestone 3
 **A New GPU Convolution Layer in MxNet: Due Friday December 1st, 2017**
@@ -199,6 +201,16 @@ The code in `new-inl.h`, `new.cc`, and `new.cu` describes the convolution layer 
 | `new.cc` | `CreateOperatorEx()` | Called by MXNet to create the appropriate operator for a CPU or GPU execution. |
 | `new.cc` | `CreateOp<cpu>()` | Creates the CPU operator. |
 | `new.cu` | `CreateOp<gpu>()` | Creates the GPU operator when CUDA is enabled. |
+
+The `x`, `y`, and `k` tensors constructed in `new-inl.h`/`Forward()` have the following data layout:
+
+| Tensor | Descrption | Data Layout |
+| -- | -- | -- |
+| `x` | Input data     | batch size * input channels * y * x |
+| `y` | Output data    | batch size * output channels * y * x |
+| `k` | kernel weights | output channels * input channels * y * x |
+
+You can see this being constructed in `new-inl.h`/`InferShape()`.
 
 ## Extras
 
