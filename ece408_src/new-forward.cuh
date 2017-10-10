@@ -43,7 +43,7 @@ template<typename gpu, typename DType>
 void forward(mshadow::Tensor<gpu, 4, DType> &y, const mshadow::Tensor<gpu, 4, DType> &x, const mshadow::Tensor<gpu, 4, DType> &w) {
     
 
-    assert(0 && "Missing an ECE408 GPU implementation!");
+    CHECK_EQ(0, 1) << "Missing an ECE408 GPU implementation!";
     
     dim3 gridDim(0);
     dim3 blockDim(0);

@@ -22,7 +22,7 @@ void forward(mshadow::Tensor<cpu, 4, DType> &y, const mshadow::Tensor<cpu, 4, DT
     
     const int B = x.shape_[0];
     for (int b = 0; b < B; ++b) {
-        assert(0 && "Missing an ECE408 CPU implementation!");
+        CHECK_EQ(0, 1) << "Missing an ECE408 CPU implementation!";
 
         /* ... a bunch of nested loops later...
             y[b][m][h][w] += x[b][c][h + p][w + q] * k[m][c][p][q];

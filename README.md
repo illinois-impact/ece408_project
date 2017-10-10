@@ -59,13 +59,10 @@ The neural network architecture used for this project is shown below.
 | 1     | convolution     |
 | 2     | tanh            |
 | 3     | pooling         |
-| 4     | convolution     |
+| 4     | fully connected |
 | 5     | tanh            |
-| 6     | pooling         |
-| 7     | fully connected |
-| 8     | tanh            |
-| 9     | fully connected |
-| 10    | softmax         |
+| 6     | fully connected |
+| 7     | softmax         |
 
 Use RAI to run a batch forward pass on some test data.
 
@@ -206,6 +203,24 @@ The code in `new-inl.h`, `new.cc`, and `new.cu` describes the convolution layer 
 
 ## Extras
 
+### Provided Model Weights
+
+The execution environment provides two models for the new convolutional layer you implement:
+
+| Prefix | Test Set Accuracy |
+| -- | -- |
+| `models/ece408-high` | 0.8562 |
+| `models/ece408-low` | 0.6290 |
+
+When testing your implementation, you should achieve these accuracy values for the CPU or GPU implementation.
+
+There is also one model used in milestone 1.
+
+
+| Prefix | Test Set Accuracy |
+| -- | -- |
+| `models/baseline` | 0.8673 |
+
 ### Checking for Errors
 
 Within MXNet, you can use `MSHADOW_CUDA_CALL(...);` as is done in `new-forward.cuh`.
@@ -215,6 +230,15 @@ Or, you can define a macro/function similar to `wbCheck` used in WebGPU.
 
 It may be hard to directly debug by inspecting values during the forward pass since the weights are already trained and the input data is from a real dataset.
 You can always extract your implementations into a separate set of files, generate your own test data, and modify `rai_build.yml` to build execute your separate test code instead of the MXNet code while developing.
+
+A simple code is provided in `build_example`. You could modify the `build` step of rai_build.yml in the following way to compile and run it:
+
+    commands:
+        build:
+            - echo "Building arbitrary code"
+            - make -C /src/build_example
+            - echo "Running compiled code"
+            - /src/build_example/main
 
 **None of the following is needed to complete the course project.**
 
