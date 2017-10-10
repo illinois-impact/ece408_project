@@ -81,11 +81,10 @@ You do not need to modify `build.sh` to successfully complete the project, but l
 
 You should see the following output:
 
-    output
-    output
-    output
+    Loading fashion-mnist data... done
+    Loading model... done
+    EvalMetric: {'accuracy': 0.8673}
 
-The accuracy should be exactly XXX. 
 There is no specific deliverable for this portion.
 
 ### 1.2: Run the baseline GPU implementation
@@ -203,7 +202,6 @@ The code in `new-inl.h`, `new.cc`, and `new.cu` describes the convolution layer 
 
 ## Extras
 
-<<<<<<< HEAD
 ### Provided Model Weights
 
 The execution environment provides two models for the new convolutional layer you implement:
@@ -221,17 +219,6 @@ There is also one model used in milestone 1.
 | Prefix | Test Set Accuracy |
 | -- | -- |
 | `models/baseline` | 0.8673 |
-=======
-### Multiple Datasets
-
-We will be checking final submissions on a dataset you are not provided.
-To check your implementation, you can use the two provided datasets in `/models`.
-
-* `/models/ece408-low` for a low-accuracy model (accuracy = 0.6964 for `t10k`)
-* `/models/ece408-high` for a high-accuracy model ( accuracy = 0.8458 for `t10k`)
-
-The result should be the same for both the CPU and GPU convolutions.
->>>>>>> b31c581833324fc3d06f039a11ed343363fa2600
 
 ### Checking for Errors
 
