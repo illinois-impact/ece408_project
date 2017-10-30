@@ -41,6 +41,8 @@ See the [Client Documentation Page](https://github.com/rai-project/rai) for info
 ## Milestone 1
 **Getting Started: Due Friday November 10th, 2017**
 
+Nothing must be turned in for this milestone, but this contributes to the final report.
+
 ### Getting Set Up and Getting Bugfixes
 
 Clone this repository to get the project directory.
@@ -50,6 +52,8 @@ Clone this repository to get the project directory.
 We suggest using rai to develop your project. **You will use rai to submit your project**.
 
 ### 1.1: Run the Baseline Forward Pass
+
+**Goal: Run CPU code in rai**
 
 The neural network architecture used for this project is shown below.
 
@@ -89,6 +93,8 @@ There is no specific deliverable for this portion.
 
 ### 1.2: Run the baseline GPU implementation
 
+**Goal: Run GPU code in rai**
+
 To switch to a GPU run, you will need to modify rai_build.yml.
 
 | original line | replacement line | 
@@ -110,6 +116,8 @@ There is no specific deliverable for this portion.
 
 ### 1.3 Generate a NVPROF Profile
 
+**Goal: Be able to use nvprof for performance evaluation**
+
 Once you've gotten the appropriate accuracy results, generate a profile using nvprof. You will be able to use nvprof to evaluate how effective your optimizations are.
 As described above, make sure `rai_build.yml` is configured for a GPU run.
 Then, modify `rai_build.yml` to generate a profile instead of just execuing the code.
@@ -127,25 +135,31 @@ You can see how much time MXNet is spending on a variety of the operators. Look 
 ## Milestone 2
 **A New CPU Convolution Layer in MxNet: Due Friday November 17th, 2017**
 
+Nothing must be turned in for this milestone, but this contributes to the final report.
+
 See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information, including the data storage layout of the tensors.
 
 ### 2.1 Add a simple CPU forward implementation
 
+**Goal: successfully edit code and run in rai**
+
 Modify `ece408_src/new-forward.h` to implement the forward convolution described in [Chapter 16 of the textbook](https://wiki.illinois.edu/wiki/display/ECE408Fall2017/Textbook+Chapters).
 The performance of the CPU convolution is not part of the project evaluation.
-
-
 
 ## Milestone 3
 **A New GPU Convolution Layer in MxNet: Due Friday December 1st, 2017**
 
+Nothing must be turned in for this milestone, but this contributes to the final report.
+
 ### 3.1 Add a simple GPU forward implementation
+
+**Goal: successfully edit code and run in rai**
 
 Modify `ece408_src/new-forward.cuh` to implement a forward GPU convolution.
 
 ### 3.2 Create a profile with `nvprof`.
 
-Provide a profile showing that the forward pass is running on the GPU.
+Generate a profile showing that the forward pass is running on the GPU.
 You should see output that looks something like this:
 
     output
@@ -159,27 +173,44 @@ You should see output that looks something like this:
 
 Optimize your GPU convolution.
 
+Your implementation will be graded on its performance relative to other optimized implementations from the class.
+
 ### Final Report
 
 You should provide a brief PDF final report, with the following content.
 
-1. **Milestone 1**
-    1. built-in CPU performance results
-        1. execution time
-    2. built-in GPU performance results
-        1. execution time
-        2. `nvprof` profile
-2. **Milestone 2**
-    1. baseline solution CPU performance results
-        1. execution time
-3. **Optimization Approach**
+1. **Baseline Results**
+    1. M1.1: mxnet CPU layer performance results (time)
+    2. M1.2: mxnet GPU layer performance results (time, `nvprof` profile)
+    3. M2.1: your baseline cpu implementation performance results (time)
+    4. M3.1: your baseline gpu implementation performance results (time, `nvprof` profile)
+2. **Optimization Approach and Results**
     * how you identified the optimization opportunity
     * why you thought the approach would be fruitful
-    * the effect of the optimization. was it fruitful, and why or why not. Use nvprof as needed
+    * the effect of the optimization. was it fruitful, and why or why not. Use nvprof as needed to justify your explanation.
     * Any external references used during identification or development of the optimization
-4. **References** (as needed)
+3. **References** (as needed)
 
-Do not make your report longer than it needs to 
+### Final submission through RAI
+
+To make an official project submission, you will run
+
+    rai -p . --submit
+
+The `--submit` flag
+* enforces a specific rai_build.yml
+* requires the existence of `report.pdf`
+
+The submit flag will run `build.sh`, which should build your code and install the python bindings (like the provided `build.sh`). Then it will run `python final.py`.
+
+**Only your most recent submission will be graded. Ensure that your final submission is the one you want to be graded**.
+
+### Rubric
+
+1. Optimized Layer ( 30% )
+    * correctness (15%)
+    * relative ranking (15%)
+2. Final Report ( 70% )
 
 ## Skeleton Code Description
 
@@ -251,7 +282,7 @@ A simple code is provided in `build_example`. You could modify the `build` step 
             - echo "Running compiled code"
             - /src/build_example/main
 
-**None of the following is needed to complete the course project.**
+### Offline Development
 
 If you'd like to develop using a local copy of mxnet, you may do so. Keep in mind your project will be evaluated through rai. Your submission must work through rai.
 
