@@ -128,7 +128,7 @@ public:
     // See https://bitbucket.org/hwuligans/2017fa_ece408_project_solution
     // for an implementation of this if you need to generate model parameters.
     // That repo should not be released to students
-    assert(0 && "Backward pass unimplemented for ECE408");
+    CHECK_EQ(0,1) << "Backward pass unimplemented for ECE408";
   }
 
 protected:

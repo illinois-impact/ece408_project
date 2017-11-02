@@ -41,6 +41,8 @@ See the [Client Documentation Page](https://github.com/rai-project/rai) for info
 ## Milestone 1
 **Getting Started: Due Friday November 10th, 2017**
 
+Nothing must be turned in for this milestone, but this contributes to the final report.
+
 ### Getting Set Up and Getting Bugfixes
 
 Clone this repository to get the project directory.
@@ -54,6 +56,8 @@ Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Window
 
 ### 1.1: Run the Baseline Forward Pass
 
+**Goal: Run CPU code in rai**
+
 The neural network architecture used for this project is shown below.
 
 | Layer |       Desc      |
@@ -62,13 +66,10 @@ The neural network architecture used for this project is shown below.
 | 1     | convolution     |
 | 2     | tanh            |
 | 3     | pooling         |
-| 4     | convolution     |
+| 4     | fully connected |
 | 5     | tanh            |
-| 6     | pooling         |
-| 7     | fully connected |
-| 8     | tanh            |
-| 9     | fully connected |
-| 10    | softmax         |
+| 6     | fully connected |
+| 7     | softmax         |
 
 Use RAI to run a batch forward pass on some test data.
 
@@ -87,14 +88,15 @@ You do not need to modify `build.sh` to successfully complete the project, but l
 
 You should see the following output:
 
-    output
-    output
-    output
+    Loading fashion-mnist data... done
+    Loading model... done
+    EvalMetric: {'accuracy': 0.8673}
 
-The accuracy should be exactly XXX. 
 There is no specific deliverable for this portion.
 
 ### 1.2: Run the baseline GPU implementation
+
+**Goal: Run GPU code in rai**
 
 To switch to a GPU run, you will need to modify rai_build.yml.
 
@@ -117,6 +119,8 @@ There is no specific deliverable for this portion.
 
 ### 1.3 Generate a NVPROF Profile
 
+**Goal: Be able to use nvprof for performance evaluation**
+
 Once you've gotten the appropriate accuracy results, generate a profile using nvprof. You will be able to use nvprof to evaluate how effective your optimizations are.
 As described above, make sure `rai_build.yml` is configured for a GPU run.
 Then, modify `rai_build.yml` to generate a profile instead of just execuing the code.
@@ -134,9 +138,13 @@ You can see how much time MXNet is spending on a variety of the operators. Look 
 ## Milestone 2
 **A New CPU Convolution Layer in MxNet: Due Friday November 17th, 2017**
 
-See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information.
+Nothing must be turned in for this milestone, but this contributes to the final report.
+
+See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information, including the data storage layout of the tensors.
 
 ### 2.1 Add a simple CPU forward implementation
+
+**Goal: successfully edit code and run in rai**
 
 Modify `ece408_src/new-forward.h` to implement the forward convolution described in [Chapter 16 of the textbook](https://wiki.illinois.edu/wiki/display/ECE408Fall2017/Textbook+Chapters).
 The performance of the CPU convolution is not part of the project evaluation.
@@ -144,13 +152,17 @@ The performance of the CPU convolution is not part of the project evaluation.
 ## Milestone 3
 **A New GPU Convolution Layer in MxNet: Due Friday December 1st, 2017**
 
+Nothing must be turned in for this milestone, but this contributes to the final report.
+
 ### 3.1 Add a simple GPU forward implementation
+
+**Goal: successfully edit code and run in rai**
 
 Modify `ece408_src/new-forward.cuh` to implement a forward GPU convolution.
 
 ### 3.2 Create a profile with `nvprof`.
 
-Provide a profile showing that the forward pass is running on the GPU.
+Generate a profile showing that the forward pass is running on the GPU.
 You should see output that looks something like this:
 
     output
@@ -164,27 +176,44 @@ You should see output that looks something like this:
 
 Optimize your GPU convolution.
 
+Your implementation will be graded on its performance relative to other optimized implementations from the class.
+
 ### Final Report
 
 You should provide a brief PDF final report, with the following content.
 
-1. **Milestone 1**
-    1. built-in CPU performance results
-        1. execution time
-    2. built-in GPU performance results
-        1. execution time
-        2. `nvprof` profile
-2. **Milestone 2**
-    1. baseline solution CPU performance results
-        1. execution time
-3. **Optimization Approach**
+1. **Baseline Results**
+    1. M1.1: mxnet CPU layer performance results (time)
+    2. M1.2: mxnet GPU layer performance results (time, `nvprof` profile)
+    3. M2.1: your baseline cpu implementation performance results (time)
+    4. M3.1: your baseline gpu implementation performance results (time, `nvprof` profile)
+2. **Optimization Approach and Results**
     * how you identified the optimization opportunity
     * why you thought the approach would be fruitful
-    * the effect of the optimization. was it fruitful, and why or why not. Use nvprof as needed
+    * the effect of the optimization. was it fruitful, and why or why not. Use nvprof as needed to justify your explanation.
     * Any external references used during identification or development of the optimization
-4. **References** (as needed)
+3. **References** (as needed)
 
-Do not make your report longer than it needs to 
+### Final submission through RAI
+
+To make an official project submission, you will run
+
+    rai -p . --submit
+
+The `--submit` flag
+* enforces a specific rai_build.yml
+* requires the existence of `report.pdf`
+
+The submit flag will run `build.sh`, which should build your code and install the python bindings (like the provided `build.sh`). Then it will run `python final.py`.
+
+**Only your most recent submission will be graded. Ensure that your final submission is the one you want to be graded**.
+
+### Rubric
+
+1. Optimized Layer ( 30% )
+    * correctness (15%)
+    * relative ranking (15%)
+2. Final Report ( 70% )
 
 ## Skeleton Code Description
 
@@ -207,17 +236,35 @@ The code in `new-inl.h`, `new.cc`, and `new.cu` describes the convolution layer 
 | `new.cc` | `CreateOp<cpu>()` | Creates the CPU operator. |
 | `new.cu` | `CreateOp<gpu>()` | Creates the GPU operator when CUDA is enabled. |
 
+The `x`, `y`, and `k` tensors constructed in `new-inl.h`/`Forward()` have the following data layout:
+
+| Tensor | Descrption | Data Layout |
+| -- | -- | -- |
+| `x` | Input data     | batch size * input channels * y * x |
+| `y` | Output data    | batch size * output channels * y * x |
+| `k` | kernel weights | output channels * input channels * y * x |
+
+You can see this being constructed in `new-inl.h`/`InferShape()`.
+
 ## Extras
 
-### Multiple Datasets
+### Provided Model Weights
 
-We will be checking final submissions on a dataset you are not provided.
-To check your implementation, you can use the two provided datasets in `/models`.
+The execution environment provides two models for the new convolutional layer you implement:
 
-* `/models/ece408-low` for a low-accuracy model (accuracy = 0.6964 for `t10k`)
-* `/models/ece408-high` for a high-accuracy model ( accuracy = 0.8458 for `t10k`)
+| Prefix | Test Set Accuracy |
+| -- | -- |
+| `models/ece408-high` | 0.8562 |
+| `models/ece408-low` | 0.6290 |
 
-The result should be the same for both the CPU and GPU convolutions.
+When testing your implementation, you should achieve these accuracy values for the CPU or GPU implementation.
+
+There is also one model used in milestone 1.
+
+
+| Prefix | Test Set Accuracy |
+| -- | -- |
+| `models/baseline` | 0.8673 |
 
 ### Checking for Errors
 
@@ -229,7 +276,16 @@ Or, you can define a macro/function similar to `wbCheck` used in WebGPU.
 It may be hard to directly debug by inspecting values during the forward pass since the weights are already trained and the input data is from a real dataset.
 You can always extract your implementations into a separate set of files, generate your own test data, and modify `rai_build.yml` to build execute your separate test code instead of the MXNet code while developing.
 
-**None of the following is needed to complete the course project.**
+A simple code is provided in `build_example`. You could modify the `build` step of rai_build.yml in the following way to compile and run it:
+
+    commands:
+        build:
+            - echo "Building arbitrary code"
+            - make -C /src/build_example
+            - echo "Running compiled code"
+            - /src/build_example/main
+
+### Offline Development
 
 If you'd like to develop using a local copy of mxnet, you may do so. Keep in mind your project will be evaluated through rai. Your submission must work through rai.
 
