@@ -48,6 +48,9 @@ Clone this repository to get the project directory.
     git clone https://cwpearson@bitbucket.org/hwuligans/2017fa_ece408_project.git
 
 We suggest using rai to develop your project. **You will use rai to submit your project**.
+Download the [rai](https://github.com/rai-project/rai) binary for your platform.
+You should have received a `.rai_profile` file by email.
+Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
 
 ### 1.1: Run the Baseline Forward Pass
 
