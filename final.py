@@ -4,6 +4,9 @@ import mxnet as mx
 import logging
 from reader import load_mnist
 
+MODEL_DIR = "/models"
+MODEL_PREFIX = "ece408-high"
+
 # Log to stdout for MXNet
 logging.getLogger().setLevel(logging.DEBUG)  # logging to stdout
 
@@ -23,11 +26,11 @@ test_iter = mx.io.NDArrayIter(
 # Evaluate the network
 print "Loading model...",
 lenet_model = mx.mod.Module.load(
-    prefix='/models/ece408-high', epoch=1, context=mx.gpu())
+    prefix=MODEL_DIR + "/" + MODEL_PREFIX, epoch=1, context=mx.gpu())
 lenet_model.bind(data_shapes=test_iter.provide_data,
                  label_shapes=test_iter.provide_label)
 print "done"
 
 acc = mx.metric.Accuracy()
 lenet_model.score(test_iter, acc)
-print(acc)
+print "Correctness:", acc.get()[1], "Batch Size:", batch_size, "Model:", MODEL_PREFIX
