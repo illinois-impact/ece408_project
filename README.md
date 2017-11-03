@@ -129,11 +129,30 @@ Then, modify `rai_build.yml` to generate a profile instead of just execuing the 
 
 You should see something that looks like the following:
 
-    output 
-    output
-    output
+    ✱ Running nvprof python /src/m1.2_forward_mxnet_conv.py
+    Loading fashion-mnist data... done
+    ==308== NVPROF is profiling process 308, command: python     /src/m1.2_forward_mxnet_conv.py
+    Loading model... done
+    EvalMetric: {'accuracy': 0.8673}
+    ==308== Profiling application: python /src/m1.2_forward_mxnet_conv.py
+    ==308== Profiling result:
+    Time(%)      Time     Calls       Avg       Min       Max  Name
+     30.77%  8.7488ms         1  8.7488ms  8.7488ms  8.7488ms  sgemm_128x128x8_NT_vec
+     24.47%  6.9571ms        13  535.16us     480ns  5.8152ms  [CUDA memcpy HtoD]
+     16.39%  4.6598ms         2  2.3299ms  92.225us  4.5676ms  void
+     ... < snip > ...
+    
+    ==308== API calls:
+    Time(%)      Time     Calls       Avg       Min       Max  Name
+     52.04%  4.08135s        10  408.14ms  1.1290us  1.02416s  cudaFree
+     37.08%  2.90862s        16  181.79ms  26.465us  1.45398s  cudaStreamCreateWithFlags
+      9.95%  780.12ms        24  32.505ms  316.37us  768.95ms  cudaMemGetInfo
+    ... < snip > ...
 
-You can see how much time MXNet is spending on a variety of the operators. Look for `XXX` and report the cumulative time that MXNet spends on that operation.
+
+
+You can see how much time MXNet is spending on a variety of the operators.
+If you decide to use nvprof to generate more detailed analysis, you can collect the generated files by following the download link reported by rai at the end of the execution.
 
 ## Milestone 2
 **A New CPU Convolution Layer in MxNet: Due Friday November 17th, 2017**
@@ -142,12 +161,21 @@ Nothing must be turned in for this milestone, but this contributes to the final 
 
 See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information, including the data storage layout of the tensors.
 
+
+
 ### 2.1 Add a simple CPU forward implementation
 
 **Goal: successfully edit code and run in rai**
 
 Modify `ece408_src/new-forward.h` to implement the forward convolution described in [Chapter 16 of the textbook](https://wiki.illinois.edu/wiki/display/ECE408Fall2017/Textbook+Chapters).
 The performance of the CPU convolution is not part of the project evaluation.
+
+Because this operator is different than the built-in mxnet operator, you will need to load a different model.
+`m2.1.py` handles this for you.
+Modify rai_build.yml to invoke
+
+    python m2.1py
+
 
 ## Milestone 3
 **A New GPU Convolution Layer in MxNet: Due Friday December 1st, 2017**
