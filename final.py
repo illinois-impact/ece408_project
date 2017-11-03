@@ -27,8 +27,8 @@ test_images = test_images.reshape((10000, 1, 28, 28))
 test_labels = test_labels.reshape(10000)
 print "done"
 
-# Do everything in a single batch
-batch_size = len(test_images)
+# Cap batch size at the size of our training data
+batch_size = min(len(test_images), batch_size)
 
 # Get iterators that cover the dataset
 test_iter = mx.io.NDArrayIter(
@@ -44,4 +44,4 @@ print "done"
 
 acc = mx.metric.Accuracy()
 lenet_model.score(test_iter, acc)
-print "Correctness:", acc.get()[1], "Batch Size:", batch_size, "Model:", MODEL_PREFIX
+print "Correctness:", acc.get()[1], "Batch Size:", batch_size, "Model:", model_prefix
