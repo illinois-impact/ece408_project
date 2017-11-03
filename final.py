@@ -2,6 +2,7 @@
 
 import mxnet as mx
 import logging
+import sys
 from reader import load_mnist
 
 MODEL_DIR = "/models"
