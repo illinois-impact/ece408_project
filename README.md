@@ -176,6 +176,20 @@ Modify rai_build.yml to invoke
 
     python m2.1py
 
+When your implementation is correct, you should see output like this:
+
+    ✱ Running python /src/m2.1.py
+    Loading fashion-mnist data... done
+    Loading model... done
+    Time: 12.819000
+    Correctness: 0.8562 Batch Size: 10000 Model: ece408-high
+
+If the correctness for each model is as below, you can be reasonably confident your implementation is right.
+
+| Correctness | Model  |
+|-------------| -----  |
+| ece408-high | 0.8562 |
+| ece408-low | ??? |
 
 ## Milestone 3
 **A New GPU Convolution Layer in MxNet: Due Friday December 1st, 2017**

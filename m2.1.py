@@ -5,7 +5,17 @@ import logging
 from reader import load_mnist
 
 MODEL_DIR = "/models"
-MODEL_PREFIX = "ece408-high"
+model_prefix = "ece408-high"
+batch_size = float("inf")
+
+if len(sys.argv) > 1:
+    batch_size = sys.argv[1]
+if len(sys.argv) > 2:
+    model_prefix = sys.argv[2]
+if len(sys.argv) > 3:
+    print "Usage:", sys.argv[0], "<batch_size> <model_name>"
+    print "    <model_name> = [ece408-high, ece408-low]"
+    sys.exit(-1)
 
 # Log to stdout for MXNet
 logging.getLogger().setLevel(logging.DEBUG)  # logging to stdout
@@ -26,7 +36,7 @@ test_iter = mx.io.NDArrayIter(
 # Evaluate the network
 print "Loading model...",
 lenet_model = mx.mod.Module.load(
-    prefix=MODEL_DIR + "/" + MODEL_PREFIX, epoch=1, context=mx.cpu())
+    prefix=MODEL_DIR + "/" + model_prefix, epoch=1, context=mx.cpu())
 lenet_model.bind(data_shapes=test_iter.provide_data,
                  label_shapes=test_iter.provide_label)
 print "done"
