@@ -44,4 +44,4 @@ print "done"
 
 acc = mx.metric.Accuracy()
 lenet_model.score(test_iter, acc)
-print "Correctness:", acc.get()[1], "Batch Size:", batch_size, "Model:", MODEL_PREFIX
+print "Correctness:", acc.get()[1], "Batch Size:", batch_size, "Model:", model_prefix
