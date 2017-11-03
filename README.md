@@ -184,12 +184,13 @@ When your implementation is correct, you should see output like this:
     Time: 12.819000
     Correctness: 0.8562 Batch Size: 10000 Model: ece408-high
 
-If the correctness for each model is as below, you can be reasonably confident your implementation is right.
+`m2.1.py` takes two position arguments. The first is the batch size. The second is the model name. 
+If the correctness for each possible model is as below, you can be reasonably confident your implementation is right. The correctness should not depend on the batch size.
 
 | Correctness | Model  |
 |-------------| -----  |
 | ece408-high | 0.8562 |
-| ece408-low | ??? |
+| ece408-low | 0.629 |
 
 ## Milestone 3
 **A New GPU Convolution Layer in MxNet: Due Friday December 1st, 2017**
@@ -201,6 +202,7 @@ Nothing must be turned in for this milestone, but this contributes to the final 
 **Goal: successfully edit code and run in rai**
 
 Modify `ece408_src/new-forward.cuh` to implement a forward GPU convolution.
+You may run your code with `python m3.1.py`. It takes the same arguments as `m2.1py`.
 
 ### 3.2 Create a profile with `nvprof`.
 
@@ -220,9 +222,11 @@ Optimize your GPU convolution.
 
 Your implementation will be graded on its performance relative to other optimized implementations from the class.
 
+**Only your last `--submit` will be graded. Be sure that your final `--submit` is the one you want to be graded.**
+
 ### Final Report
 
-You should provide a brief PDF final report, with the following content.
+You should provide a brief PDF final report `report.pdf`, with the following content.
 
 1. **Baseline Results**
     1. M1.1: mxnet CPU layer performance results (time)
@@ -245,8 +249,9 @@ To make an official project submission, you will run
 The `--submit` flag
 * enforces a specific rai_build.yml
 * requires the existence of `report.pdf`
+* Records your batch size, operation time, user time, system time, and correctness in a database. An anonymous version of these results (not your code!) will be visible to other students.
 
-The submit flag will run `build.sh`, which should build your code and install the python bindings (like the provided `build.sh`). Then it will run `python final.py`.
+The submit flag will run `build.sh`, which should build your code and install the python bindings (like the provided `build.sh`). Then it will run `python final.py`. You must ensure that your project works under those constraints. Do not modify `final.py`.
 
 **Only your most recent submission will be graded. Ensure that your final submission is the one you want to be graded**.
 
