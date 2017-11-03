@@ -10,7 +10,7 @@ model_prefix = "ece408-high"
 batch_size = float("inf")
 
 if len(sys.argv) > 1:
-    batch_size = sys.argv[1]
+    batch_size = int(sys.argv[1])
 if len(sys.argv) > 2:
     model_prefix = sys.argv[2]
 if len(sys.argv) > 3:
