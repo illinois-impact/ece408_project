@@ -12,4 +12,4 @@ commands:
   build:
     - echo "Building project"
     - /src/build.sh
-    - python /src/m1.1_forward_mxnet_conv.py
+    - python /src/m1.1.py
