@@ -14,6 +14,10 @@ You will demonstrate command of CUDA and optimization approaches by
 
 The project will be broken up into 3 milestones and a final submission. Read the description of the final report before starting, so you can collect the necessary info along the way.
 
+You are expected to adhere to University of Illinois Academic integrity standards.
+Do not attempt to subvert and of the performance-measurement aspects of the final project.
+If you are unsure about whether something does not meet those guidelines, ask a member of the teaching staff.
+
 ## Deliverables Overview
 
 You may wish to stay ahead of these deadlines (particularly, allow more than two weeks between milestone 3 and the final submission).
@@ -73,7 +77,7 @@ The neural network architecture used for this project is shown below.
 
 Use RAI to run a batch forward pass on some test data.
 
-    rai
+    rai -p <project-folder>
 
 This will upload your project directory to rai (running on an IBM 8335-GTB "Minsky") and move it to `/src`, where the execution specified in `rai_build.yml` will occur. For this CPU run, leave `rai_build.yml` untouched, but look at its contents.
 
@@ -102,17 +106,17 @@ To switch to a GPU run, you will need to modify rai_build.yml.
 
 | original line | replacement line | 
 | -- | -- | 
-| `image: cwpearson/2017fa_ece408_mxnet_docker:ppc64le-cpu-latest` | `image: cwpearson/2017fa_ece408_mxnet_docker:ppc64le-gpu-latest` |
+| `image: cwpearson/2017fa_ece408_mxnet_docker:amd64-cpu-latest` | `image: cwpearson/2017fa_ece408_mxnet_docker:amd64-gpu-latest` |
 | `count: 0` | `count: 1` |
-| `python /src/m1.1_forward_mxnet_conv.py` | `python /src/m1.2_forward_mxnet_conv.py` |
+| `python /src/m1.1.py` | `python /src/m1.2.py` |
 
-This uses a rai environment with MXNet built for CUDA, tells rai to use a GPU, and runs `m1.2_forward_mxnet_conv.py` instead of `m1.1_forward_mxnet_conv.py`.
+This uses a rai environment with MXNet built for CUDA, tells rai to use a GPU, and runs `m1.2.py` instead of `m1.1.py`.
 
-Compare `m1.2_forward_mxnet_conv.py` and `m1.1_forward_mxnet_conv.py`. You'll see that it is the same, except for `mx.gpu()` has been substituted for `mx.cpu()`. This is how we tell MXNet that we wish to use a GPU instead of a CPU.
+Compare `m1.2.py` and `m1.1.py`. You'll see that it is the same, except for `mx.gpu()` has been substituted for `mx.cpu()`. This is how we tell MXNet that we wish to use a GPU instead of a CPU.
 
 Again, submit to rai
 
-    rai
+    rai -p <project-folder>
 
 You should see the same accuracy as the CPU version. 
 There is no specific deliverable for this portion.
@@ -125,7 +129,7 @@ Once you've gotten the appropriate accuracy results, generate a profile using nv
 As described above, make sure `rai_build.yml` is configured for a GPU run.
 Then, modify `rai_build.yml` to generate a profile instead of just execuing the code.
 
-    nvprof python m1.2_forward_mxnet_conv.py
+    nvprof python m1.2.py
 
 You should see something that looks like the following:
 
@@ -152,7 +156,6 @@ You should see something that looks like the following:
 
 
 You can see how much time MXNet is spending on a variety of the operators.
-If you decide to use nvprof to generate more detailed analysis, you can collect the generated files by following the download link reported by rai at the end of the execution.
 
 ## Milestone 2
 **A New CPU Convolution Layer in MxNet: Due Friday November 17th, 2017**
@@ -160,8 +163,6 @@ If you decide to use nvprof to generate more detailed analysis, you can collect 
 Nothing must be turned in for this milestone, but this contributes to the final report.
 
 See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information, including the data storage layout of the tensors.
-
-
 
 ### 2.1 Add a simple CPU forward implementation
 
@@ -206,12 +207,21 @@ You may run your code with `python m3.1.py`. It takes the same arguments as `m2.
 
 ### 3.2 Create a profile with `nvprof`.
 
-Generate a profile showing that the forward pass is running on the GPU.
-You should see output that looks something like this:
+Once you have a simple GPU implementation, modify `rai_build.py` to create a profile with NVPROF.
+You should see something like this:
 
-    output
-    output
-    output
+    ✱ Running nvprof python /src/m3.1.py
+    Loading fashion-mnist data... done
+    ==308== NVPROF is profiling process 308, command: python /src/m3.1.py
+    Loading model... done
+    Time: 14.895404
+    Correctness: 0.8562 Batch Size: 10000 Model: ece408-high
+    ==308== Profiling application: python /src/m3.1.py
+    ==308== Profiling result:
+    Time(%)      Time     Calls       Avg       Min       Max  Name
+    99.43%  14.8952s         1  14.8952s  14.8952s  14.8952s  void mxnet::op::forward_kernel<mshadow::gpu, float>(float*, mxnet::op::forward_kernel<mshadow::gpu, float> const *, mxnet::op::forward_kernel<mshadow::gpu, float> const , int, int, int, int, int, int)
+
+In this example, the forward layer took 14.8954 seconds, and the forward_kernel took 14.8952 seconds.
 
 ## Final Submission
 **An Optimized Layer and Final Report: Due Friday December 15th, 2017**
@@ -220,7 +230,19 @@ You should see output that looks something like this:
 
 Optimize your GPU convolution.
 
-Your implementation will be graded on its performance relative to other optimized implementations from the class.
+Your implementation will be partially graded on its performance relative to other optimized implementations from the class.
+
+All of your code for this and the later milestones must be executed between `auto start = ...` and `auto end = ...` in `new-inl.h`.
+The easiest way to ensure this is that all of your code should be in `forward()` or called by `forward()` from `new-forward.cuh` or `new-forward.h`.
+Do not modify any timing-related code.
+
+You may use nvprof to collect more detailed information through timeline and analysis files.
+
+    nvprof -o timeline.nvprof <your executable>
+    nvprof --analysis-metrics -o analysis.nvprof <your executable>
+
+you can collect the generated files by following the download link reported by rai at the end of the execution.
+`--analysis-metrics` significantly slows the run time, you may wish to modify the python scripts to run on smaller datasets during this profiling.
 
 **Only your last `--submit` will be graded. Be sure that your final `--submit` is the one you want to be graded.**
 

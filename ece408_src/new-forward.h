@@ -9,6 +9,8 @@ namespace mxnet
 namespace op
 {
 
+// This function is called by new-inl.h
+// Any code you write should be executed by this function
 template <typename cpu, typename DType>
 void forward(mshadow::Tensor<cpu, 4, DType> &y, const mshadow::Tensor<cpu, 4, DType> &x, const mshadow::Tensor<cpu, 4, DType> &k)
 {

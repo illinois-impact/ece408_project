@@ -12,7 +12,7 @@ test_images, test_labels = load_mnist(path="/fashion-mnist", kind="t10k")
 # Reshape the data to the format expected by MXNet's default convolutional layers
 test_images = test_images.reshape((10000, 1, 28, 28))
 test_labels = test_labels.reshape(10000)
-# You can reduce the size of the train or test datasets by uncommenting the following lines
+# You can reduce the size of the test datasets by uncommenting the following lines
 # test_images = test_images[:1000]
 # test_labels = test_labels[:1000]
 print "done"

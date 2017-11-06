@@ -7,15 +7,16 @@ from reader import load_mnist
 
 MODEL_DIR = "/models"
 model_prefix = "ece408-high"
-batch_size = float("inf")
+dataset_size = float("inf")
 
 if len(sys.argv) > 1:
-    batch_size = int(sys.argv[1])
+    model_prefix = sys.argv[1]
 if len(sys.argv) > 2:
-    model_prefix = sys.argv[2]
+    dataset_size = int(sys.argv[2])
 if len(sys.argv) > 3:
-    print "Usage:", sys.argv[0], "<batch_size> <model_name>"
-    print "    <model_name> = [ece408-high, ece408-low]"
+    print "Usage:", sys.argv[0], "<model_name>", "<dataset size>"
+    print "    <model_name>   = [ece408-high, ece408-low]"
+    print "    <dataset_size> = [0 - 10000]"
     sys.exit(-1)
 
 # Log to stdout for MXNet
@@ -27,8 +28,15 @@ test_images = test_images.reshape((10000, 1, 28, 28))
 test_labels = test_labels.reshape(10000)
 print "done"
 
+# Reduce the size of the dataset, if desired
+dataset_size = max(0, min(dataset_size, 10000))
+test_images = test_images[:dataset_size]
+test_labels = test_labels[:dataset_size]
+
 # Cap batch size at the size of our training data
-batch_size = min(len(test_images), batch_size)
+# If you wish to tune the batch size, do it within your CUDA code,
+# as you will not be able to modify the python script used in final submission
+batch_size = len(test_images)
 
 # Get iterators that cover the dataset
 test_iter = mx.io.NDArrayIter(
