@@ -202,6 +202,14 @@ When your implementation is correct, you should see output like this:
 If the correctness for each possible model is as below, you can be reasonably confident your implementation is right. 
 The correctness does depend on the data size. Check your correctness on the full data size of 10000.
 
+For example, you could modify `rai_build.yml` to run
+
+    - nvprof -o timeline.nvprof python m2.1.py ece408-low 100
+    - nvprof --analysis-metrics -o analysis.nvprof ece408-low  100
+
+to generate two complementary profile files, running on smaller datasets.
+You could then download the resulting folder and open it with `nvvp`.
+
 | Correctness | Size | Model  |
 |-------------| -----| -----  |
 | ece408-high | 10000 (default) | 0.8562 |
@@ -364,6 +372,33 @@ There is also one model used in milestone 1.
 
 Within MXNet, you can use `MSHADOW_CUDA_CALL(...);` as is done in `new-forward.cuh`.
 Or, you can define a macro/function similar to `wbCheck` used in WebGPU.
+
+### Profiling
+
+You can gather detailed profile information with `nvprof`.
+You can gather a timeline like the following:
+
+    nvprof -o timeline.nvprof <your command here>
+
+This will generate timeline.nvprof.
+
+You can additionally gather some detailed performance metrics.
+
+    nvprof -o timeline.nvprof <your command here>
+    nvprof --analysis-metrics -o analysis.nvprof <the same command>
+
+This will generate `timeline.nvprof` and `analysis.nvprof`.
+
+You will need to follow the link rai prints after the execution to retrieve these files.
+
+You can use the NVIDIA Visual Profiler (nvvp) to import those files.
+You will need to install nvvp on your own machine. It can be downloaded as part of the CUDA SDK.
+
+To import the files:
+* File > import > select nvprof > next > single process > next
+* timeline data file should be your timeline.nvprof
+* event/metrics data file should be your analysis.nvprof.
+* finish
 
 ### Comparing GPU implementation to CPU implementation
 
