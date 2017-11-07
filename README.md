@@ -40,8 +40,6 @@ The easiest way to develop the project is to use rai through the following prebu
 
 **NOTE:** Even if you use your own local development environment, your final code must run within the RAI system. 
 
-See the [Client Documentation Page](https://github.com/rai-project/rai) for information on how to download, setup, and use the client on your own laptop or desktop.
-
 ## Milestone 1
 **Getting Started: Due Friday November 10th, 2017**
 
@@ -54,9 +52,20 @@ Clone this repository to get the project directory.
     git clone https://cwpearson@bitbucket.org/hwuligans/2017fa_ece408_project.git
 
 We suggest using rai to develop your project. **You will use rai to submit your project**.
-Download the [rai](https://github.com/rai-project/rai) binary for your platform.
+
+Download the rai binary for your platform
+
+| Operating System | Architecture | Stable Version Link                                                             |
+| ---------------- | ------------ | ------------------------------------------------------------------------------- |
+| Linux            | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/linux-amd64.tar.gz)   |
+| Linux            | ppc64le      | [URL](http://files.rai-project.com/dist/rai/stable/latest/linux-ppc64le.tar.gz) |
+| OSX/Darwin       | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/darwin-amd64.tar.gz)  |
+| Windows          | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/windows-amd64.tar.gz) |
+
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
+
+Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
 
 ### 1.1: Run the Baseline Forward Pass
 
@@ -160,7 +169,7 @@ You can see how much time MXNet is spending on a variety of the operators.
 ## Milestone 2
 **A New CPU Convolution Layer in MxNet: Due Friday November 17th, 2017**
 
-Nothing must be turned in for this milestone, but this contributes to the final report.
+A draft of the `report.pdf` with content up through Milestone 2 must be submitted **through rai** for this milestone.
 
 See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information, including the data storage layout of the tensors.
 
@@ -185,18 +194,25 @@ When your implementation is correct, you should see output like this:
     Time: 12.819000
     Correctness: 0.8562 Batch Size: 10000 Model: ece408-high
 
-`m2.1.py` takes two position arguments. The first is the batch size. The second is the model name. 
-If the correctness for each possible model is as below, you can be reasonably confident your implementation is right. The correctness should not depend on the batch size.
+`m2.1.py` takes two position arguments. The first is the model name, the second is the dataset size. 
+If the correctness for each possible model is as below, you can be reasonably confident your implementation is right. 
+The correctness does depend on the data size. Check your correctness on the full data size of 10000.
 
-| Correctness | Model  |
-|-------------| -----  |
-| ece408-high | 0.8562 |
-| ece408-low | 0.629 |
+| Correctness | Size | Model  |
+|-------------| -----| -----  |
+| ece408-high | 10000 (default) | 0.8562 |
+| ece408-low  | 10000 (default) | 0.629  |
+
+Use 
+
+    rai -p <project folder> --submit
+
+to mark your submission. This will notify the teaching staff of which `report.pdf` draft to consider.
 
 ## Milestone 3
 **A New GPU Convolution Layer in MxNet: Due Friday December 1st, 2017**
 
-Nothing must be turned in for this milestone, but this contributes to the final report.
+A draft of the `report.pdf` with content up through Milestone 3 must be submitted **through rai** for this milestone.
 
 ### 3.1 Add a simple GPU forward implementation
 
@@ -222,6 +238,8 @@ You should see something like this:
     99.43%  14.8952s         1  14.8952s  14.8952s  14.8952s  void mxnet::op::forward_kernel<mshadow::gpu, float>(float*, mxnet::op::forward_kernel<mshadow::gpu, float> const *, mxnet::op::forward_kernel<mshadow::gpu, float> const , int, int, int, int, int, int)
 
 In this example, the forward layer took 14.8954 seconds, and the forward_kernel took 14.8952 seconds.
+
+Again, use `rai -p <project folder> --submit` to submit your code.
 
 ## Final Submission
 **An Optimized Layer and Final Report: Due Friday December 15th, 2017**
@@ -279,10 +297,13 @@ The submit flag will run `build.sh`, which should build your code and install th
 
 ### Rubric
 
-1. Optimized Layer ( 30% )
-    * correctness (15%)
-    * relative ranking (15%)
-2. Final Report ( 70% )
+1. Optimized Layer (50%)
+    * correctness (25%)
+    * relative ranking (25%)
+2. Final Report ( 50% )
+    * Milestone 2 ( 5% )
+    * Milestone 3 ( 10% )
+    * Final Submission ( 35% )
 
 ## Skeleton Code Description
 
