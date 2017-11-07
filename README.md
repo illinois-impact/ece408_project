@@ -51,7 +51,7 @@ Nothing must be turned in for this milestone, but this contributes to the final 
 
 Clone this repository to get the project directory.
 
-    git clone https://cwpearson@bitbucket.org/hwuligans/2017fa_ece408_project.git
+    git clone https://github.com/webgpu/2017fa_ece408_project.git
 
 We suggest using rai to develop your project. **You will use rai to submit your project**.
 
