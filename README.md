@@ -281,8 +281,8 @@ you can collect the generated files by following the download link reported by r
 You should provide a brief PDF final report `report.pdf`, with the following content.
 
 1. **Baseline Results**
-    1. M1.1: mxnet CPU layer performance results (time)
-    2. M1.2: mxnet GPU layer performance results (time, `nvprof` profile)
+    1. M1.1: mxnet CPU layer correctness
+    2. M1.2/M1.3: mxnet GPU layer performance results (`nvprof` profile). Include your profile, and which functions you think might be convolution-related.
     3. M2.1: your baseline cpu implementation performance results (time)
     4. M3.1: your baseline gpu implementation performance results (time, `nvprof` profile)
 2. **Optimization Approach and Results**
