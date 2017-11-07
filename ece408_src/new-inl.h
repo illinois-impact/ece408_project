@@ -113,7 +113,7 @@ public:
   forward<xpu, DType>(y_4d, x_4d, w_4d);
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed_seconds = end-start;
-  fprintf(stdout, "Time: %f\n", elapsed_seconds.count());
+  fprintf(stdout, "Op Time: %f\n", elapsed_seconds.count());
               
   }
 
