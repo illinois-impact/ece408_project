@@ -14,6 +14,8 @@ You will demonstrate command of CUDA and optimization approaches by
 
 The project will be broken up into 3 milestones and a final submission. Read the description of the final report before starting, so you can collect the necessary info along the way.
 
+You will be working in teams of 3.
+
 You are expected to adhere to University of Illinois Academic integrity standards.
 Do not attempt to subvert and of the performance-measurement aspects of the final project.
 If you are unsure about whether something does not meet those guidelines, ask a member of the teaching staff.
@@ -64,6 +66,8 @@ Download the rai binary for your platform
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
+As soon as you and your two teammates agree on a team name, fill in the corresponding entry in your `.rai_profile`.
+**Be sure you all use the same team name**.
 
 Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
 
