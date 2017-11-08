@@ -10,6 +10,8 @@ resources:
   network: false
 commands:
   build:
-    - echo "Building project"
-    - /src/build.sh
-    - python /src/m1.1.py
+    - cp -r /src/ece408_src /build # copy to /build so the source appears in the upload
+    - /bin/bash -c "for src in ece408_src/*; do cp -v $src /mxnet/src/operator/custom/.; done" # copy source files to mxnet tree
+    - nice -n20 make -C /mxnet # build mxnet
+    - pip install --user -e /mxnet/python   # install python bindings
+    - python /src/m1.1.py # execute code
