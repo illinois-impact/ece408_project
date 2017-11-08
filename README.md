@@ -42,10 +42,47 @@ The easiest way to develop the project is to use rai through the following prebu
 
 **NOTE:** Even if you use your own local development environment, your final code must run within the RAI system. 
 
+### Using RAI
+
+    rai -p <project-folder>
+
+This causes the following things to happen:
+
+* RAI client: upload the project folder to AWS
+* RAI client: Notify a RAI server that a job is ready
+* RAI server: downloads the folder from AWS
+* RAI server: starts the docker container specified in `rai_build.yml`
+* RAI server: uses docker container to execute the steps specified in `rai_build.yml`
+* RAI server: uploads `/build` directory to AWS
+* RAI client: gives you the link to that build directory
+
+So, if you want any results from your run, you need to generate those results in `/build`. 
+The provided `rai_build.yml` moves everything to the `/build` directory in an early step.
+
+### Final Submissions through RAI
+
+To make an official project submission, you will run
+
+    rai -p <project folder> --submit=<submission kind>
+
+The `--submit` flag accepts `m2` for milestone 2, `m3` for milestone 3, and `final` for the final submission. 
+
+    rai -p <project-folder-with-working-cpu-implementation> --submit=m2
+
+Using the `--submit` flag
+* enforces a specific `rai_build.yml` depending on which kind of submission you do.
+* requires the existence of `report.pdf`
+* Records your operation time, user time, system time, and correctness in a database. An anonymous version of these results (not your code!) will be visible to other students.
+
+To ensure that `--submit` goes smoothly, ensure your code works with the provided python scripts. They are similar to the ones used by `--submit`.
+
+**Only your most recent submission will be graded. Ensure that your final submission is the one you want to be graded**.
+
 ## Milestone 1
+
 **Getting Started: Due Friday November 10th, 2017**
 
-Nothing must be turned in for this milestone, but this contributes to the final report.
+Nothing must be turned in for this milestone, but content will be used in Milestone 2.
 
 ### Getting Set Up and Getting Bugfixes
 
@@ -53,9 +90,7 @@ Clone this repository to get the project directory.
 
     git clone https://github.com/webgpu/2017fa_ece408_project.git
 
-We suggest using rai to develop your project. **You will use rai to submit your project**.
-
-Download the rai binary for your platform
+Download the rai binary for your platform. You will probably use it for development, and definitely use it for submission.
 
 | Operating System | Architecture | Stable Version Link                                                             |
 | ---------------- | ------------ | ------------------------------------------------------------------------------- |
@@ -109,7 +144,8 @@ You should see the following output:
     Loading model... done
     EvalMetric: {'accuracy': 0.8673}
 
-There is no specific deliverable for this portion.
+**Deliverables (to be submitted with Milestone 2)** 
+In your report, confirm that this is the output you see. Use `/usr/bin/time` to measure the elapsed time of the whole python program.
 
 ### 1.2: Run the baseline GPU implementation
 
@@ -131,8 +167,8 @@ Again, submit to rai
 
     rai -p <project-folder>
 
-You should see the same accuracy as the CPU version. 
-There is no specific deliverable for this portion.
+**Deliverables (to be submitted with Milestone 2)** 
+In your report, confirm the accuracy. Use `/usr/bin/time` to measure the elapsed time of the whole python program.
 
 ### 1.3 Generate a NVPROF Profile
 
@@ -167,8 +203,10 @@ You should see something that looks like the following:
     ... < snip > ...
 
 
-
 You can see how much time MXNet is spending on a variety of the operators.
+
+**Deliverables (to be submitted with Milestone 2)** 
+In your report, list a table of the most time-consuming kernels.
 
 ## Milestone 2
 **A New CPU Convolution Layer in MxNet: Due Friday November 17th, 2017**
@@ -215,9 +253,13 @@ You could then download the resulting folder and open it with `nvvp`.
 | ece408-high | 10000 (default) | 0.8562 |
 | ece408-low  | 10000 (default) | 0.629  |
 
+The provided `m2.1.py` is identical to the one used by `--submit`.
+You may modify `m2.1.py` as you please, but you will be using the original during the submission.
+
+**Deliverables**
 Use 
 
-    rai -p <project folder> --submit
+    rai -p <project folder> --submit=m2
 
 to mark your submission. This will notify the teaching staff of which `report.pdf` draft to consider.
 
@@ -232,6 +274,7 @@ A draft of the `report.pdf` with content up through Milestone 3 must be submitte
 
 Modify `ece408_src/new-forward.cuh` to implement a forward GPU convolution.
 You may run your code with `python m3.1.py`. It takes the same arguments as `m2.1py`.
+Again, if you choose to modify `m3.1.py`, be sure the original still works with your convolution implementation.
 
 ### 3.2 Create a profile with `nvprof`.
 
@@ -251,7 +294,8 @@ You should see something like this:
 
 In this example, the forward layer took 14.8954 seconds, and the forward_kernel took 14.8952 seconds.
 
-Again, use `rai -p <project folder> --submit` to submit your code.
+**Deliverables**
+Again, use `rai -p <project folder> --submit=m3` to submit your code.
 
 ## Final Submission
 **An Optimized Layer and Final Report: Due Friday December 15th, 2017**
@@ -261,6 +305,11 @@ Again, use `rai -p <project folder> --submit` to submit your code.
 Optimize your GPU convolution.
 
 Your implementation will be partially graded on its performance relative to other optimized implementations from the class.
+
+Your implementation must work with `rai -p <> --submit=final`.
+This means all your source files must be in `ece408_src`, and your implementation must work when they are copied to `src/operator/custom` in the mxnet tree, and `make` is invoked on the mxnet tree.
+This is done in the provided `rai_build.yml`.
+Likewise, the provided `final.py` provides an example of the script that will be used to time your implementation.
 
 All of your code for this and the later milestones must be executed between `auto start = ...` and `auto end = ...` in `new-inl.h`.
 The easiest way to ensure this is that all of your code should be in `forward()` or called by `forward()` from `new-forward.cuh` or `new-forward.h`.
@@ -274,7 +323,7 @@ You may use nvprof to collect more detailed information through timeline and ana
 you can collect the generated files by following the download link reported by rai at the end of the execution.
 `--analysis-metrics` significantly slows the run time, you may wish to modify the python scripts to run on smaller datasets during this profiling.
 
-**Only your last `--submit` will be graded. Be sure that your final `--submit` is the one you want to be graded.**
+**Deliverables**
 
 ### Final Report
 
@@ -291,21 +340,6 @@ You should provide a brief PDF final report `report.pdf`, with the following con
     * the effect of the optimization. was it fruitful, and why or why not. Use nvprof as needed to justify your explanation.
     * Any external references used during identification or development of the optimization
 3. **References** (as needed)
-
-### Final submission through RAI
-
-To make an official project submission, you will run
-
-    rai -p . --submit
-
-The `--submit` flag
-* enforces a specific rai_build.yml
-* requires the existence of `report.pdf`
-* Records your batch size, operation time, user time, system time, and correctness in a database. An anonymous version of these results (not your code!) will be visible to other students.
-
-The submit flag will run `build.sh`, which should build your code and install the python bindings (like the provided `build.sh`). Then it will run `python final.py`. You must ensure that your project works under those constraints. Do not modify `final.py`.
-
-**Only your most recent submission will be graded. Ensure that your final submission is the one you want to be graded**.
 
 ### Rubric
 
@@ -362,7 +396,6 @@ The execution environment provides two models for the new convolutional layer yo
 When testing your implementation, you should achieve these accuracy values for the CPU or GPU implementation.
 
 There is also one model used in milestone 1.
-
 
 | Prefix | Test Set Accuracy |
 | -- | -- |
