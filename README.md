@@ -169,6 +169,10 @@ You should see something that looks like the following:
 
 
 You can see how much time MXNet is spending on a variety of the operators.
+Each line correspnds to a CUDA kernel or an API call.
+There are columns corresponding to percentage of time consumed, total time, number of calls, and average/min/max time of those calls.
+
+You can find more information about nvprof in the [CUDA Toolkit Documentation](http://docs.nvidia.com/cuda/profiler-users-guide/index.html#nvprof-overview)
 
 ## Milestone 2
 **A New CPU Convolution Layer in MxNet: Due Friday November 17th, 2017**
@@ -282,7 +286,7 @@ You should provide a brief PDF final report `report.pdf`, with the following con
 
 1. **Baseline Results**
     1. M1.1: mxnet CPU layer correctness
-    2. M1.2/M1.3: mxnet GPU layer performance results (`nvprof` profile). Include your profile, and which functions you think might be convolution-related.
+    2. M1.2/M1.3: mxnet GPU layer performance results (`nvprof` profile). Include your profile, and describe in a few words how the GPU is spending its time.
     3. M2.1: your baseline cpu implementation performance results (time)
     4. M3.1: your baseline gpu implementation performance results (time, `nvprof` profile)
 2. **Optimization Approach and Results**
