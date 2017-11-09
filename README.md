@@ -423,7 +423,6 @@ You can additionally gather some detailed performance metrics.
 This will generate `timeline.nvprof` and `analysis.nvprof`.
 
 You will need to follow the link rai prints after the execution to retrieve these files.
-
 You can use the NVIDIA Visual Profiler (nvvp) to import those files.
 You will need to install nvvp on your own machine. It can be downloaded as part of the CUDA SDK.
 
@@ -432,6 +431,31 @@ To import the files:
 * timeline data file should be your timeline.nvprof
 * event/metrics data file should be your analysis.nvprof.
 * finish
+
+### Installing NVVP on EWS
+
+This will install nvvp on the EWS machines. The process will be similar for any machine without an NVIDIA GPU.
+
+Establish an ssh session with x-forwarding
+
+    ssh -Y <netid>@linux.ews.illinois.edu
+
+Download CUDA toolkit for CentOS 7
+
+    wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run -O cuda9.run
+
+Install nvvp (to `~/software/cuda-9.0`. You may choose a different location.) This takes a while.
+
+    chmod +x cuda9.run
+    ./cuda9.run --silent --toolkit --toolkitpath=$HOME/software/cuda-9.0
+
+Free up your EWS space (I'm not sure what the disk quotas are)
+
+    rm cuda9.run
+
+Optional: modify .bashrc to add `~/software/cuda-9.0/bin` to your path. Or, just run it
+
+    ~/software/cuda-9.0/bin/nvvp &
 
 ### Comparing GPU implementation to CPU implementation
 
