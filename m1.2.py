@@ -7,6 +7,7 @@ from reader import load_mnist
 # Log to stdout for MXNet
 logging.getLogger().setLevel(logging.DEBUG)  # logging to stdout
 
+print "New Inference"
 print "Loading fashion-mnist data...",
 test_images, test_labels = load_mnist(path="/fashion-mnist", kind="t10k")
 # Reshape the data to the format expected by MXNet's default convolutional layers
@@ -31,7 +32,6 @@ lenet_model = mx.mod.Module.load(
 lenet_model.bind(data_shapes=test_iter.provide_data,
                  label_shapes=test_iter.provide_label)
 print "done"
-print "[New Inference]"
 
 acc = mx.metric.Accuracy()
 lenet_model.score(test_iter, acc)
