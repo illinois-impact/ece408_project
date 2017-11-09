@@ -31,6 +31,7 @@ lenet_model = mx.mod.Module.load(
 lenet_model.bind(data_shapes=test_iter.provide_data,
                  label_shapes=test_iter.provide_label)
 print "done"
+print "[New Inference]"
 
 acc = mx.metric.Accuracy()
 lenet_model.score(test_iter, acc)
