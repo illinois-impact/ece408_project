@@ -276,7 +276,7 @@ Modify `ece408_src/new-forward.cuh` to implement a forward GPU convolution.
 You may run your code with `python m3.1.py`. It takes the same arguments as `m2.1py`.
 Again, if you choose to modify `m3.1.py`, be sure the original still works with your convolution implementation.
 
-### 3.2 Create a profile with `nvprof`.
+### 3.2 Create a GPU profile with `nvprof`.
 
 Once you have a simple GPU implementation, modify `rai_build.py` to create a profile with NVPROF.
 You should see something like this:
@@ -408,8 +408,14 @@ Or, you can define a macro/function similar to `wbCheck` used in WebGPU.
 
 ### Profiling
 
-You can gather detailed profile information with `nvprof`.
-You can gather a timeline like the following:
+You can gather detailed GPU profile information with `nvprof`.
+To use `nvprof`, you'll need to be using the `cwpearson/2017fa_ece408_mxnet_docker:amd64-gpu-latest` image.
+
+You can see some simple information like so (as we did in milestone 1):
+
+    nvprof <your command here>
+
+You can gather a timeline file like the following:
 
     nvprof -o timeline.nvprof <your command here>
 
