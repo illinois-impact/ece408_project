@@ -94,10 +94,9 @@ Download the rai binary for your platform. You will probably use it for developm
 
 | Operating System | Architecture | Stable Version Link                                                             |
 | ---------------- | ------------ | ------------------------------------------------------------------------------- |
-| Linux            | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/linux-amd64.tar.gz)   |
-| Linux            | ppc64le      | [URL](http://files.rai-project.com/dist/rai/stable/latest/linux-ppc64le.tar.gz) |
-| OSX/Darwin       | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/darwin-amd64.tar.gz)  |
-| Windows          | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/windows-amd64.tar.gz) |
+| Linux            | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.17/linux-amd64.tar.gz)   |
+| OSX/Darwin       | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.17/darwin-amd64.tar.gz)  |
+| Windows          | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.17/windows-amd64.tar.gz) |
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
