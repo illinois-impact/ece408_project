@@ -104,10 +104,10 @@ As soon as you and your two teammates agree on a team name, fill in the correspo
 Your `.rai_profile` should look something like this:
 
     profile:
-      firstname: Carl
-      lastname: Pearson
-      username: pearson
-      email: pearson@illinois.edu
+      firstname: <your-given-name>
+      lastname: <your-surname>
+      username: <your-username>
+      email: <your-access-key>
       access_key: <your-access-key>
       secret_key: <your-secret-key>
       affiliation: uiuc
@@ -146,9 +146,10 @@ This environment includes a prebuilt MXNet (so rai will only do a partial compil
 
 The `resources:` key specifies what computation resources will be available to the execution.
 
-The `commands:` key specifies the recipe that rai will execute. `./build.sh` copies the files in `ece408_src` to `src/operator/custom/` in the MXNet source tree, and then compiles MXNet and installs the MXNet python bindings into the environment.
-You do not need to modify `build.sh` to successfully complete the project, but look at it if you are curious.
-`python /src/m1.1_forward_mxnet_conv.py` runs the `m1.1_forward_mxnet_conv.py` python program.
+The `commands:` key specifies the recipe that rai will execute. First, the project files are copied to the `/build` directory.
+Then the files in `ece408_src` are copied to `src/operator/custom/` in the MXNet source tree.
+MxNet is recompiled, and the pythong bindings are installed.
+`python /src/m1.1.py` runs the `m1.1.py` python program.
 
 You should see the following output:
 
@@ -190,16 +191,16 @@ Once you've gotten the appropriate accuracy results, generate a profile using nv
 As described above, make sure `rai_build.yml` is configured for a GPU run.
 Then, modify `rai_build.yml` to generate a profile instead of just execuing the code.
 
-    nvprof python /src/m1.2.py
+    nvprof python m1.2.py
 
 You should see something that looks like the following:
 
-    ✱ Running nvprof python /src/m1.2.py
+    ✱ Running nvprof python m1.2.py
     Loading fashion-mnist data... done
-    ==308== NVPROF is profiling process 308, command: python     /src/m1.2_forward_mxnet_conv.py
+    ==308== NVPROF is profiling process 308, command: python     /src/m1.2.py
     Loading model... done
     EvalMetric: {'accuracy': 0.8673}
-    ==308== Profiling application: python /src/m1.2_forward_mxnet_conv.py
+    ==308== Profiling application: python /src/m1.2.py
     ==308== Profiling result:
     Time(%)      Time     Calls       Avg       Min       Max  Name
      30.77%  8.7488ms         1  8.7488ms  8.7488ms  8.7488ms  sgemm_128x128x8_NT_vec
@@ -279,6 +280,8 @@ Use
 
 to mark your submission. This will notify the teaching staff of which `report.pdf` draft to consider.
 
+This will run your code against the two datasets, and check the time and correctness.
+
 ## Milestone 3
 **A New GPU Convolution Layer in MxNet: Due Friday December 1st, 2017**
 
@@ -297,9 +300,9 @@ Again, if you choose to modify `m3.1.py`, be sure the original still works with 
 Once you have a simple GPU implementation, modify `rai_build.py` to create a profile with NVPROF.
 You should see something like this:
 
-    ✱ Running nvprof python /src/m3.1.py
+    ✱ Running nvprof python m3.1.py
     Loading fashion-mnist data... done
-    ==308== NVPROF is profiling process 308, command: python /src/m3.1.py
+    ==308== NVPROF is profiling process 308, command: python m3.1.py
     Loading model... done
     Time: 14.895404
     Correctness: 0.8562 Batch Size: 10000 Model: ece408-high
@@ -322,7 +325,7 @@ Optimize your GPU convolution.
 
 Your implementation will be partially graded on its performance relative to other optimized implementations from the class.
 
-Your implementation must work with `rai -p <> --submit=final`.
+Your implementation must work with `rai -p <project-folder> --submit=final`.
 This means all your source files must be in `ece408_src`, and your implementation must work when they are copied to `src/operator/custom` in the mxnet tree, and `make` is invoked on the mxnet tree.
 This is done in the provided `rai_build.yml`.
 Likewise, the provided `final.py` provides an example of the script that will be used to time your implementation.
@@ -346,7 +349,7 @@ you can collect the generated files by following the download link reported by r
 You should provide a brief PDF final report `report.pdf`, with the following content.
 
 1. **Baseline Results**
-    1. M1.1: mxnet CPU layer correctness
+    1. M1.1: mxnet CPU layer correctness and elapsed time for the whole pythong program.
     2. M1.2/M1.3: mxnet GPU layer performance results (`nvprof` profile). Include your profile, and describe in a few words how the GPU is spending its time.
     3. M2.1: your baseline cpu implementation performance results (time)
     4. M3.1: your baseline gpu implementation performance results (time, `nvprof` profile)
