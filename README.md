@@ -101,18 +101,18 @@ Download the rai binary for your platform. You will probably use it for developm
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
 As soon as you and your two teammates agree on a team name, fill in the corresponding entry in your `.rai_profile`.
-Your `.rai_profile` should look something like this:
+Your `.rai_profile` should look something like this (indented with tabs!)
 
     profile:
-      firstname: <your-given-name>
-      lastname: <your-surname>
-      username: <your-username>
-      email: <your-access-key>
-      access_key: <your-access-key>
-      secret_key: <your-secret-key>
-      affiliation: uiuc
-      team:
-        name: <your-team-name-here>
+        firstname: <your-given-name>
+        lastname: <your-surname>
+        username: <your-username>
+        email: <your-access-key>
+        access_key: <your-access-key>
+        secret_key: <your-secret-key>
+        affiliation: uiuc
+        team:
+            name: <your-team-name-here>
 
 **Be sure you all use the same team name**.
 
