@@ -178,11 +178,11 @@ Once you've gotten the appropriate accuracy results, generate a profile using nv
 As described above, make sure `rai_build.yml` is configured for a GPU run.
 Then, modify `rai_build.yml` to generate a profile instead of just execuing the code.
 
-    nvprof python m1.2.py
+    nvprof python /src/m1.2.py
 
 You should see something that looks like the following:
 
-    ✱ Running nvprof python /src/m1.2_forward_mxnet_conv.py
+    ✱ Running nvprof python /src/m1.2.py
     Loading fashion-mnist data... done
     ==308== NVPROF is profiling process 308, command: python     /src/m1.2_forward_mxnet_conv.py
     Loading model... done
