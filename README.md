@@ -101,6 +101,19 @@ Download the rai binary for your platform. You will probably use it for developm
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
 As soon as you and your two teammates agree on a team name, fill in the corresponding entry in your `.rai_profile`.
+Your `.rai_profile` should look something like this:
+
+    profile:
+      firstname: Carl
+      lastname: Pearson
+      username: pearson
+      email: pearson@illinois.edu
+      access_key: <your-access-key>
+      secret_key: <your-secret-key>
+      affiliation: uiuc
+      team:
+        name: <your-team-name-here>
+
 **Be sure you all use the same team name**.
 
 Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
@@ -203,6 +216,10 @@ You should see something that looks like the following:
 
 
 You can see how much time MXNet is spending on a variety of the operators.
+Each line correspnds to a CUDA kernel or an API call.
+There are columns corresponding to percentage of time consumed, total time, number of calls, and average/min/max time of those calls.
+
+You can find more information about nvprof in the [CUDA Toolkit Documentation](http://docs.nvidia.com/cuda/profiler-users-guide/index.html#nvprof-overview)
 
 **Deliverables (to be submitted with Milestone 2)** 
 In your report, list a table of the most time-consuming kernels.
@@ -329,8 +346,8 @@ you can collect the generated files by following the download link reported by r
 You should provide a brief PDF final report `report.pdf`, with the following content.
 
 1. **Baseline Results**
-    1. M1.1: mxnet CPU layer performance results (time)
-    2. M1.2: mxnet GPU layer performance results (time, `nvprof` profile)
+    1. M1.1: mxnet CPU layer correctness
+    2. M1.2/M1.3: mxnet GPU layer performance results (`nvprof` profile). Include your profile, and describe in a few words how the GPU is spending its time.
     3. M2.1: your baseline cpu implementation performance results (time)
     4. M3.1: your baseline gpu implementation performance results (time, `nvprof` profile)
 2. **Optimization Approach and Results**
