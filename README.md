@@ -66,6 +66,19 @@ Download the rai binary for your platform
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
 As soon as you and your two teammates agree on a team name, fill in the corresponding entry in your `.rai_profile`.
+Your `.rai_profile` should look something like this:
+
+    profile:
+      firstname: Carl
+      lastname: Pearson
+      username: pearson
+      email: pearson@illinois.edu
+      access_key: <your-access-key>
+      secret_key: <your-secret-key>
+      affiliation: uiuc
+      team:
+        name: <your-team-name-here>
+
 **Be sure you all use the same team name**.
 
 Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
