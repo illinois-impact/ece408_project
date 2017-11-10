@@ -259,19 +259,17 @@ The correctness does depend on the data size. Check your correctness on the full
 
 For example, you could modify `rai_build.yml` to run
 
-    - nvprof -o timeline.nvprof python m3.1.py ece408-low 100
-    - nvprof --analysis-metrics -o analysis.nvprof python m3.1.py ece408-low 100
+    - python m3.1.py ece408-low 100
 
 to generate two complementary profile files, running on smaller datasets.
-You could then download the resulting folder and open it with `nvvp`.
 
 | Correctness | Size | Model  |
 |-------------| -----| -----  |
 | ece408-high | 10000 (default) | 0.8562 |
 | ece408-low  | 10000 (default) | 0.629  |
 
-The provided `m2.1.py` is identical to the one used by `--submit`.
-You may modify `m2.1.py` as you please, but you will be using the original during the submission.
+The provided `m2.1.py` is identical to the one used by `--submit=m2`.
+You may modify `m2.1.py` as you please, but check that `--submit=m2` will still invoke your code correctly.
 
 **Deliverables**
 Use 
