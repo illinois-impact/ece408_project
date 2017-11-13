@@ -238,6 +238,21 @@ See the [description](#markdown-header-skeleton-code-description) of the skeleto
 
 Modify `ece408_src/new-forward.h` to implement the forward convolution described in [Chapter 16 of the textbook](https://wiki.illinois.edu/wiki/display/ECE408Fall2017/Textbook+Chapters).
 The performance of the CPU convolution is not part of the project evaluation.
+The algorithm is also below, for your convenience
+
+    for b = 0 .. B)                    // for each image in the batch 
+        for m = 0 .. M                 // for each output feature maps
+            for h = 0 .. H_out         // for each output element
+                for w = 0 .. W_out
+                {
+                    y[b][m][h][w] = 0;
+                    for c = 0 .. C     // sum over all input feature maps
+                        for p = 0 .. p // KxK filter
+                            for q .. 0
+                                y[b][m][h][w] += x[b][c][h + p][w + q] * k[m][c][p][q]
+                }
+
+Unlike the convolutions described in the class, note that this one is not centered on the input image.
 
 Because this operator is different than the built-in mxnet operator, you will need to load a different model.
 `m2.1.py` handles this for you.
