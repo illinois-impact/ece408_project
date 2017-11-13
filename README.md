@@ -360,18 +360,25 @@ you can collect the generated files by following the download link reported by r
 ### Final Report
 
 You should provide a brief PDF final report `report.pdf`, with the following content.
+The report does not need to be a particular length, but should be long enough to cover all of this content.
 
 1. **Baseline Results**
-    1. M1.1: mxnet CPU layer correctness and elapsed time for the whole pythong program.
+    1. M1.1: mxnet CPU layer correctness and elapsed time for the whole python program.
+     You can measure the elapsed time of the program with the `time` command.
     2. M1.2/M1.3: mxnet GPU layer performance results (`nvprof` profile). Include your profile, and describe in a few words how the GPU is spending its time.
-    3. M2.1: your baseline cpu implementation performance results (time)
-    4. M3.1: your baseline gpu implementation performance results (time, `nvprof` profile)
+    This is to confirm you can generate a profile and can interpret it.
+    3. M2.1: your baseline cpu implementation correctness and performance results (time).
+    The `Op Time:` printed by the program will show the time just for the convolution layer.
+    The implementation should have the expected correctness.
+    4. M3.1: your baseline gpu implementation performance results (time, `nvprof` profile).
+    The implementation should have the expected correctness.
 2. **Optimization Approach and Results**
     * how you identified the optimization opportunity
     * why you thought the approach would be fruitful
     * the effect of the optimization. was it fruitful, and why or why not. Use nvprof as needed to justify your explanation.
     * Any external references used during identification or development of the optimization
 3. **References** (as needed)
+4. **(Optional) Suggestions for Improving Next Year**
 
 ### Rubric
 
