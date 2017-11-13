@@ -295,6 +295,9 @@ to mark your submission. This will notify the teaching staff of which `report.pd
 
 This will run your code against the two datasets, and check the time and correctness.
 
+Your `report.pdf` at this stage should contain content up through M2.1  described in the final report section.
+
+
 ## Milestone 3
 **A New GPU Convolution Layer in MxNet: Due Friday December 1st, 2017**
 
@@ -328,6 +331,8 @@ In this example, the forward layer took 14.8954 seconds, and the forward_kernel 
 
 **Deliverables**
 Again, use `rai -p <project folder> --submit=m3` to submit your code.
+
+Your `report.pdf` at this stage should contain content up through M3.1 described in the final report section.
 
 ## Final Submission
 **An Optimized Layer and Final Report: Due Friday December 15th, 2017**
