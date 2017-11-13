@@ -247,8 +247,8 @@ The algorithm is also below, for your convenience
                 {
                     y[b][m][h][w] = 0;
                     for c = 0 .. C     // sum over all input feature maps
-                        for p = 0 .. p // KxK filter
-                            for q .. 0
+                        for p = 0 .. K // KxK filter
+                            for q = 0 .. K
                                 y[b][m][h][w] += x[b][c][h + p][w + q] * k[m][c][p][q]
                 }
 
