@@ -274,9 +274,7 @@ The correctness does depend on the data size. Check your correctness on the full
 
 For example, you could modify `rai_build.yml` to run
 
-    - python m3.1.py ece408-low 100
-
-to generate two complementary profile files, running on smaller datasets.
+    - python m2.1.py ece408-low 100
 
 | Correctness | Size | Model  |
 |-------------| -----| -----  |
