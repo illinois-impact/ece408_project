@@ -373,13 +373,16 @@ The report does not need to be a particular length, but should be long enough to
     3. M2.1: your baseline cpu implementation correctness and performance results (time).
     The `Op Time:` printed by the program will show the time just for the convolution layer.
     The implementation should have the expected correctness.
+    Include how you divided work amongst your team (even though there is not much work).
     4. M3.1: your baseline gpu implementation performance results (time, `nvprof` profile).
     The implementation should have the expected correctness.
+    Include how you divided work amongst your team (even though there is not much work).
 2. **Optimization Approach and Results**
     * how you identified the optimization opportunity
     * why you thought the approach would be fruitful
     * the effect of the optimization. was it fruitful, and why or why not. Use nvprof as needed to justify your explanation.
     * Any external references used during identification or development of the optimization
+    * How  your team organized and divided up this work.
 3. **References** (as needed)
 4. **(Optional) Suggestions for Improving Next Year**
 
