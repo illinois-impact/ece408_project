@@ -28,11 +28,11 @@ You may wish to stay ahead of these deadlines (particularly, allow more than two
     1. [Run the MXNet baseline forward CPU pass.]()
     2. [Run the MXNet baseline forward GPU pass.]()
     3. [Generate a profile of the GPU forward pass using `nvprof`.]()
-2. [Milestone 2: A New CPU Layer in MXNet: Due 11/17/2017](#markdown-header-milestone-2)
+2. [Milestone 2: A New CPU Layer in MXNet: Due 10pm 11/17/2017](#markdown-header-milestone-2)
     1. [Implement a CPU convolution pass in MXNet]()
-2. [Milestone 3: A New GPU Layer in MXNet: Due 12/1/2017](#markdown-header-milestone-3)
+2. [Milestone 3: A New GPU Layer in MXNet: Due 5pm 12/1/2017](#markdown-header-milestone-3)
     1. [Implement a GPU convolution in MXNet]()
-3. [Final Submission: Optimized GPU Forward Implementation: Due 12/15/2017](#markdown-header-final-submission)
+3. [Final Submission: Optimized GPU Forward Implementation: Due 5pm 12/15/2017](#markdown-header-final-submission)
     1. [Implement an optimized GPU convolution in MXNet]()
     2. [Final Report](#markdown-header-final-report)
 
@@ -226,7 +226,7 @@ You can find more information about nvprof in the [CUDA Toolkit Documentation](h
 In your report, list a table of the most time-consuming kernels.
 
 ## Milestone 2
-**A New CPU Convolution Layer in MxNet: Due Friday November 17th, 2017**
+**A New CPU Convolution Layer in MxNet: Due 10pm Friday November 17th, 2017**
 
 A draft of the `report.pdf` with content up through Milestone 2 must be submitted **through rai** for this milestone.
 
@@ -297,7 +297,7 @@ Your `report.pdf` at this stage should contain content up through M2.1  describe
 
 
 ## Milestone 3
-**A New GPU Convolution Layer in MxNet: Due Friday December 1st, 2017**
+**A New GPU Convolution Layer in MxNet: Due 5pm Friday December 1st, 2017**
 
 A draft of the `report.pdf` with content up through Milestone 3 must be submitted **through rai** for this milestone.
 
@@ -333,7 +333,7 @@ Again, use `rai -p <project folder> --submit=m3` to submit your code.
 Your `report.pdf` at this stage should contain content up through M3.1 described in the final report section.
 
 ## Final Submission
-**An Optimized Layer and Final Report: Due Friday December 15th, 2017**
+**An Optimized Layer and Final Report: Due 5pm Friday December 15th, 2017**
 
 ### Optimized Layer
 
