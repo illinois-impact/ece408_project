@@ -358,6 +358,11 @@ You may use nvprof to collect more detailed information through timeline and ana
 you can collect the generated files by following the download link reported by rai at the end of the execution.
 `--analysis-metrics` significantly slows the run time, you may wish to modify the python scripts to run on smaller datasets during this profiling.
 
+The ranking is determined by the minimum run time of kernels with correct inferences which are run with the `--submit` flag.
+The `rai ranking` command is not the final word: the staff will re-run all final submissions 3 times and choose the fastest result as your time.
+THe ranking is determined solely by the same value printed by `Op Time:` during your run.
+That `Op Time` is computed by wrapping the mxnet op that you implement in a timer.
+
 **Deliverables**
 
 ### Final Report
