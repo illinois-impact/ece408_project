@@ -92,11 +92,11 @@ Clone this repository to get the project directory.
 
 Download the rai binary for your platform. You will probably use it for development, and definitely use it for submission.
 
-| Operating System | Architecture | Stable Version (0.2.19) Link                                                             |
+| Operating System | Architecture | Stable Version (0.2.20) Link                                                             |
 | ---------------- | ------------ | ------------------------------------------------------------------------------- |
-| Linux            | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.19/linux-amd64.tar.gz)   |
-| OSX/Darwin       | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.19/darwin-amd64.tar.gz)  |
-| Windows          | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.19/windows-amd64.tar.gz) |
+| Linux            | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.20/linux-amd64.tar.gz)   |
+| OSX/Darwin       | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.20/darwin-amd64.tar.gz)  |
+| Windows          | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.20/windows-amd64.tar.gz) |
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
