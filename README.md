@@ -327,6 +327,8 @@ You should see something like this:
 
 In this example, the forward layer took 14.8954 seconds, and the forward_kernel took 14.8952 seconds.
 
+You can create a single profile for ece408-high with 10000 images.
+
 **Deliverables**
 Again, use `rai -p <project folder> --submit=m3` to submit your code.
 
