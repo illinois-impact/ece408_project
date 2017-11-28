@@ -10,8 +10,9 @@ namespace op
 {
 
 
-template<typename gpu, typename DType>
-__global__ void forward_kernel(DType *y, const DType *x, const DType *k, const int B, const int M, const int C, const int H, const int W, const int K) {
+
+
+__global__ void forward_kernel(float *y, const float *x, const float *k, const int B, const int M, const int C, const int H, const int W, const int K) {
 
     /*
     Modify this function to implement the forward pass described in Chapter 16.
@@ -40,13 +41,17 @@ __global__ void forward_kernel(DType *y, const DType *x, const DType *k, const i
 
 
 
-// This function is called by new-inl.h
-// Any code you write should be executed by this function
-template<typename gpu, typename DType>
-void forward(mshadow::Tensor<gpu, 4, DType> &y, const mshadow::Tensor<gpu, 4, DType> &x, const mshadow::Tensor<gpu, 4, DType> &w) {
+/* 
+   This function is called by new-inl.h
+   Any code you write should be executed by this function.
+   For ECE408, we only expect the float version of the operator to be called, so here we specialize with only floats.
+*/
+template<>
+void forward<gpu, float>(mshadow::Tensor<gpu, 4, float> &y, const mshadow::Tensor<gpu, 4, float> &x, const mshadow::Tensor<gpu, 4, float> &w) {
     
 
     // Use mxnet's CHECK_EQ to do assertions.
+    // Remove this assertion when you do your implementation!
     CHECK_EQ(0, 1) << "Missing an ECE408 GPU implementation!";
 
     // You'll probably need to launch kernels against the right stream to keep MXNet happy
@@ -60,7 +65,7 @@ void forward(mshadow::Tensor<gpu, 4, DType> &y, const mshadow::Tensor<gpu, 4, DT
     // dim3 blockDim(0);
 
     // Call the kernel
-    // forward_kernel<gpu, DType><<<gridDim, blockDim, 0, s>>>(y.dptr_,x.dptr_,w.dptr_, B,M,C,H,W,K);
+    // forward_kernel<<<gridDim, blockDim, 0, s>>>(y.dptr_,x.dptr_,w.dptr_, B,M,C,H,W,K);
 
     // Use MSHADOW_CUDA_CALL to check for CUDA runtime errors.
     MSHADOW_CUDA_CALL(cudaDeviceSynchronize());
@@ -68,6 +73,14 @@ void forward(mshadow::Tensor<gpu, 4, DType> &y, const mshadow::Tensor<gpu, 4, DT
 }
 
 
+/* 
+    This tells mxnet how to do an op when it's not a float.
+    This is not used in the ECE408 project
+*/
+template<typename gpu, typename DType>
+void forward(mshadow::Tensor<gpu, 4, DType> &y, const mshadow::Tensor<gpu, 4, DType> &x, const mshadow::Tensor<gpu, 4, DType> &w) {
+    assert( 0 && "No forward implementation for other datatypes needed for ECE408");
+}
 
 }
 }
