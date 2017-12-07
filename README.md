@@ -276,7 +276,7 @@ For example, you could modify `rai_build.yml` to run
 
     - python m2.1.py ece408-low 100
 
-| Correctness | Size | Model  |
+| Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
 | ece408-high | 10000 (default) | 0.8562 |
 | ece408-low  | 10000 (default) | 0.629  |
@@ -400,6 +400,24 @@ The report does not need to be a particular length, but should be long enough to
     * Milestone 2 ( 5% )
     * Milestone 3 ( 10% )
     * Final Submission ( 35% )
+
+**Relative Ranking**
+
+The relative ranking will be determined in the following way:
+
+To check that your implementation is correct, I will run your code with
+ * B = some large number of images (5k-10k)
+ * models = `ece408-high`, `ece408-low`, some other model you haven't seen
+
+Your optimized code should conform to the following results
+
+| Model | Number of Images | Correctness  |
+|-------------| -----| -----  |
+| ece408-high | 10000 (default) | 0.8562 |
+| ece408-high | 500 | coming soon...  | 
+| ece408-low  | 10000 (default) | 0.629  |
+| ece408-low  | 500 | coming soon... |
+
 
 ## Skeleton Code Description
 
