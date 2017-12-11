@@ -33,6 +33,7 @@ You may wish to stay ahead of these deadlines (particularly, allow more than two
 2. [Milestone 3: A New GPU Layer in MXNet: Due 5pm 12/1/2017](#milestone-3)
     1. [Implement a GPU convolution in MXNet]()
 3. [Final Submission: Optimized GPU Forward Implementation: Due 5pm 12/15/2017](#final-submission)
+    1. [Ranking Score](#relative-ranking)
     1. [Implement an optimized GPU convolution in MXNet]()
     2. [Final Report](#final-report)
 
