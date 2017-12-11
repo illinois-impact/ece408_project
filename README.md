@@ -24,17 +24,17 @@ If you are unsure about whether something does not meet those guidelines, ask a 
 
 You may wish to stay ahead of these deadlines (particularly, allow more than two weeks between milestone 3 and the final submission).
 
-1. [Milestone 1: Getting Started: Due 11/10/2017](#markdown-header-milestone-1)
+1. [Milestone 1: Getting Started: Due 11/10/2017](#milestone-1)
     1. [Run the MXNet baseline forward CPU pass.]()
     2. [Run the MXNet baseline forward GPU pass.]()
     3. [Generate a profile of the GPU forward pass using `nvprof`.]()
-2. [Milestone 2: A New CPU Layer in MXNet: Due 10pm 11/17/2017](#markdown-header-milestone-2)
+2. [Milestone 2: A New CPU Layer in MXNet: Due 10pm 11/17/2017](#milestone-2)
     1. [Implement a CPU convolution pass in MXNet]()
-2. [Milestone 3: A New GPU Layer in MXNet: Due 5pm 12/1/2017](#markdown-header-milestone-3)
+2. [Milestone 3: A New GPU Layer in MXNet: Due 5pm 12/1/2017](#milestone-3)
     1. [Implement a GPU convolution in MXNet]()
-3. [Final Submission: Optimized GPU Forward Implementation: Due 5pm 12/15/2017](#markdown-header-final-submission)
+3. [Final Submission: Optimized GPU Forward Implementation: Due 5pm 12/15/2017](#final-submission)
     1. [Implement an optimized GPU convolution in MXNet]()
-    2. [Final Report](#markdown-header-final-report)
+    2. [Final Report](#final-report)
 
 ## Remote Development Environment
 
