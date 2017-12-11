@@ -417,9 +417,9 @@ Your optimized code should conform to the following results
 | Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
 | ece408-high | 10000 (default) | 0.8562 |
-| ece408-high | 500 | coming soon...  | 
+| ece408-high | 2000 | 0.85625  | 
 | ece408-low  | 10000 (default) | 0.629  |
-| ece408-low  | 500 | coming soon... |
+| ece408-low  | 2000 | 0.6275 |
 
 To compute your score, I will compute the median team performance.
 Your performance will be converted to a number of standard deviations above/below that median.
