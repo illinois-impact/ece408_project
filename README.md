@@ -418,6 +418,9 @@ Your optimized code should conform to the following results
 | ece408-low  | 10000 (default) | 0.629  |
 | ece408-low  | 500 | coming soon... |
 
+To compute your score, I will compute the median team performance.
+Your performance will be converted to a number of standard deviations above/below that median.
+That value will be linearly mapped into the space of 0-25 to determine the ranking grade.
 
 ## Skeleton Code Description
 
