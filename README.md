@@ -312,7 +312,7 @@ Again, if you choose to modify `m3.1.py`, be sure the original still works with 
 
 ### 3.2 Create a GPU profile with `nvprof`.
 
-Once you have a simple GPU implementation, modify `rai_build.py` to create a profile with NVPROF.
+Once you have a simple GPU implementation, modify `rai_build.yml` to create a profile with NVPROF.
 You should see something like this:
 
     ✱ Running nvprof python m3.1.py
