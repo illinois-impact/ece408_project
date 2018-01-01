@@ -336,7 +336,7 @@ Again, use `rai -p <project folder> --submit=m3` to submit your code.
 Your `report.pdf` at this stage should contain content up through M3.1 described in the final report section.
 
 ## Final Submission
-**An Optimized Layer and Final Report: Due 5pm Friday December 15th, 2017**
+**An Optimized Layer and Final Report: Due 6am Tuesday December 19th, 2017**
 
 ### Optimized Layer
 
