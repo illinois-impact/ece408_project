@@ -6,7 +6,7 @@ This is the skeleton code for the 2017 Fall ECE408 / CS483 course project.
 In this project, you will get experience with practical neural network artifacts, face the challenges of modifying existing real-world code, and demonstrate command of basic CUDA optimization techniques.
 Specifically, you will get experience with
 
-* Using, profiling, and modifying MxNet, a standard open-source neural-network framework.
+* Using, profiling, and modifying MXNet, a standard open-source neural-network framework.
 
 You will demonstrate command of CUDA and optimization approaches by
 
@@ -149,7 +149,7 @@ The `resources:` key specifies what computation resources will be available to t
 
 The `commands:` key specifies the recipe that rai will execute. First, the project files are copied to the `/build` directory.
 Then the files in `ece408_src` are copied to `src/operator/custom/` in the MXNet source tree.
-MxNet is recompiled, and the pythong bindings are installed.
+MXNet is recompiled, and the Python bindings are installed.
 `python /src/m1.1.py` runs the `m1.1.py` python program.
 
 You should see the following output:
@@ -227,7 +227,7 @@ You can find more information about nvprof in the [CUDA Toolkit Documentation](h
 In your report, list a table of the most time-consuming kernels.
 
 ## Milestone 2
-**A New CPU Convolution Layer in MxNet: Due 10pm Friday November 17th, 2017**
+**A New CPU Convolution Layer in MXNet: Due 10pm Friday November 17th, 2017**
 
 A draft of the `report.pdf` with content up through Milestone 2 must be submitted **through rai** for this milestone.
 
@@ -255,11 +255,11 @@ The algorithm is also below, for your convenience
 
 Unlike the convolutions described in the class, note that this one is not centered on the input image.
 
-Because this operator is different than the built-in mxnet operator, you will need to load a different model.
+Because this operator is different than the built-in MXNet operator, you will need to load a different model.
 `m2.1.py` handles this for you.
 Modify rai_build.yml to invoke
 
-    python m2.1py
+    python m2.1.py
 
 When your implementation is correct, you should see output like this:
 
@@ -298,7 +298,7 @@ Your `report.pdf` at this stage should contain content up through M2.1  describe
 
 
 ## Milestone 3
-**A New GPU Convolution Layer in MxNet: Due 5pm Friday December 1st, 2017**
+**A New GPU Convolution Layer in MXNet: Due 5pm Friday December 1st, 2017**
 
 A draft of the `report.pdf` with content up through Milestone 3 must be submitted **through rai** for this milestone.
 
@@ -345,7 +345,7 @@ Optimize your GPU convolution.
 Your implementation will be partially graded on its performance relative to other optimized implementations from the class.
 
 Your implementation must work with `rai -p <project-folder> --submit=final`.
-This means all your source files must be in `ece408_src`, and your implementation must work when they are copied to `src/operator/custom` in the mxnet tree, and `make` is invoked on the mxnet tree.
+This means all your source files must be in `ece408_src`, and your implementation must work when they are copied to `src/operator/custom` in the MXNet tree, and `make` is invoked on the MXNet tree.
 This is done in the provided `rai_build.yml`.
 Likewise, the provided `final.py` provides an example of the script that will be used to time your implementation.
 
@@ -364,7 +364,7 @@ you can collect the generated files by following the download link reported by r
 The ranking is determined by the minimum run time of kernels with correct inferences which are run with the `--submit` flag.
 The `rai ranking` command is not the final word: the staff will re-run all final submissions 3 times and choose the fastest result as your time.
 THe ranking is determined solely by the same value printed by `Op Time:` during your run.
-That `Op Time` is computed by wrapping the mxnet op that you implement in a timer.
+That `Op Time` is computed by wrapping the MXNet op that you implement in a timer.
 
 **Deliverables**
 
@@ -374,9 +374,9 @@ You should provide a brief PDF final report `report.pdf`, with the following con
 The report does not need to be a particular length, but should be long enough to cover all of this content.
 
 1. **Baseline Results**
-    1. M1.1: mxnet CPU layer correctness and elapsed time for the whole python program.
+    1. M1.1: MXNet CPU layer correctness and elapsed time for the whole python program.
      You can measure the elapsed time of the program with the `time` command.
-    2. M1.2/M1.3: mxnet GPU layer performance results (`nvprof` profile). Include your profile, and describe in a few words how the GPU is spending its time.
+    2. M1.2/M1.3: MXNet GPU layer performance results (`nvprof` profile). Include your profile, and describe in a few words how the GPU is spending its time.
     This is to confirm you can generate a profile and can interpret it.
     3. M2.1: your baseline cpu implementation correctness and performance results (time).
     The `Op Time:` printed by the program will show the time just for the convolution layer.
@@ -554,15 +554,15 @@ A simple code is provided in `build_example`. You could modify the `build` step 
 
 ### Offline Development
 
-If you'd like to develop using a local copy of mxnet, you may do so. Keep in mind your project will be evaluated through rai. Your submission must work through rai.
+If you'd like to develop using a local copy of MXNet, you may do so. Keep in mind your project will be evaluated through rai. Your submission must work through rai.
 
-The MxNet instructions are available [here](https://mxnet.incubator.apache.org/get_started/install.html). A short form of them follows for Ubuntu.
+The MXNet instructions are available [here](https://mxnet.incubator.apache.org/get_started/install.html). A short form of them follows for Ubuntu.
 
     # install some prereqs
     sudo apt install -y build-essential git libopenblas-dev liblapack-dev libopencv-dev python-pip python-dev python-setuptools python-numpy
-    # download mxnet release 0.11.0
+    # download MXNet release 0.11.0
     git clone git@github.com:apache/incubator-mxnet.git --recursive --branch 0.11.0
-    # build mxnet
+    # build MXNet
     nice -n20 make -C incubator-mxnet -j$(nrpoc) USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_CUDNN=1 USE_BLAS=openblas
     # install python bindings
     pip install --user -e incubator-mxnet/python
@@ -584,7 +584,7 @@ Modify the python forward convolution scripts to point to where you downloaded f
 
     ... load_mnist(path="fashion-mnist", ...)
 
-Download the trained models (for the existing mxnet implementation and your implementation)
+Download the trained models (for the existing MXNet implementation and your implementation)
 
     mkdir -p models \
     && wget -P models \
@@ -599,7 +599,7 @@ Modify the python forward convolution scripts to point to where you downloaded f
 
     lenet_model = mx.mod.Module.load( prefix='models/baseline' ... 
 
-Modify `build.sh` to point at your mxnet code.
+Modify `build.sh` to point at your MXNet code.
 
     ...
     MXNET_SRC_ROOT=<your incubator-mxnet path here>
