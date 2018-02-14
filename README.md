@@ -1,97 +1,54 @@
-# README
+# ECE 408/CS483 Final Project
 
 ## Introduction
 
-This is the skeleton code for the 2017 Fall ECE408 / CS483 course project.
-In this project, you will get experience with practical neural network artifacts, face the challenges of modifying existing real-world code, and demonstrate command of basic CUDA optimization techniques.
-Specifically, you will get experience with
+This is the skeleton code for the Spring 2018 ECE408 / CS483 course project.
+In this project, you will:
 
-* Using, profiling, and modifying MXNet, a standard open-source neural-network framework.
-
-You will demonstrate command of CUDA and optimization approaches by
-
-* Implementing an optimized neural-network convolution layer forward pass
+* Get practical experience by using, profiling, and modifying MXNet, a standard open-source neural-network framework.
+* Demonstrate command of CUDA and optimization approaches by designing and implementing an optimized neural-network convolution layer forward pass.
 
 The project will be broken up into 3 milestones and a final submission. Read the description of the final report before starting, so you can collect the necessary info along the way.
+Each milestone will consist of an updated report (culminating in the final report).
 
 You will be working in teams of 3.
 
-You are expected to adhere to University of Illinois Academic integrity standards.
+You are expected to adhere to University of Illinois academic integrity standards.
 Do not attempt to subvert and of the performance-measurement aspects of the final project.
 If you are unsure about whether something does not meet those guidelines, ask a member of the teaching staff.
 
-## Deliverables Overview
+## Table of Contents
 
-You may wish to stay ahead of these deadlines (particularly, allow more than two weeks between milestone 3 and the final submission).
+TODO
 
-1. [Milestone 1: Getting Started: Due 11/10/2017](#milestone-1)
-    1. [Run the MXNet baseline forward CPU pass.]()
-    2. [Run the MXNet baseline forward GPU pass.]()
-    3. [Generate a profile of the GPU forward pass using `nvprof`.]()
-2. [Milestone 2: A New CPU Layer in MXNet: Due 10pm 11/17/2017](#milestone-2)
-    1. [Implement a CPU convolution pass in MXNet]()
-2. [Milestone 3: A New GPU Layer in MXNet: Due 5pm 12/1/2017](#milestone-3)
-    1. [Implement a GPU convolution in MXNet]()
-3. [Final Submission: Optimized GPU Forward Implementation: Due 5pm 12/15/2017](#final-submission)
-    1. [Ranking Score](#rubric)
-    1. [Implement an optimized GPU convolution in MXNet]()
-    2. [Final Report](#final-report)
+* [Milestone 1: Due TBD](#milestone-1)
+* [Milestone 2: Due TBD](#milestone-2)
+* [Milestone 3: Due TBD](#milestone-3)
+* [Final Submission: Due TBD](#final-submission)
+* [Rubric](#rubric)
+* [Final Report](#final-report)
 
-## Remote Development Environment
 
-The easiest way to develop the project is to use rai through the following prebuilt binaries. You can also use the Linux machines on [EWS](http://it.engineering.illinois.edu/ews) for RAI.
-
-**NOTE:** Even if you use your own local development environment, your final code must run within the RAI system. 
-
-### Using RAI
-
-    rai -p <project-folder>
-
-This causes the following things to happen:
-
-* RAI client: upload the project folder to AWS
-* RAI client: Notify a RAI server that a job is ready
-* RAI server: downloads the folder from AWS
-* RAI server: starts the docker container specified in `rai_build.yml`
-* RAI server: uses docker container to execute the steps specified in `rai_build.yml`
-* RAI server: uploads `/build` directory to AWS
-* RAI client: gives you the link to that build directory
-
-So, if you want any results from your run, you need to generate those results in `/build`. 
-The provided `rai_build.yml` moves everything to the `/build` directory in an early step.
-
-### Final Submissions through RAI
-
-To make an official project submission, you will run
-
-    rai -p <project folder> --submit=<submission kind>
-
-The `--submit` flag accepts `m2` for milestone 2, `m3` for milestone 3, and `final` for the final submission. 
-
-    rai -p <project-folder-with-working-cpu-implementation> --submit=m2
-
-Using the `--submit` flag
-* enforces a specific `rai_build.yml` depending on which kind of submission you do.
-* requires the existence of `report.pdf`
-* Records your operation time, user time, system time, and correctness in a database. An anonymous version of these results (not your code!) will be visible to other students.
-
-To ensure that `--submit` goes smoothly, ensure your code works with the provided python scripts. They are similar to the ones used by `--submit`.
-
-**Only your most recent submission will be graded. Ensure that your final submission is the one you want to be graded**.
 
 ## Milestone 1
 
-**Getting Started: Due Friday November 10th, 2017**
+Due TODO
 
-Nothing must be turned in for this milestone, but content will be used in Milestone 2.
+As with all milestones, you will include an updated PDF `report.pdf` with all of the required deliverables for this and preceeding milestones.
 
-### Getting Set Up and Getting Bugfixes
+You and your team should agree on a team name and enter it in this [google sheet]().
 
-Clone this repository to get the project directory.
+| Deliverables |
+|--------------|
+| Register your team in the google sheet above. |
 
-    git clone https://github.com/webgpu/2017fa_ece408_project.git
+Clone this repository to get the project folder.
 
-Download the rai binary for your platform. You will probably use it for development, and definitely use it for submission.
+    git clone https://github.com/illinois-impact/ece408_project.git
+
+Download the rai binary for your platform. 
+You will probably use it for development, and definitely use it for submission.
+
 
 | Operating System | Architecture | Stable Version (0.2.20) Link                                                             |
 | ---------------- | ------------ | ------------------------------------------------------------------------------- |
@@ -101,46 +58,28 @@ Download the rai binary for your platform. You will probably use it for developm
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
-As soon as you and your two teammates agree on a team name, fill in the corresponding entry in your `.rai_profile`.
 Your `.rai_profile` should look something like this (indented with tabs!)
 
     profile:
         firstname: <your-given-name>
         lastname: <your-surname>
         username: <your-username>
-        email: <your-access-key>
+        email: <your-institution-email>
         access_key: <your-access-key>
         secret_key: <your-secret-key>
         affiliation: uiuc
-        team:
-            name: <your-team-name-here>
-
-**Be sure you all use the same team name**.
 
 Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
 
-### 1.1: Run the Baseline Forward Pass
+Run the built-in MXNet forward pass using rai
 
-**Goal: Run CPU code in rai**
-
-The neural network architecture used for this project is shown below.
-
-| Layer |       Desc      |
-|-------|-----------------|
-| 0     | input           |
-| 1     | convolution     |
-| 2     | tanh            |
-| 3     | pooling         |
-| 4     | fully connected |
-| 5     | tanh            |
-| 6     | fully connected |
-| 7     | softmax         |
+Consult `m1.1py` to examine the neural-network architecture used in this project.
 
 Use RAI to run a batch forward pass on some test data.
 
     rai -p <project-folder>
 
-This will upload your project directory to rai (running on an IBM 8335-GTB "Minsky") and move it to `/src`, where the execution specified in `rai_build.yml` will occur. For this CPU run, leave `rai_build.yml` untouched, but look at its contents.
+This will upload your project directory to rai (running on AWS) and move it to `/src`, where the execution specified in `rai_build.yml` will occur. 
 
 The `image:` key specifies the environment that the rest of the execution will occur in.
 This environment includes a prebuilt MXNet (so rai will only do a partial compile with your code) as well as the model definition and the training data.
@@ -154,26 +93,21 @@ MXNet is recompiled, and the Python bindings are installed.
 
 You should see the following output:
 
-    Loading fashion-mnist data... done
-    Loading model... done
-    EvalMetric: {'accuracy': 0.8673}
+    TODO
 
-**Deliverables (to be submitted with Milestone 2)** 
-In your report, confirm that this is the output you see. Use `/usr/bin/time` to measure the elapsed time of the whole python program.
+Modify `rai_build.yml` to use `/usr/bin/time` to measure the elapsed time of the whole program.
 
-### 1.2: Run the baseline GPU implementation
+    - /usr/bin/time python m1.1.py
 
-**Goal: Run GPU code in rai**
+| Deliverables |
+|--------------|
+| Show output of rai running MXNet on the CPU in report |
+| List program run time in report |
 
-To switch to a GPU run, you will need to modify rai_build.yml.
 
-| original line | replacement line | 
-| -- | -- | 
-| `image: cwpearson/2017fa_ece408_mxnet_docker:amd64-cpu-latest` | `image: cwpearson/2017fa_ece408_mxnet_docker:amd64-gpu-latest` |
-| `count: 0` | `count: 1` |
-| `python /src/m1.1.py` | `python /src/m1.2.py` |
+Next, we will run on the GPU!
 
-This uses a rai environment with MXNet built for CUDA, tells rai to use a GPU, and runs `m1.2.py` instead of `m1.1.py`.
+Modify `rai_build.yml` to run `python m1.2.py`
 
 Compare `m1.2.py` and `m1.1.py`. You'll see that it is the same, except for `mx.gpu()` has been substituted for `mx.cpu()`. This is how we tell MXNet that we wish to use a GPU instead of a CPU.
 
@@ -181,12 +115,12 @@ Again, submit to rai
 
     rai -p <project-folder>
 
-**Deliverables (to be submitted with Milestone 2)** 
-In your report, confirm the accuracy. Use `/usr/bin/time` to measure the elapsed time of the whole python program.
+| Deliverables |
+|--------------|
+| Show output of rai running MXNet on the GPU in report |
+| List program run time in report |
 
-### 1.3 Generate a NVPROF Profile
-
-**Goal: Be able to use nvprof for performance evaluation**
+Next, we will learn how to use `nvprof` to profile the execution 
 
 Once you've gotten the appropriate accuracy results, generate a profile using nvprof. You will be able to use nvprof to evaluate how effective your optimizations are.
 As described above, make sure `rai_build.yml` is configured for a GPU run.
@@ -221,10 +155,14 @@ You can see how much time MXNet is spending on a variety of the operators.
 Each line correspnds to a CUDA kernel or an API call.
 There are columns corresponding to percentage of time consumed, total time, number of calls, and average/min/max time of those calls.
 
+| Deliverables |
+|--------------|
+| Include a list of all kernels that collectively consume more than 90% of the program time. |
+| Include a list of all CUDA API calls that collectively consume more than 90% of the program time. |
+| Include an explanation of the difference between kernels and API calls in your report |
+
 You can find more information about nvprof in the [CUDA Toolkit Documentation](http://docs.nvidia.com/cuda/profiler-users-guide/index.html#nvprof-overview)
 
-**Deliverables (to be submitted with Milestone 2)** 
-In your report, list a table of the most time-consuming kernels.
 
 ## Milestone 2
 **A New CPU Convolution Layer in MXNet: Due 10pm Friday November 17th, 2017**
@@ -483,8 +421,7 @@ Or, you can define a macro/function similar to `wbCheck` used in WebGPU.
 
 ### Profiling
 
-You can gather detailed GPU profile information with `nvprof`.
-To use `nvprof`, you'll need to be using the `cwpearson/2017fa_ece408_mxnet_docker:amd64-gpu-latest` image.
+You can gather detailed GPU profile information with `nvprof` and view that information with `nvvp`.
 
 You can see some simple information like so (as we did in milestone 1):
 
@@ -515,26 +452,28 @@ To import the files:
 
 ### Installing NVVP on EWS
 
-This will install nvvp on the EWS machines. The process will be similar for any machine without an NVIDIA GPU.
+The process will be similar for any machine without an NVIDIA GPU (like your linux laptop).
+
+If you wish to install it on Windows or macOS, the CUDA Toolkit installer may partially fail if you do not have an NVIDIA GPU.
+The teaching staff doesn't support this, but you may be able to figure it out.
 
 Establish an ssh session with x-forwarding
 
     ssh -Y <netid>@linux.ews.illinois.edu
 
-Download CUDA toolkit for CentOS 7
+Download CUDA toolkit for CentOS 7 and install to `~/software/cuda-9.0` (You may choose a different location).
+This takes a while (1GB+ download and install).
 
-    wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run -O cuda9.run
-
-Install nvvp (to `~/software/cuda-9.0`. You may choose a different location.) This takes a while.
-
-    chmod +x cuda9.run
-    ./cuda9.run --silent --toolkit --toolkitpath=$HOME/software/cuda-9.0
+    mkdir -p $HOME/software \
+    && wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run -O cuda9.run \
+    && chmod +x cuda9.run \
+    && ./cuda9.run --silent --toolkit --toolkitpath=$HOME/software/cuda-9.0
 
 Free up your EWS space (I'm not sure what the disk quotas are)
 
     rm cuda9.run
 
-Optional: modify .bashrc to add `~/software/cuda-9.0/bin` to your path. Or, just run it
+Optional: modify .bashrc to add `~/software/cuda-9.0/bin` to your path. Or, just run it directly
 
     ~/software/cuda-9.0/bin/nvvp &
 
@@ -571,14 +510,9 @@ You can always uninstall the python package with
 
     pip uninstall mxnet
 
-Download the fashion-mnist dataset
+Download the fashion-mnist dataset and generate the larger data (this may take a few minutes and consume a few hundred megabytes of disk space).
 
-    mkdir fashion-mnist \
-    && wget -P fashion-mnist \
-        http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz \
-        http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz \
-        http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz \
-        http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz
+    python generate-data.py
 
 Modify the python forward convolution scripts to point to where you downloaded fashion-mnist
 
@@ -588,24 +522,22 @@ Download the trained models (for the existing MXNet implementation and your impl
 
     mkdir -p models \
     && wget -P models \
-        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/baseline-0001.params \
-        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/baseline-symbol.json \
-        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/ece408-high-0001.params \
-        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/ece408-high-symbol.json \
-        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/ece408-low-0001.params \
-        https://github.com/cwpearson/2017fa_ece408_mxnet_docker/raw/master/models/ece408-low-symbol.json
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/baseline-0001.params \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/baseline-symbol.json \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/ece408-high-0001.params \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/ece408-high-symbol.json \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/ece408-low-0001.params \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/ece408-low-symbol.json
 
 Modify the python forward convolution scripts to point to where you downloaded fashion-mnist
 
-    lenet_model = mx.mod.Module.load( prefix='models/baseline' ... 
+    lenet_model = mx.mod.Module.load( prefix='models/baseline' ...
 
-Modify `build.sh` to point at your MXNet code.
+Build your modified MXNet
 
-    ...
-    MXNET_SRC_ROOT=<your incubator-mxnet path here>
-    ...
+    TODO
 
 
 ## License
 
-NCSA/UIUC © [Carl Pearson](https://cwpearson.github.io)
+NCSA/UIUC © 2018 [Carl Pearson](https://cwpearson.github.io)
