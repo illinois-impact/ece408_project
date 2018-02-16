@@ -34,13 +34,22 @@ TODO
 
 Due TODO
 
-As with all milestones, you will include an updated PDF `report.pdf` with all of the required deliverables for this and preceeding milestones.
-
-You and your team should agree on a team name and enter it in this [google sheet]().
+As with all milestones, you will include an updated PDF `report.pdf` in the project directory you submit with rai.
+This report should contain all of the deliverables.
+This report should contain your names, netids, rai ids (if different), team names, and school affiliation (Chicago or UIUC).
 
 | Deliverables |
-|--------------|
-| Register your team in the google sheet above. |
+| ------------ |
+| Register your team in the google sheet. |
+| Report: Include a list of all kernels that collectively consume more than 90% of the program time. |
+| Report: Include a list of all CUDA API calls that collectively consume more than 90% of the program time. |
+| Report: Include an explanation of the difference between kernels and API calls |
+| Report: Show output of rai running MXNet on the CPU |
+| Report: List program run time |
+| Report: Show output of rai running MXNet on the GPU |
+| Report: List program run time |
+
+You and your team should agree on a team name and enter it in this [google sheet]().
 
 Clone this repository to get the project folder.
 
@@ -99,10 +108,6 @@ Modify `rai_build.yml` to use `/usr/bin/time` to measure the elapsed time of the
 
     - /usr/bin/time python m1.1.py
 
-| Deliverables |
-|--------------|
-| Show output of rai running MXNet on the CPU in report |
-| List program run time in report |
 
 
 Next, we will run on the GPU!
@@ -115,10 +120,7 @@ Again, submit to rai
 
     rai -p <project-folder>
 
-| Deliverables |
-|--------------|
-| Show output of rai running MXNet on the GPU in report |
-| List program run time in report |
+
 
 Next, we will learn how to use `nvprof` to profile the execution 
 
@@ -130,44 +132,35 @@ Then, modify `rai_build.yml` to generate a profile instead of just execuing the 
 
 You should see something that looks like the following:
 
-    ✱ Running nvprof python m1.2.py
-    Loading fashion-mnist data... done
-    ==308== NVPROF is profiling process 308, command: python     /src/m1.2.py
-    Loading model... done
-    EvalMetric: {'accuracy': 0.8673}
-    ==308== Profiling application: python /src/m1.2.py
-    ==308== Profiling result:
-    Time(%)      Time     Calls       Avg       Min       Max  Name
-     30.77%  8.7488ms         1  8.7488ms  8.7488ms  8.7488ms  sgemm_128x128x8_NT_vec
-     24.47%  6.9571ms        13  535.16us     480ns  5.8152ms  [CUDA memcpy HtoD]
-     16.39%  4.6598ms         2  2.3299ms  92.225us  4.5676ms  void
-     ... < snip > ...
-    
-    ==308== API calls:
-    Time(%)      Time     Calls       Avg       Min       Max  Name
-     52.04%  4.08135s        10  408.14ms  1.1290us  1.02416s  cudaFree
-     37.08%  2.90862s        16  181.79ms  26.465us  1.45398s  cudaStreamCreateWithFlags
-      9.95%  780.12ms        24  32.505ms  316.37us  768.95ms  cudaMemGetInfo
-    ... < snip > ...
-
+    TODO
 
 You can see how much time MXNet is spending on a variety of the operators.
 Each line correspnds to a CUDA kernel or an API call.
 There are columns corresponding to percentage of time consumed, total time, number of calls, and average/min/max time of those calls.
 
-| Deliverables |
-|--------------|
-| Include a list of all kernels that collectively consume more than 90% of the program time. |
-| Include a list of all CUDA API calls that collectively consume more than 90% of the program time. |
-| Include an explanation of the difference between kernels and API calls in your report |
+
 
 You can find more information about nvprof in the [CUDA Toolkit Documentation](http://docs.nvidia.com/cuda/profiler-users-guide/index.html#nvprof-overview)
 
 
 ## Milestone 2
-**A New CPU Convolution Layer in MXNet: Due 10pm Friday November 17th, 2017**
 
-A draft of the `report.pdf` with content up through Milestone 2 must be submitted **through rai** for this milestone.
+Due TODO
+
+As with all milestones, you will include an updated PDF `report.pdf` with all of the required deliverables for this and preceeding milestones.
+
+| Deliverables |
+| ------------ |
+| Everything from Milestone 1 |
+| Report: Include a list of all kernels that collectively consume more than 90% of the program time. |
+| Report: Include a list of all CUDA API calls that collectively consume more than 90% of the program time. |
+| Report: Include an explanation of the difference between kernels and API calls |
+| Report: Show output of rai running MXNet on the CPU |
+| Report: List program run time |
+| Report: Show output of rai running MXNet on the GPU |
+| Report: List program run time |
+
+
 
 See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information, including the data storage layout of the tensors.
 
@@ -308,21 +301,12 @@ That `Op Time` is computed by wrapping the MXNet op that you implement in a time
 
 ### Final Report
 
-You should provide a brief PDF final report `report.pdf`, with the following content.
-The report does not need to be a particular length, but should be long enough to cover all of this content.
+As with previous milestones, update your `report.pdf` to include the following:
 
-1. **Baseline Results**
-    1. M1.1: MXNet CPU layer correctness and elapsed time for the whole python program.
-     You can measure the elapsed time of the program with the `time` command.
-    2. M1.2/M1.3: MXNet GPU layer performance results (`nvprof` profile). Include your profile, and describe in a few words how the GPU is spending its time.
-    This is to confirm you can generate a profile and can interpret it.
-    3. M2.1: your baseline cpu implementation correctness and performance results (time).
-    The `Op Time:` printed by the program will show the time just for the convolution layer.
-    The implementation should have the expected correctness.
-    Include how you divided work amongst your team (even though there is not much work).
-    4. M3.1: your baseline gpu implementation performance results (time, `nvprof` profile).
-    The implementation should have the expected correctness.
-    Include how you divided work amongst your team (even though there is not much work).
+| Deliverables |
+| ------------ |
+
+
 2. **Optimization Approach and Results**
     * how you identified the optimization opportunity
     * why you thought the approach would be fruitful
@@ -334,17 +318,39 @@ The report does not need to be a particular length, but should be long enough to
 
 ### Rubric
 
-1. Optimized Layer (50%)
-    * correctness (25%)
-    * relative ranking (25%)
-2. Final Report ( 50% )
-    * Milestone 2 ( 5% )
-    * Milestone 3 ( 10% )
-    * Final Submission ( 35% )
+The overall project score will be computed as follows:
 
-**Relative Ranking**
+1. Milestone 1 ( 5% )
+2. Milestone 2 ( 10% )
+3. Milestone 3 ( 10% )
+    * Optimization 1
+4. Final Optimizations ( 60% )
+    * Optimization 2 ( 10% )
+    * Optimization 3 ( 10% )
+    * Optimization 4 ( 10% )
+    * Optimization 5 ( 10% )
+    * Optimization 6 ( 10% )
+    * Additional Optimizations / detailed insights ( 10% )
+5. Performance Ranking ( 10% )
+6. Report Style (10 %)
+    * Clear, concise writing, good layout, and good organization will be rewarded.
 
-The relative ranking will be determined in the following way:
+Each optimization will be graded as follows:
+
+1. Explanation of Performance Impact ( 40% )
+2. Correctness ( 60% )
+
+
+
+The following procedure will be used to compute the performance ranking:
+
+The median performance will be determined (how well the class did as a whole)
+Your performance will be converted to a number of standard deviations above/below that median (how well you did compared to the class).
+That value will be linearly mapped into the space of 0-15 to determine the ranking grade.
+
+## Expected Results
+
+TODO
 
 To check that your implementation is correct, I will run your code with
  * B = some large number of images (5k-10k)
@@ -359,9 +365,7 @@ Your optimized code should conform to the following results
 | ece408-low  | 10000 (default) | 0.629  |
 | ece408-low  | 2000 | 0.6275 |
 
-To compute your score, I will compute the median team performance.
-Your performance will be converted to a number of standard deviations above/below that median.
-That value will be linearly mapped into the space of 0-25 to determine the ranking grade.
+
 
 ## Skeleton Code Description
 
