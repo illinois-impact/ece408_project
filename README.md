@@ -1,4 +1,4 @@
-# ECE 408/CS483 Final Project
+# ECE408/CS483 Final Project
 
 ## Introduction
 
@@ -28,11 +28,9 @@ TODO
 * [Rubric](#rubric)
 * [Final Report](#final-report)
 
-
-
 ## Milestone 1
 
-Due TODO
+Due March 7 @ 5pm
 
 As with all milestones, you will include an updated PDF `report.pdf` in the project directory you submit with rai.
 This report should contain all of the deliverables.
@@ -160,7 +158,6 @@ There are columns corresponding to percentage of time consumed, total time, numb
 
 You can find more information about nvprof in the [CUDA Toolkit Documentation](http://docs.nvidia.com/cuda/profiler-users-guide/index.html#nvprof-overview)
 
-
 Use 
 
     rai -p <project folder> --submit=m1
@@ -169,7 +166,7 @@ to mark your submission. This will notify the teaching staff of which `report.pd
 
 ## Milestone 2
 
-Due TODO
+Due March 21 @ 5pm
 
 As with all milestones, you will include an updated PDF `report.pdf` with all of the required deliverables for this and preceeding milestones.
 
@@ -181,15 +178,9 @@ As with all milestones, you will include an updated PDF `report.pdf` with all of
 | Report: Include an explanation of the difference between kernels and API calls |
 | Report: Show output of rai running MXNet on the CPU |
 | Report: List program run time |
-| Report: Show output of rai running MXNet on the GPU |
-| Report: List program run time |
 | Use `rai -p <project folder> --submit=m2` to mark your job for grading |
 
-
-
 See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information, including the data storage layout of the tensors.
-
-### 2.1 Add a simple CPU forward implementation
 
 Modify `ece408_src/new-forward.h` to implement the forward convolution described in [Chapter 16 of the textbook](https://wiki.illinois.edu/wiki/display/ECE408Fall2017/Textbook+Chapters).
 The performance of the CPU convolution is not part of the project evaluation.
@@ -219,76 +210,100 @@ When your implementation is correct, you should see output like this:
 
     TODO
 
-`m2.1.py` takes two position arguments. The first is the model name, the second is the dataset size.
+`m2.1.py` takes one optional argument: the dataset size.
 If the correctness for each possible model is as below, you can be reasonably confident your implementation is right.
 The correctness does depend on the data size. Check your correctness on the full data size of 10000.
 
 For example, you could modify `rai_build.yml` to run
 
-    - python m2.1.py ece408-low 100
+    python m2.1.py 100
 
 | Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
 | ece408 | 10000 (default) | TODO |
+| ece408 | 100 (default) | TODO |
 
 The provided `m2.1.py` is identical to the one used by `--submit=m2`.
 You may modify `m2.1.py` as you please, but check that `--submit=m2` will still invoke your code correctly.
-
-### 2.2 Add a GPU implementation
-
-Modify `ece408_src/new-forward.cuh` to create GPU implementation of the forward convolution.
 
 Use
 
     rai -p <project folder> --submit=m2
 
-to mark your submission. This will notify the teaching staff of which `report.pdf` draft to consider.
-
+to mark your submission.
 
 ## Milestone 3
 
-Due: TODO
+Due April 18 @ 5pm
 
 | Deliverables |
 | ------------ |
 | Everything from Milestone 2 |
-| Implement a GPU optimization |
-| Report: Describe the optimization |
+| Implement a GPU Convolution |
 | Report: demonstrate `nvprof` profiling the execution |
-| Report: use NVVP to analyze your optimization |
+| Report: demonstrate `nvprof` 
 | Use `rai -p <project folder> --submit=m3` to mark your job for grading |
 
-### 3.1 Add a GPU Optimization
+### Create a GPU Implementation
 
-For this milestone, you should attempt at least one GPU optimization.
+Modify `ece408_src/new-forward.cuh` to create GPU implementation of the forward convolution.
 
-Describe the optimization in your `report.pdf`.
+Modify `rai_build.yml` to run
 
-### 3.2 Create a GPU profile with `nvprof`.
+    python m3.1.py
 
-Modify `rai_build.yml` to create a profile with NVPROF.
+to use your GPU implementation.
+When it is correct, it will show the same correctness as Milestone 2.
 
-    nvprof python m3.py
-
-You should see something like this:
-
-    TODO
-
-In this example, the forward layer took XXX seconds, and the forward_kernel took XXX seconds.
+### Use `nvprof` and NVVP for initial Performance Results
 
 Modify `rai_build.yml` to use nvprof to save some timeline and analysis information, as described in [nvprof](#profiling).
-Use the NVIDIA Visual Profiler and your analysis information to describe the effect that the optimization had on the performance of your convolution.
+Use the NVIDIA Visual Profiler and your analysis information to describe the effect that your optimizations had on the performance of your convolution.
+If possible, you should try to separate the effect of each optimization in your analysis.
 The [NVVP on EWS](#nvvp-on-ews) section describes how to install NVVP.
 
-Use `rai -p <project folder> --submit=m3` to submit your project folder.
+Use
 
-## Final Submission
+    rai -p <project folder> --submit=m3
 
-Due TODO
+to mark your submission.
+
+## Milestone 4
+
+Due May 2 @ 5pm
 
 | Deliverables |
 | ------------ |
 | Everything from Milestone 3 |
+| Implement three GPU optimizations |
+| Report: Describe the optimization |
+| Report: demonstrate `nvprof` profiling the execution |
+| Report: use NVVP to analyze your optimization |
+| Use `rai -p <project folder> --submit=m4` to mark your job for grading |
+
+### 3.1 Add three GPU Optimization
+
+For this milestone, you should attempt at least three GPU optimizations.
+
+Describe the optimizations in your `report.pdf`.
+
+### 3.2 Performance Analysis with `nvprof` and NVVP
+
+Analyze the effect of each optimization using the same techniques as Milestone 3.
+
+Use 
+    
+    rai -p <project folder> --submit=m4
+    
+to submit your project folder.
+
+## Final Submission
+
+Due May 11 @ 5pm
+
+| Deliverables |
+| ------------ |
+| Everything from Milestone 4 |
 | Implement final GPU optimizations |
 | Report: Describe and analyze the optimizations |
 | Report: demonstrate `nvprof` profiling the execution |
