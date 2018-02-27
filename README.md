@@ -48,6 +48,7 @@ This report should contain your names, netids, rai ids (if different), team name
 | Report: List program run time |
 | Report: Show output of rai running MXNet on the GPU |
 | Report: List program run time |
+| Use `rai -p <project folder> --submit=m1` to mark your job for grading |
 
 You and your team should agree on a team name and enter it in this [google sheet]().
 
@@ -102,27 +103,25 @@ MXNet is recompiled, and the Python bindings are installed.
 
 You should see the following output:
 
-    TODO
+    Loading fashion-mnist data... done
+    Loading model... done
+    EvalMetric: {'accuracy': 0.8444}
 
 Modify `rai_build.yml` to use `/usr/bin/time` to measure the elapsed time of the whole program.
 
     - /usr/bin/time python m1.1.py
 
-
-
 Next, we will run on the GPU!
-
-Modify `rai_build.yml` to run `python m1.2.py`
 
 Compare `m1.2.py` and `m1.1.py`. You'll see that it is the same, except for `mx.gpu()` has been substituted for `mx.cpu()`. This is how we tell MXNet that we wish to use a GPU instead of a CPU.
 
-Again, submit to rai
+Modify `rai_build.yml` to time `python m1.2.py`
+
+Again, submit the job to rai
 
     rai -p <project-folder>
 
-
-
-Next, we will learn how to use `nvprof` to profile the execution 
+Next, we will learn how to use `nvprof` to profile the execution
 
 Once you've gotten the appropriate accuracy results, generate a profile using nvprof. You will be able to use nvprof to evaluate how effective your optimizations are.
 As described above, make sure `rai_build.yml` is configured for a GPU run.
@@ -132,16 +131,41 @@ Then, modify `rai_build.yml` to generate a profile instead of just execuing the 
 
 You should see something that looks like the following:
 
-    TODO
+~~~bash 
+==15163== NVPROF is profiling process 15163, command: python m1.2.py
+Loading model...[13:14:46] src/operator/././cudnn_algoreg-inl.h:112: Running performance tests to find the best convolution algorithm,this can take a while... (setting env variable MXNET_CUDNN_AUTOTUNE_DEFAULT to 0 to disable)
+ done
+EvalMetric: {'accuracy': 0.8444}
+==15163== Profiling application: python m1.2.py
+==15163== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   39.66%  88.817ms      1002  88.639us  67.553us  112.64us  maxwell_scudnn_128x32_relu_interior_nn
+                   30.78%  68.932ms      1000  68.932us  6.4010us  137.51us  sgemm_32x32x32_NT_vec
+                    7.08%  15.849ms      1018  15.569us     608ns  1.0653ms  [CUDA memcpy HtoD]
+                    6.58%  14.726ms      1000  14.725us  3.0080us  30.145us  void 
 
-You can see how much time MXNet is spending on a variety of the operators.
-Each line correspnds to a CUDA kernel or an API call.
+...
+
+      API calls:   38.57%  1.68099s        22  76.409ms  20.706us  844.45ms  cudaStreamCreateWithFlags
+                   29.08%  1.26736s        50  25.347ms     560ns  328.56ms  cudaFree
+                   20.76%  904.87ms        27  33.514ms  45.260us  902.77ms  cudaMemGetInfo
+                    4.00%  174.45ms      4520  38.595us  1.9200us  1.2852ms  cudaStreamSynchronize
+                    3.03%  131.95ms      1506  87.617us  11.564us  1.3006ms  cudaMemcpy2DAsync
+
+...
+~~~
+
+The GPU Activities section shows the kernels, and the API calls section shows the APIs.
 There are columns corresponding to percentage of time consumed, total time, number of calls, and average/min/max time of those calls.
-
-
 
 You can find more information about nvprof in the [CUDA Toolkit Documentation](http://docs.nvidia.com/cuda/profiler-users-guide/index.html#nvprof-overview)
 
+
+Use 
+
+    rai -p <project folder> --submit=m1
+
+to mark your submission. This will notify the teaching staff of which `report.pdf` draft to consider.
 
 ## Milestone 2
 
@@ -159,14 +183,13 @@ As with all milestones, you will include an updated PDF `report.pdf` with all of
 | Report: List program run time |
 | Report: Show output of rai running MXNet on the GPU |
 | Report: List program run time |
+| Use `rai -p <project folder> --submit=m2` to mark your job for grading |
 
 
 
 See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information, including the data storage layout of the tensors.
 
 ### 2.1 Add a simple CPU forward implementation
-
-**Goal: successfully edit code and run in rai**
 
 Modify `ece408_src/new-forward.h` to implement the forward convolution described in [Chapter 16 of the textbook](https://wiki.illinois.edu/wiki/display/ECE408Fall2017/Textbook+Chapters).
 The performance of the CPU convolution is not part of the project evaluation.
@@ -194,14 +217,10 @@ Modify rai_build.yml to invoke
 
 When your implementation is correct, you should see output like this:
 
-    ✱ Running python /src/m2.1.py
-    Loading fashion-mnist data... done
-    Loading model... done
-    Time: 12.819000
-    Correctness: 0.8562 Batch Size: 10000 Model: ece408-high
+    TODO
 
-`m2.1.py` takes two position arguments. The first is the model name, the second is the dataset size. 
-If the correctness for each possible model is as below, you can be reasonably confident your implementation is right. 
+`m2.1.py` takes two position arguments. The first is the model name, the second is the dataset size.
+If the correctness for each possible model is as below, you can be reasonably confident your implementation is right.
 The correctness does depend on the data size. Check your correctness on the full data size of 10000.
 
 For example, you could modify `rai_build.yml` to run
@@ -210,70 +229,74 @@ For example, you could modify `rai_build.yml` to run
 
 | Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
-| ece408-high | 10000 (default) | 0.8562 |
-| ece408-low  | 10000 (default) | 0.629  |
+| ece408 | 10000 (default) | TODO |
 
 The provided `m2.1.py` is identical to the one used by `--submit=m2`.
 You may modify `m2.1.py` as you please, but check that `--submit=m2` will still invoke your code correctly.
 
-**Deliverables**
-Use 
+### 2.2 Add a GPU implementation
+
+Modify `ece408_src/new-forward.cuh` to create GPU implementation of the forward convolution.
+
+Use
 
     rai -p <project folder> --submit=m2
 
 to mark your submission. This will notify the teaching staff of which `report.pdf` draft to consider.
 
-This will run your code against the two datasets, and check the time and correctness.
-
-Your `report.pdf` at this stage should contain content up through M2.1  described in the final report section.
-
 
 ## Milestone 3
-**A New GPU Convolution Layer in MXNet: Due 5pm Friday December 1st, 2017**
 
-A draft of the `report.pdf` with content up through Milestone 3 must be submitted **through rai** for this milestone.
+Due: TODO
 
-### 3.1 Add a simple GPU forward implementation
+| Deliverables |
+| ------------ |
+| Everything from Milestone 2 |
+| Implement a GPU optimization |
+| Report: Describe the optimization |
+| Report: demonstrate `nvprof` profiling the execution |
+| Report: use NVVP to analyze your optimization |
+| Use `rai -p <project folder> --submit=m3` to mark your job for grading |
 
-**Goal: successfully edit code and run in rai**
+### 3.1 Add a GPU Optimization
 
-Modify `ece408_src/new-forward.cuh` to implement a forward GPU convolution.
-You may run your code with `python m3.1.py`. It takes the same arguments as `m2.1py`.
-Again, if you choose to modify `m3.1.py`, be sure the original still works with your convolution implementation.
+For this milestone, you should attempt at least one GPU optimization.
+
+Describe the optimization in your `report.pdf`.
 
 ### 3.2 Create a GPU profile with `nvprof`.
 
-Once you have a simple GPU implementation, modify `rai_build.yml` to create a profile with NVPROF.
+Modify `rai_build.yml` to create a profile with NVPROF.
+
+    nvprof python m3.py
+
 You should see something like this:
 
-    ✱ Running nvprof python m3.1.py
-    Loading fashion-mnist data... done
-    ==308== NVPROF is profiling process 308, command: python m3.1.py
-    Loading model... done
-    Time: 14.895404
-    Correctness: 0.8562 Batch Size: 10000 Model: ece408-high
-    ==308== Profiling application: python /src/m3.1.py
-    ==308== Profiling result:
-    Time(%)      Time     Calls       Avg       Min       Max  Name
-    99.43%  14.8952s         1  14.8952s  14.8952s  14.8952s  void mxnet::op::forward_kernel<mshadow::gpu, float>(float*, mxnet::op::forward_kernel<mshadow::gpu, float> const *, mxnet::op::forward_kernel<mshadow::gpu, float> const , int, int, int, int, int, int)
+    TODO
 
-In this example, the forward layer took 14.8954 seconds, and the forward_kernel took 14.8952 seconds.
+In this example, the forward layer took XXX seconds, and the forward_kernel took XXX seconds.
 
-You can create a single profile for ece408-high with 10000 images.
+Modify `rai_build.yml` to use nvprof to save some timeline and analysis information, as described in [nvprof](#profiling).
+Use the NVIDIA Visual Profiler and your analysis information to describe the effect that the optimization had on the performance of your convolution.
+The [NVVP on EWS](#nvvp-on-ews) section describes how to install NVVP.
 
-**Deliverables**
-Again, use `rai -p <project folder> --submit=m3` to submit your code.
-
-Your `report.pdf` at this stage should contain content up through M3.1 described in the final report section.
+Use `rai -p <project folder> --submit=m3` to submit your project folder.
 
 ## Final Submission
-**An Optimized Layer and Final Report: Due 6am Tuesday December 19th, 2017**
+
+Due TODO
+
+| Deliverables |
+| ------------ |
+| Everything from Milestone 3 |
+| Implement final GPU optimizations |
+| Report: Describe and analyze the optimizations |
+| Report: demonstrate `nvprof` profiling the execution |
+| Use `rai -p <project folder> --submit=final` to mark your job for grading |
 
 ### Optimized Layer
 
 Optimize your GPU convolution.
-
-Your implementation will be partially graded on its performance relative to other optimized implementations from the class.
 
 Your implementation must work with `rai -p <project-folder> --submit=final`.
 This means all your source files must be in `ece408_src`, and your implementation must work when they are copied to `src/operator/custom` in the MXNet tree, and `make` is invoked on the MXNet tree.
@@ -284,28 +307,13 @@ All of your code for this and the later milestones must be executed between `aut
 The easiest way to ensure this is that all of your code should be in `forward()` or called by `forward()` from `new-forward.cuh` or `new-forward.h`.
 Do not modify any timing-related code.
 
-You may use nvprof to collect more detailed information through timeline and analysis files.
-
-    nvprof -o timeline.nvprof <your executable>
-    nvprof --analysis-metrics -o analysis.nvprof <your executable>
-
-you can collect the generated files by following the download link reported by rai at the end of the execution.
-`--analysis-metrics` significantly slows the run time, you may wish to modify the python scripts to run on smaller datasets during this profiling.
 
 The ranking is determined by the minimum run time of kernels with correct inferences which are run with the `--submit` flag.
 The `rai ranking` command is not the final word: the staff will re-run all final submissions 3 times and choose the fastest result as your time.
 THe ranking is determined solely by the same value printed by `Op Time:` during your run.
 That `Op Time` is computed by wrapping the MXNet op that you implement in a timer.
 
-**Deliverables**
-
-### Final Report
-
-As with previous milestones, update your `report.pdf` to include the following:
-
-| Deliverables |
-| ------------ |
-
+Use `rai -p <project folder> --submit=final` to submit your project folder.
 
 2. **Optimization Approach and Results**
     * how you identified the optimization opportunity
@@ -405,15 +413,16 @@ You can see this being constructed in `new-inl.h`/`InferShape()`.
 
 The execution environment provides two models for the new convolutional layer you implement:
 
+TODO
 | Prefix | Test Set Accuracy |
 | -- | -- |
-| `models/ece408-high` | 0.8562 |
-| `models/ece408-low` | 0.6290 |
+| `models/ece408` | 0.8562 |
 
 When testing your implementation, you should achieve these accuracy values for the CPU or GPU implementation.
 
 There is also one model used in milestone 1.
 
+TODO
 | Prefix | Test Set Accuracy |
 | -- | -- |
 | `models/baseline` | 0.8673 |
@@ -443,6 +452,7 @@ You can additionally gather some detailed performance metrics.
     nvprof --analysis-metrics -o analysis.nvprof <the same command>
 
 This will generate `timeline.nvprof` and `analysis.nvprof`.
+`--analysis-metrics` significantly slows the run time, you may wish to modify the python scripts to run on smaller datasets during this profiling.
 
 You will need to follow the link rai prints after the execution to retrieve these files.
 You can use the NVIDIA Visual Profiler (nvvp) to import those files.
@@ -454,7 +464,7 @@ To import the files:
 * event/metrics data file should be your analysis.nvprof.
 * finish
 
-### Installing NVVP on EWS
+### NVVP on EWS
 
 The process will be similar for any machine without an NVIDIA GPU (like your linux laptop).
 
