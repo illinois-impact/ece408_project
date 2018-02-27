@@ -19,9 +19,10 @@ If you are unsure about whether something does not meet those guidelines, ask a 
 
 ## Table of Contents
 
-* [Milestone 1: Due TBD](#milestone-1)
-* [Milestone 2: Due TBD](#milestone-2)
-* [Milestone 3: Due TBD](#milestone-3)
+* [Milestone 1: Due 3/7@5pm](#milestone-1)
+* [Milestone 2: Due 3/21@5pm](#milestone-2)
+* [Milestone 3: Due 4/18@5pm](#milestone-3)
+* [Milestone 4: Due 5/2@5pm](#milestone-4)
 * [Final Submission: Due TBD](#final-submission)
 * [Rubric](#rubric)
 * [Final Report](#final-report)
