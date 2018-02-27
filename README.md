@@ -19,14 +19,13 @@ If you are unsure about whether something does not meet those guidelines, ask a 
 
 ## Table of Contents
 
-TODO
-
 * [Milestone 1: Due TBD](#milestone-1)
 * [Milestone 2: Due TBD](#milestone-2)
 * [Milestone 3: Due TBD](#milestone-3)
 * [Final Submission: Due TBD](#final-submission)
 * [Rubric](#rubric)
 * [Final Report](#final-report)
+* [Extras](#extras)
 
 ## Milestone 1
 
@@ -208,7 +207,14 @@ Modify rai_build.yml to invoke
 
 When your implementation is correct, you should see output like this:
 
-    TODO
+    Loading fashion-mnist data... done
+    Loading model... done
+    Op Time: [ some time ]
+    Op Time: [ some time ]
+    Correctness: 0.8451 Model: ece408
+
+Every time your layer is invoked, it will print the "Op Time," the time spent working on that layer.
+Since the network has two convolutional layers, two times will be printed.
 
 `m2.1.py` takes one optional argument: the dataset size.
 If the correctness for each possible model is as below, you can be reasonably confident your implementation is right.
@@ -220,8 +226,9 @@ For example, you could modify `rai_build.yml` to run
 
 | Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
-| ece408 | 10000 (default) | TODO |
-| ece408 | 100 (default) | TODO |
+| ece408 | 10000 (default) | 0.8451 |
+| ece408 | 100 | 0.88 |
+| ece408 | 10 | 1 |
 
 The provided `m2.1.py` is identical to the one used by `--submit=m2`.
 You may modify `m2.1.py` as you please, but check that `--submit=m2` will still invoke your code correctly.
@@ -363,84 +370,15 @@ Each optimization will be graded as follows:
 1. Explanation of Performance Impact ( 40% )
 2. Correctness ( 60% )
 
+The Performance Ranking will be graded as follows:
+
+1. The median performance will be determined (how well the class did as a whole)
+2. Your performance will be converted to a number of standard deviations above/below that median (how well you did compared to the class).
+3. That value will be linearly mapped into the space of 0-10 to determine the ranking grade.
 
 
-The following procedure will be used to compute the performance ranking:
-
-The median performance will be determined (how well the class did as a whole)
-Your performance will be converted to a number of standard deviations above/below that median (how well you did compared to the class).
-That value will be linearly mapped into the space of 0-15 to determine the ranking grade.
-
-## Expected Results
-
-TODO
-
-To check that your implementation is correct, I will run your code with
- * B = some large number of images (5k-10k)
- * models = `ece408-high`, `ece408-low`, some other model you haven't seen
-
-Your optimized code should conform to the following results
-
-| Model | Number of Images | Correctness  |
-|-------------| -----| -----  |
-| ece408-high | 10000 (default) | 0.8562 |
-| ece408-high | 2000 | 0.8625  | 
-| ece408-low  | 10000 (default) | 0.629  |
-| ece408-low  | 2000 | 0.6275 |
-
-
-
-## Skeleton Code Description
-
-`new-forward.h` and `new-forward.cuh` contain skeleton implementations for CPU and GPU convolutions. You can complete the project by modifying only these two files. These functions are called from `Forward()` in `new-inl.h`.
-
-The code in `new-inl.h`, `new.cc`, and `new.cu` describes the convolution layer to MXNet. You should not modify these files. They are provided for your curiosity.
-As of rai 0.2.20, When you use the `--submit` flag, a golden version of these files from [here](https://github.com/cwpearson/2017fa_ece408_mxnet_docker/tree/master/ece408-src) is used.
-
-| File | Function | Description |
-| -- | -- | -- |
-| `new-forward.h` | `forward()` | Your CPU implementation goes here. |
-| `new-forward.cuh` | `forward()` | Your GPU host code goes here. |
-| `new-forward.cuh` | `forward_kernel()` | Your GPU kernel implementation goes here. |
-| -- | -- | -- |
-| `new-inl.h` | `InferShape()` | Computes shape of output tensor from input and kernel shape |
-| `new-inl.h` | `InferType()` | Computes type of the output tensor based on the inputs. |
-| `new-inl.h` | `Forward()` | Defines the operations of the forward pass. Calls our implementation. |
-| `new-inl.h` | `Backward()` | Defines the operations of the backward (training) pass. Not used in this project. |
-| `new-inl.h` | `struct NewParam` | Defines the arguments passed to the operator in python. |
-| `new.cc` | `CreateOperatorEx()` | Called by MXNet to create the appropriate operator for a CPU or GPU execution. |
-| `new.cc` | `CreateOp<cpu>()` | Creates the CPU operator. |
-| `new.cu` | `CreateOp<gpu>()` | Creates the GPU operator when CUDA is enabled. |
-
-The `x`, `y`, and `k` tensors constructed in `new-inl.h`/`Forward()` have the following data layout:
-
-| Tensor | Descrption | Data Layout |
-| -- | -- | -- |
-| `x` | Input data     | batch size * input channels * y * x |
-| `y` | Output data    | batch size * output channels * y * x |
-| `k` | kernel weights | output channels * input channels * y * x |
-
-You can see this being constructed in `new-inl.h`/`InferShape()`.
 
 ## Extras
-
-### Provided Model Weights
-
-The execution environment provides two models for the new convolutional layer you implement:
-
-TODO
-| Prefix | Test Set Accuracy |
-| -- | -- |
-| `models/ece408` | 0.8562 |
-
-When testing your implementation, you should achieve these accuracy values for the CPU or GPU implementation.
-
-There is also one model used in milestone 1.
-
-TODO
-| Prefix | Test Set Accuracy |
-| -- | -- |
-| `models/baseline` | 0.8673 |
 
 ### Checking for Errors
 
@@ -549,6 +487,7 @@ Modify the python forward convolution scripts to point to where you downloaded f
 
 Download the trained models (for the existing MXNet implementation and your implementation)
 
+    TODO
     mkdir -p models \
     && wget -P models \
         https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/baseline-0001.params \
@@ -564,7 +503,41 @@ Modify the python forward convolution scripts to point to where you downloaded f
 
 Build your modified MXNet
 
-    TODO
+    cp <your source files> incubator-mxnet/src/operator/custom
+    make -C incubator-mxnet/
+
+
+### Skeleton Code Description
+
+`new-forward.h` and `new-forward.cuh` contain skeleton implementations for CPU and GPU convolutions. You can complete the project by modifying only these two files. These functions are called from `Forward()` in `new-inl.h`.
+
+The code in `new-inl.h`, `new.cc`, and `new.cu` describes the convolution layer to MXNet. You should not modify these files. They are provided for your curiosity.
+As of rai 0.2.20, When you use the `--submit` flag, a golden version of these files from [here](https://github.com/cwpearson/2017fa_ece408_mxnet_docker/tree/master/ece408-src) is used.
+
+| File | Function | Description |
+| -- | -- | -- |
+| `new-forward.h` | `forward()` | Your CPU implementation goes here. |
+| `new-forward.cuh` | `forward()` | Your GPU host code goes here. |
+| `new-forward.cuh` | `forward_kernel()` | Your GPU kernel implementation goes here. |
+| -- | -- | -- |
+| `new-inl.h` | `InferShape()` | Computes shape of output tensor from input and kernel shape |
+| `new-inl.h` | `InferType()` | Computes type of the output tensor based on the inputs. |
+| `new-inl.h` | `Forward()` | Defines the operations of the forward pass. Calls our implementation. |
+| `new-inl.h` | `Backward()` | Defines the operations of the backward (training) pass. Not used in this project. |
+| `new-inl.h` | `struct NewParam` | Defines the arguments passed to the operator in python. |
+| `new.cc` | `CreateOperatorEx()` | Called by MXNet to create the appropriate operator for a CPU or GPU execution. |
+| `new.cc` | `CreateOp<cpu>()` | Creates the CPU operator. |
+| `new.cu` | `CreateOp<gpu>()` | Creates the GPU operator when CUDA is enabled. |
+
+The `x`, `y`, and `k` tensors constructed in `new-inl.h`/`Forward()` have the following data layout:
+
+| Tensor | Descrption | Data Layout |
+| -- | -- | -- |
+| `x` | Input data     | batch size * input channels * y * x |
+| `y` | Output data    | batch size * output channels * y * x |
+| `k` | kernel weights | output channels * input channels * y * x |
+
+You can see this being constructed in `new-inl.h`/`InferShape()`.
 
 
 ## License
