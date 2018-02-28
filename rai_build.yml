@@ -1,6 +1,6 @@
 rai:
   version: 0.2
-  image: cwpearson/ece408_mxnet_docker:amd64-gpu-master-latest
+  image: cwpearson/ece408_mxnet_docker:amd64-gpu-2018sp-latest
 resources:
   cpu:
     architecture: amd64
@@ -10,8 +10,9 @@ resources:
   network: false
 commands:
   build:
+    - /bin/bash -c "cp -rv /ece408_src/* /mxnet/src/operator/custom" # copy golden files to mxnet source tree
     - /bin/bash -c "cp -rv /src/* /build" # copy the project folder to /build so everything appears in the upload
     - /bin/bash -c "for src in ece408_src/*; do cp -v $src /mxnet/src/operator/custom/.; done" # copy source files to mxnet tree
     - nice -n20 make -C /mxnet # build mxnet
-    - pip install --user -e /mxnet/python   # install python bindings
+    - pip2 install --user -e /mxnet/python   # install python bindings
     - python m1.1.py # execute code

@@ -495,18 +495,15 @@ Modify the python forward convolution scripts to point to where you downloaded f
 
     ... load_mnist(path="fashion-mnist", ...)
 
-Download the trained models (for the existing MXNet implementation and your implementation)
+Download the trained models (for the existing MXNet implementation and your implementation) using 
 
-    TODO
     mkdir -p models \
     && wget -P models \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/baseline-0001.params \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/baseline-0002.params \
         https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/baseline-symbol.json \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/ece408-high-0001.params \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/ece408-high-symbol.json \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/ece408-low-0001.params \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/ece408-low-symbol.json
-
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/ece408-002.params \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/ece408-symbol.json
+        
 Modify the python forward convolution scripts to point to where you downloaded fashion-mnist
 
     lenet_model = mx.mod.Module.load( prefix='models/baseline' ...

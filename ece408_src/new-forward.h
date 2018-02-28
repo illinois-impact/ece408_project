@@ -9,8 +9,7 @@ namespace mxnet
 namespace op
 {
 
-// This function is called by new-inl.h
-// Any code you write should be executed by this function
+
 template <typename cpu, typename DType>
 void forward(mshadow::Tensor<cpu, 4, DType> &y, const mshadow::Tensor<cpu, 4, DType> &x, const mshadow::Tensor<cpu, 4, DType> &k)
 {
@@ -21,7 +20,6 @@ void forward(mshadow::Tensor<cpu, 4, DType> &y, const mshadow::Tensor<cpu, 4, DT
     The goal here is to be correct, not fast (this is the CPU implementation.)
     */
 
-    
     const int B = x.shape_[0];
     // const int M = y.shape_[1];
     // const int C = x.shape_[1];
@@ -30,13 +28,13 @@ void forward(mshadow::Tensor<cpu, 4, DType> &y, const mshadow::Tensor<cpu, 4, DT
     // const int K = w.shape_[3];
 
     for (int b = 0; b < B; ++b) {
-        CHECK_EQ(0, 1) << "Missing an ECE408 CPU implementation!";
+
+        CHECK_EQ(0,1) << "Remove this line and replace it with your implementation.";
 
         /* ... a bunch of nested loops later...
             y[b][m][h][w] += x[b][c][h + p][w + q] * k[m][c][p][q];
         */
     }
-
 
 }
 }
