@@ -23,7 +23,7 @@ If you are unsure about whether something does not meet those guidelines, ask a 
 * [Milestone 2: Due 3/21@5pm](#milestone-2)
 * [Milestone 3: Due 4/18@5pm](#milestone-3)
 * [Milestone 4: Due 5/2@5pm](#milestone-4)
-* [Final Submission: Due TBD](#final-submission)
+* [Final Submission: Due 5/11@5pm](#final-submission)
 * [Rubric](#rubric)
 * [Final Report](#final-report)
 * [Extras](#extras)
@@ -60,9 +60,9 @@ You will probably use it for development, and definitely use it for submission.
 
 | Operating System | Architecture | Stable Version (0.2.20) Link                                                             |
 | ---------------- | ------------ | ------------------------------------------------------------------------------- |
-| Linux            | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.20/linux-amd64.tar.gz)   |
-| OSX/Darwin       | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.20/darwin-amd64.tar.gz)  |
-| Windows          | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.20/windows-amd64.tar.gz) |
+| Linux            | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.23/linux-amd64.tar.gz)   |
+| OSX/Darwin       | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.23/darwin-amd64.tar.gz)  |
+| Windows          | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.23/windows-amd64.tar.gz) |
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
@@ -173,10 +173,10 @@ As with all milestones, you will include an updated PDF `report.pdf` with all of
 | Deliverables |
 | ------------ |
 | Everything from Milestone 1 |
+| Create a  CPU implementation |
 | Report: Include a list of all kernels that collectively consume more than 90% of the program time. |
 | Report: Include a list of all CUDA API calls that collectively consume more than 90% of the program time. |
 | Report: Include an explanation of the difference between kernels and API calls |
-| Report: Show output of rai running MXNet on the CPU |
 | Report: List program run time |
 | Use `rai -p <project folder> --submit=m2` to mark your job for grading |
 
@@ -249,7 +249,6 @@ Due April 18 @ 5pm
 | Everything from Milestone 2 |
 | Implement a GPU Convolution |
 | Report: demonstrate `nvprof` profiling the execution |
-| Report: demonstrate `nvprof` 
 | Use `rai -p <project folder> --submit=m3` to mark your job for grading |
 
 ### Create a GPU Implementation
@@ -330,22 +329,28 @@ All of your code for this and the later milestones must be executed between `aut
 The easiest way to ensure this is that all of your code should be in `forward()` or called by `forward()` from `new-forward.cuh` or `new-forward.h`.
 Do not modify any timing-related code.
 
-
-The ranking is determined by the minimum run time of kernels with correct inferences which are run with the `--submit` flag.
-The `rai ranking` command is not the final word: the staff will re-run all final submissions 3 times and choose the fastest result as your time.
-THe ranking is determined solely by the same value printed by `Op Time:` during your run.
-That `Op Time` is computed by wrapping the MXNet op that you implement in a timer.
-
 Use `rai -p <project folder> --submit=final` to submit your project folder.
 
-2. **Optimization Approach and Results**
+### Final Report
+
+You've been building this final report through all the milestones.
+Keep the content from the earlier milestones, but be sure to include the following:
+
+* Your team name
+* Your team member names
+* your netids
+* your UINs
+
+The final report should include at least the following information for each optimization
+
+1. **Optimization Approach and Results**
     * how you identified the optimization opportunity
     * why you thought the approach would be fruitful
-    * the effect of the optimization. was it fruitful, and why or why not. Use nvprof as needed to justify your explanation.
+    * the effect of the optimization. was it fruitful, and why or why not. Use nvprof and NVVP to justify your explanation.
     * Any external references used during identification or development of the optimization
     * How  your team organized and divided up this work.
-3. **References** (as needed)
-4. **(Optional) Suggestions for Improving Next Year**
+2. **References** (as needed)
+3. **(Optional) Suggestions for Improving Next Year**
 
 ### Rubric
 
@@ -377,7 +382,11 @@ The Performance Ranking will be graded as follows:
 2. Your performance will be converted to a number of standard deviations above/below that median (how well you did compared to the class).
 3. That value will be linearly mapped into the space of 0-10 to determine the ranking grade.
 
-
+The ranking is determined by the total run time of the two layer invocations.
+If your implementation is not correct, you will get a 0 for this component of the grade.
+The `rai ranking` command is not the final word: the staff will re-run all final submissions multiple times and choose the fastest result as your time.
+THe ranking is determined solely by the values printed by `Op Time:` during your run.
+That `Op Time` is computed by wrapping the MXNet op that you implement in a timer.
 
 ## Extras
 
