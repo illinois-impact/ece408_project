@@ -48,7 +48,7 @@ This report should contain your names, netids, rai ids (if different), team name
 | Report: List program run time |
 | Use `rai -p <project folder> --submit=m1` to mark your job for grading |
 
-You and your team should agree on a team name and enter it in this [google sheet]().
+You and your team should agree on a team name and enter it in this [google sheet](https://goo.gl/forms/Sz0fLOWscPP1hsS12).
 
 Clone this repository to get the project folder.
 
