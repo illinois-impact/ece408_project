@@ -77,6 +77,19 @@ Your `.rai_profile` should look something like this (indented with tabs!)
         secret_key: <your-secret-key>
         affiliation: uiuc
 
+You will need to add your team name in the following way:
+
+    profile:
+        firstname: <your-given-name>
+        lastname: <your-surname>
+        username: <your-username>
+        email: <your-institution-email>
+        access_key: <your-access-key>
+        secret_key: <your-secret-key>
+        affiliation: uiuc
+        team:
+            name: <your-team-name>
+
 Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
 
 Run the built-in MXNet forward pass using rai
