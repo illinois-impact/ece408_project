@@ -166,8 +166,10 @@ EvalMetric: {'accuracy': 0.8444}
 ...
 ~~~
 
-The GPU Activities section shows the kernels, and the API calls section shows the APIs.
+The GPU Activities section shows the kernels and memory transfers, and the API calls section shows the CUDA API calls that are executed.
 There are columns corresponding to percentage of time consumed, total time, number of calls, and average/min/max time of those calls.
+Think about the distinction between a CUDA API call and a kernel launch, and describe it briefly in your report.
+The CUDA documentation describes [kernels](http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#kernels) and the [programming interface](http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#programming-interface).
 
 You can find more information about nvprof in the [CUDA Toolkit Documentation](http://docs.nvidia.com/cuda/profiler-users-guide/index.html#nvprof-overview)
 
