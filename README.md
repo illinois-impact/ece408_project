@@ -189,10 +189,8 @@ As with all milestones, you will include an updated PDF `report.pdf` with all of
 | ------------ |
 | Everything from Milestone 1 |
 | Create a  CPU implementation |
-| Report: Include a list of all kernels that collectively consume more than 90% of the program time. |
-| Report: Include a list of all CUDA API calls that collectively consume more than 90% of the program time. |
-| Report: Include an explanation of the difference between kernels and API calls |
-| Report: List program run time |
+| Report: List full program run time |
+| Report: List Op Times |
 | Use `rai -p <project folder> --submit=m2` to mark your job for grading |
 
 See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information, including the data storage layout of the tensors.
@@ -217,7 +215,7 @@ Unlike the convolutions described in the class, note that this one is not center
 
 Because this operator is different than the built-in MXNet operator, you will need to load a different model.
 `m2.1.py` handles this for you.
-Modify rai_build.yml to invoke
+Modify `rai_build.yml` to invoke
 
     python m2.1.py
 
@@ -231,6 +229,9 @@ When your implementation is correct, you should see output like this:
 
 Every time your layer is invoked, it will print the "Op Time," the time spent working on that layer.
 Since the network has two convolutional layers, two times will be printed.
+You can time the whole program execution by modifying `rai_build.yml` with
+
+    /usr/bin/time python m2.1.py
 
 `m2.1.py` takes one optional argument: the dataset size.
 If the correctness for each possible model is as below, you can be reasonably confident your implementation is right.
