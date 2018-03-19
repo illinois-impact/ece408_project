@@ -189,7 +189,7 @@ As with all milestones, you will include an updated PDF `report.pdf` with all of
 | ------------ |
 | Everything from Milestone 1 |
 | Create a  CPU implementation |
-| Report: List full program run time |
+| Report: List whole program execution time |
 | Report: List Op Times |
 | Use `rai -p <project folder> --submit=m2` to mark your job for grading |
 
@@ -226,6 +226,7 @@ When your implementation is correct, you should see output like this:
     Op Time: [ some time ]
     Op Time: [ some time ]
     Correctness: 0.8451 Model: ece408
+    30.70user 1.36system 30.06elapsed
 
 Every time your layer is invoked, it will print the "Op Time," the time spent working on that layer.
 Since the network has two convolutional layers, two times will be printed.
