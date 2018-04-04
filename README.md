@@ -307,7 +307,7 @@ Due May 2 @ 5pm
 
 ### 3.1 Add three GPU Optimization
 
-For this milestone, you should attempt at least three GPU optimizations.
+For this milestone, you should attempt at least three GPU optimizations (see [optimizations](#optimizations)).
 
 Describe the optimizations in your `report.pdf`.
 
@@ -335,7 +335,7 @@ Due May 11 @ 5pm
 
 ### Optimized Layer
 
-Optimize your GPU convolution.
+Optimize your GPU convolution (see [optimizations](#optimizations)).
 
 Your implementation must work with `rai -p <project-folder> --submit=final`.
 This means all your source files must be in `ece408_src`, and your implementation must work when they are copied to `src/operator/custom` in the MXNet tree, and `make` is invoked on the MXNet tree.
@@ -404,6 +404,29 @@ If your implementation is not correct, you will get a 0 for this component of th
 The `rai ranking` command is not the final word: the staff will re-run all final submissions multiple times and choose the fastest result as your time.
 THe ranking is determined solely by the values printed by `Op Time:` during your run.
 That `Op Time` is computed by wrapping the MXNet op that you implement in a timer.
+
+## Optimizations
+
+New for Spring 2018, we are going to suggest a set of possible optimizations for you to attempt.
+Each of these is considered to be "one optimization" for the purpose of grading.
+
+* Unroll / shared-memory Matrix multiply
+* Shared Memory convolution
+* Kernel fusion for unrolling and matrix-multiplication
+* Weight matrix (kernel values) in constant memory
+* Tuning with restrict, loop unrolling
+* An advanced matrix multiplication algorithm (register-tiled, for example)
+* Sweeping various parameters to find best values (block sizes, amount of thread coarsening)
+* Exploiting parallelism
+    * Input images
+    * Input channels
+    * Output channels
+* Input channel reduction: tree
+* Input channel reduction: atomics
+* Multiple kernel implementations for different layer sizes
+
+Other optimizations that do not fit in here may also be considered as optimizations.
+If in doubt, contact the course staff.
 
 ## Extras
 
