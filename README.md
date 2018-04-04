@@ -417,10 +417,7 @@ Each of these is considered to be "one optimization" for the purpose of grading.
 * Tuning with restrict, loop unrolling
 * An advanced matrix multiplication algorithm (register-tiled, for example)
 * Sweeping various parameters to find best values (block sizes, amount of thread coarsening)
-* Exploiting parallelism
-    * Input images
-    * Input channels
-    * Output channels
+* Exploiting parallelism in input images, input channels, and output channels.
 * Input channel reduction: tree
 * Input channel reduction: atomics
 * Multiple kernel implementations for different layer sizes
