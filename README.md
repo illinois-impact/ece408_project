@@ -376,16 +376,17 @@ The overall project score will be computed as follows:
 1. Milestone 1 ( 5% )
 2. Milestone 2 ( 10% )
 3. Milestone 3 ( 10% )
-    * Optimization 1
-4. Final Optimizations ( 60% )
+4. Milestone 4 ( 30% )
+    * Optimization 1 ( 10% )
     * Optimization 2 ( 10% )
     * Optimization 3 ( 10% )
+5. Final Optimizations ( 30% )
     * Optimization 4 ( 10% )
     * Optimization 5 ( 10% )
     * Optimization 6 ( 10% )
-    * Additional Optimizations / detailed insights ( 10% )
-5. Performance Ranking ( 10% )
-6. Report Style (10 %)
+    * Additional Optimizations / detailed insights ( up to +10% extra!!! )
+6. Performance Ranking ( 10% )
+7. Report Style (5 %)
     * Clear, concise writing, good layout, and good organization will be rewarded.
 
 Each optimization will be graded as follows:
