@@ -517,7 +517,7 @@ The MXNet instructions are available [here](https://mxnet.incubator.apache.org/g
     # download MXNet release 0.11.0
     git clone git@github.com:apache/incubator-mxnet.git --recursive --branch 0.11.0
     # build MXNet
-    nice -n20 make -C incubator-mxnet -j$(nrpoc) USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_CUDNN=1 USE_BLAS=openblas
+    nice -n20 make -C incubator-mxnet -j$(nproc) USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_CUDNN=1 USE_BLAS=openblas
     # install python bindings
     pip install --user -e incubator-mxnet/python
 
