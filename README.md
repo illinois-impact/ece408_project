@@ -58,11 +58,11 @@ Download the rai binary for your platform.
 You will probably use it for development, and definitely use it for submission.
 
 
-| Operating System | Architecture | Stable Version (0.2.23) Link                                                             | Bet Version (0.2.27) Link                                                                |
+| Operating System | Architecture | Stable Version (0.2.23) Link                                                             | Bet Version (0.2.30) Link                                                                |
 | ---------------- | ------------ | -----------------------------------------------------------------------------------------| ---------------------------------------------------------------------------------------- |
-| Linux            | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.23/linux-amd64.tar.gz)   | [URL](https://github.com/rai-project/rai/releases/download/v0.2.27/linux-amd64.tar.gz) |
-| OSX/Darwin       | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.23/darwin-amd64.tar.gz)  | [URL](https://github.com/rai-project/rai/releases/download/v0.2.27/darwin-amd64.tar.gz) |
-| Windows          | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.23/windows-amd64.tar.gz) | [URL](https://github.com/rai-project/rai/releases/download/v0.2.27/windows-amd64.tar.gz) |
+| Linux            | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.23/linux-amd64.tar.gz)   | [URL](https://github.com/rai-project/rai/releases/download/v0.2.30/linux-amd64.tar.gz) |
+| OSX/Darwin       | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.23/darwin-amd64.tar.gz)  | [URL](https://github.com/rai-project/rai/releases/download/v0.2.30/darwin-amd64.tar.gz) |
+| Windows          | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.23/windows-amd64.tar.gz) | [URL](https://github.com/rai-project/rai/releases/download/v0.2.30/windows-amd64.tar.gz) |
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
@@ -306,7 +306,7 @@ Due May 2 @ 5pm
 
 ### 3.1 Add three GPU Optimization
 
-For this milestone, you should attempt at least three GPU optimizations.
+For this milestone, you should attempt at least three GPU optimizations (see [optimizations](#optimizations)).
 
 Describe the optimizations in your `report.pdf`.
 
@@ -335,7 +335,7 @@ Due May 11 @ 5pm
 
 ### Optimized Layer
 
-Optimize your GPU convolution.
+Optimize your GPU convolution (see [optimizations](#optimizations)).
 
 Your implementation must work with `rai -p <project-folder> --submit=final`.
 This means all your source files must be in `ece408_src`, and your implementation must work when they are copied to `src/operator/custom` in the MXNet tree, and `make` is invoked on the MXNet tree.
@@ -376,16 +376,17 @@ The overall project score will be computed as follows:
 1. Milestone 1 ( 5% )
 2. Milestone 2 ( 10% )
 3. Milestone 3 ( 10% )
-    * Optimization 1
-4. Final Optimizations ( 60% )
+4. Milestone 4 ( 30% )
+    * Optimization 1 ( 10% )
     * Optimization 2 ( 10% )
     * Optimization 3 ( 10% )
+5. Final Optimizations ( 30% )
     * Optimization 4 ( 10% )
     * Optimization 5 ( 10% )
     * Optimization 6 ( 10% )
-    * Additional Optimizations / detailed insights ( 10% )
-5. Performance Ranking ( 10% )
-6. Report Style (10 %)
+    * Additional Optimizations / detailed insights ( up to +10% extra!!! )
+6. Performance Ranking ( 10% )
+7. Report Style (5 %)
     * Clear, concise writing, good layout, and good organization will be rewarded.
 
 Each optimization will be graded as follows:
@@ -404,6 +405,26 @@ If your implementation is not correct, you will get a 0 for this component of th
 The `rai ranking` command is not the final word: the staff will re-run all final submissions multiple times and choose the fastest result as your time.
 THe ranking is determined solely by the values printed by `Op Time:` during your run.
 That `Op Time` is computed by wrapping the MXNet op that you implement in a timer.
+
+## Optimizations
+
+New for Spring 2018, we are going to suggest a set of possible optimizations for you to attempt.
+Each of these is considered to be "one optimization" for the purpose of grading.
+
+* Unroll / shared-memory Matrix multiply
+* Shared Memory convolution
+* Kernel fusion for unrolling and matrix-multiplication
+* Weight matrix (kernel values) in constant memory
+* Tuning with restrict, loop unrolling
+* An advanced matrix multiplication algorithm (register-tiled, for example)
+* Sweeping various parameters to find best values (block sizes, amount of thread coarsening)
+* Exploiting parallelism in input images, input channels, and output channels.
+* Input channel reduction: tree
+* Input channel reduction: atomics
+* Multiple kernel implementations for different layer sizes
+
+Other optimizations that do not fit in here may also be considered as optimizations.
+If in doubt, contact the course staff.
 
 ## Extras
 
