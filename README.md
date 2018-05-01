@@ -510,46 +510,86 @@ A simple code is provided in `build_example`. You could modify the `build` step 
 
 If you'd like to develop using a local copy of MXNet, you may do so. Keep in mind your project will be evaluated through rai. Your submission must work through rai.
 
+Let's use the following directory structure for these instructions. The directories will be created each step along the way.
+
+    <some root dir>
+    ├── fashion-mnist
+    ├── incubator-mxnet
+    ├── m1.1.py
+    ├── m1.2.py
+    ├── m2.1.py
+    ├── m3.1.py
+    ├── m4.1.py
+    └── models
+
 The MXNet instructions are available [here](https://mxnet.incubator.apache.org/get_started/install.html). A short form of them follows for Ubuntu.
 
-    # install some prereqs
+    # install  mxnet prereqs
     sudo apt install -y build-essential git libopenblas-dev liblapack-dev libopencv-dev python-pip python-dev python-setuptools python-numpy
     # download MXNet release 0.11.0
-    git clone git@github.com:apache/incubator-mxnet.git --recursive --branch 0.11.0
+    git clone --single-branch --depth 1 --branch v0.11.0 --recursive https://github.com/apache/incubator-mxnet
     # build MXNet
-    nice -n20 make -C incubator-mxnet -j$(nrpoc) USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_CUDNN=1 USE_BLAS=openblas
+    nice -n20 make -C incubator-mxnet -j`nproc` USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_CUDNN=1 USE_BLAS=openblas
     # install python bindings
-    pip install --user -e incubator-mxnet/python
+    pip2 install --user -e incubator-mxnet/python
 
 You can always uninstall the python package with
 
-    pip uninstall mxnet
+    pip2 uninstall mxnet
 
-Download the fashion-mnist dataset and generate the larger data (this may take a few minutes and consume a few hundred megabytes of disk space).
+The training dataset is a modified version of the mxnet dataset. The scripts to generate it are written in python3
 
-    python generate-data.py
+    # install data-generation prereqs
+    sudo apt install python3 python3-pip
+    pip3 install --user numpy scikit-image
+    mkdir -p fashion-mnist
+    wget -P fashion-mnist \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/generate-data.py \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/reader.py
 
-Modify the python forward convolution scripts to point to where you downloaded fashion-mnist
+Run the generation script. It will download the fashion-mnist dataset and resize it, which may take a few minutes and consume a few hundred megabytes of disk space
 
-    ... load_mnist(path="fashion-mnist", ...)
+    chmod +x fashion-mnist/generate-data.py
+    fashion-mnist/generate-data.py fashion-mnist
 
 Download the trained models (for the existing MXNet implementation and your implementation) using 
 
     mkdir -p models \
     && wget -P models \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/baseline-0002.params \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/baseline-symbol.json \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/ece408-002.params \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/master/models/ece408-symbol.json
-        
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/models/baseline-0002.params \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/models/baseline-symbol.json \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/models/ece408-002.params \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/models/ece408-symbol.json
+
+Download the scripts we use for evaluation
+
+    wget \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/m1.1.py \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/m1.2.py \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/m2.1.py \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/m3.1.py \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/m4.1.py
+
+
+Download the skeleton source files into incubator-mxnet. This is also where you will put the skeleton code from `ece408_src`.
+
+    wget -P incubator-mxnet/src/operator/custom \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/ece408_src/new.cc \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/ece408_src/new.cu \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/ece408_src/new-inl.h
+
 Modify the python forward convolution scripts to point to where you downloaded fashion-mnist
 
-    lenet_model = mx.mod.Module.load( prefix='models/baseline' ...
+    ... load_mnist(path="fashion-mnist", ...)
+
+Modify the python forward convolution scripts to point to where you downloaded the models
+
+    lenet_model = mx.mod.Module.load(prefix='models/baseline' ...
 
 Build your modified MXNet
 
     cp <your source files> incubator-mxnet/src/operator/custom
-    make -C incubator-mxnet/
+    make -C incubator-mxnet USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_CUDNN=1
 
 
 ### Skeleton Code Description
