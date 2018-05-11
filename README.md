@@ -619,7 +619,7 @@ nvidia-docker run -v <absolute_path_to_ece408_src_directory>:/ece408_src -it ece
 cp ece408_src/* incubator-mxnet/src/operator/custom/
 make -C incubator-mxnet USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_CUDNN=1 USE_BLAS=openblas
 # Now, you are ready to run the python files like m1.1.py, m4.1.py, etc
-pythom m1.1.py
+python m1.1.py
 ```
 
 For Windows and Mac users, nvidia-docker is coming soon to these platforms, so you will be able to use these instructions once its released.
