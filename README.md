@@ -591,6 +591,38 @@ Build your modified MXNet
     cp <your source files> incubator-mxnet/src/operator/custom
     make -C incubator-mxnet USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_CUDNN=1 USE_BLAS=openblas
 
+#### Instructions For Other Platforms
+
+If you own a device with an NVIDIA graphics card but are not using Ubuntu, this solution should get you up and running on your current OS with no issues at all.
+
+The first prerequisite for this software is having nvidia-docker on your system.
+
+Instructions for getting nvidia-docker on most Linux distribution.
+[nvidia-docker Page](https://github.com/NVIDIA/nvidia-docker)
+
+For Arch Linux variant users, please get the following nvidia-docker package from the AUR.
+[nvidia-docker AUR Listing](https://aur.archlinux.org/packages/nvidia-docker2/?comments=all)
+
+Now, that we have nvidia-docker, all we will have to do to set this up is run a one time build of our Dockerfile included in the repository. To do so, run the following. WARNING: depending on your configuration, you may need to run the nvidia-docker command with root priveleges
+
+```sh
+    cd <ece408_project directory>
+    nvidia-docker build -t "ece408mxnet:latest" .
+```
+
+The process above may take a few minutes but is only required once. Now, we are ready to use our nvidia-docker environment for testing our code. To run the environement, use the following commands. WARNING: depending on your configuration, you may need to run the nvidia-docker command with root priveleges
+
+WARNING: you need to use the absolute path (not the relative path) to your ece408_src folder inside of the ECE 408 project directory
+
+```sh
+    nvidia-docker run -v <absolute_path_to_ece408_src_directory>:/ece408_src -it ece408mxnet
+    cp ece408_src/* incubator-mxnet/src/operator/custom/
+    make -C incubator-mxnet USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_CUDNN=1 USE_BLAS=openblas
+    # Now, you are ready to run the python files like m1.1.py, m4.1.py, etc
+    pythom m1.1.py
+```
+
+For Windows and Mac users, nvidia-docker is coming soon to these platforms, so you will be able to use these instructions once its released.
 
 ### Skeleton Code Description
 
