@@ -2,16 +2,16 @@
 
 ## Introduction
 
-This is the skeleton code for the Spring 2018 ECE408 / CS483 course project.
+This is the skeleton code for the Fall 2019 ECE408 / CS483 course project.
 In this project, you will:
 
 * Get practical experience by using, profiling, and modifying MXNet, a standard open-source neural-network framework.
 * Demonstrate command of CUDA and optimization approaches by designing and implementing an optimized neural-network convolution layer forward pass.
 
-The project will be broken up into 3 milestones and a final submission. Read the description of the final report before starting, so you can collect the necessary info along the way.
+The project will be broken up into 4 milestones and a final submission. Read the description of the final report before starting, so you can collect the necessary info along the way.
 Each milestone will consist of an updated report (culminating in the final report).
 
-You will be working in teams of 3.
+You will be working in teams of 3. (no excuse here)
 
 You are expected to adhere to University of Illinois academic integrity standards.
 Do not attempt to subvert and of the performance-measurement aspects of the final project.
@@ -19,18 +19,18 @@ If you are unsure about whether something does not meet those guidelines, ask a 
 
 ## Table of Contents
 
-* [Milestone 1: Due 3/7@5pm](#milestone-1)
-* [Milestone 2: Due 3/21@5pm](#milestone-2)
-* [Milestone 3: Due 4/18@5pm](#milestone-3)
-* [Milestone 4: Due 5/2@5pm](#milestone-4)
-* [Final Submission: Due 5/11@5pm](#final-submission)
+* [Milestone 1: Due 10/24@5pm](#milestone-1)
+* [Milestone 2: Due 11/7@5pm](#milestone-2)
+* [Milestone 3: Due 11/16@5pm](#milestone-3)
+* [Milestone 4: Due 12/2@5pm](#milestone-4)
+* [Final Submission: Due 12/15@5pm](#final-submission)
 * [Rubric](#rubric)
 * [Final Report](#final-report)
 * [Extras](#extras)
 
 ## Milestone 1
 
-Due March 7 @ 5pm
+Due October 24 @ 5pm
 
 As with all milestones, you will include an updated PDF `report.pdf` in the project directory you submit with rai.
 This report should contain all of the deliverables.
@@ -48,8 +48,7 @@ This report should contain your names, netids, rai ids (if different), team name
 | Report: List program run time |
 | Use `rai -p <project folder> --submit=m1` to mark your job for grading |
 
-You and your team should agree on a team name and enter it in this [google sheet](https://goo.gl/forms/Sz0fLOWscPP1hsS12).
-
+You and your team should agree on a team name and enter it in this [google sheet](https://goo.gl/forms/NsjlmP4IIt1YKCf63)	
 Clone this repository to get the project folder.
 
     git clone https://github.com/illinois-impact/ece408_project.git
@@ -181,7 +180,7 @@ to mark your submission. This will notify the teaching staff of which `report.pd
 
 ## Milestone 2
 
-Due March 21 @ 5pm
+Due November 7 @ 5pm
 
 As with all milestones, you will include an updated PDF `report.pdf` with all of the required deliverables for this and preceeding milestones.
 
@@ -259,7 +258,7 @@ to mark your submission.
 
 ## Milestone 3
 
-Due April 18 @ 5pm
+Due November 16 @ 5pm
 
 | Deliverables |
 | ------------ |
@@ -293,7 +292,7 @@ to mark your submission.
 
 ## Milestone 4
 
-Due May 2 @ 5pm
+Due December 2 @ 5pm
 
 | Deliverables |
 | ------------ |
@@ -323,7 +322,7 @@ to submit your project folder.
 
 ## Final Submission
 
-Due May 11 @ 5pm
+Due December 15 @ 5pm
 
 | Deliverables |
 | ------------ |
@@ -408,7 +407,7 @@ That `Op Time` is computed by wrapping the MXNet op that you implement in a time
 
 ## Optimizations
 
-New for Spring 2018, we are going to suggest a set of possible optimizations for you to attempt.
+New from Spring 2018, we are going to suggest a set of possible optimizations for you to attempt.
 Each of these is considered to be "one optimization" for the purpose of grading.
 
 * Unroll / shared-memory Matrix multiply
@@ -628,3 +627,5 @@ You can see this being constructed in `new-inl.h`/`InferShape()`.
 ## License
 
 NCSA/UIUC © 2018 [Carl Pearson](https://cwpearson.github.io)
+
+Last Modified [Vikram](https://github.com/msharmavikram/)
