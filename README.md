@@ -23,7 +23,7 @@ If you are unsure about whether something does not meet those guidelines, ask a 
 * [Milestone 2: Due 11/7@5pm](#milestone-2)
 * [Milestone 3: Due 11/16@5pm](#milestone-3)
 * [Milestone 4: Due 12/2@5pm](#milestone-4)
-* [Final Submission: Due 12/15@5pm](#final-submission)
+* [Final Submission: Due 12/14@5pm](#final-submission)
 * [Rubric](#rubric)
 * [Final Report](#final-report)
 * [Extras](#extras)
@@ -322,7 +322,7 @@ to submit your project folder.
 
 ## Final Submission
 
-Due December 15 @ 5pm
+Due December 14 @ 5pm
 
 | Deliverables |
 | ------------ |
