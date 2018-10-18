@@ -20,7 +20,7 @@ If you are unsure about whether something does not meet those guidelines, ask a 
 ## Table of Contents
 
 * [Milestone 1: Due 10/24@5pm](#milestone-1)
-* [Milestone 2: Due 11/7@5pm](#milestone-2)
+* [Milestone 2: Due 10/29@5pm](#milestone-2)
 * [Milestone 3: Due 11/16@5pm](#milestone-3)
 * [Milestone 4: Due 12/2@5pm](#milestone-4)
 * [Final Submission: Due 12/14@5pm](#final-submission)
@@ -180,7 +180,7 @@ to mark your submission. This will notify the teaching staff of which `report.pd
 
 ## Milestone 2
 
-Due November 7 @ 5pm
+Due October 29 @ 5pm
 
 As with all milestones, you will include an updated PDF `report.pdf` with all of the required deliverables for this and preceeding milestones.
 
