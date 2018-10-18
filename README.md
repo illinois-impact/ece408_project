@@ -626,6 +626,19 @@ The `x`, `y`, and `k` tensors constructed in `new-inl.h`/`Forward()` have the fo
 You can see this being constructed in `new-inl.h`/`InferShape()`.
 
 
+### Installing CUDA locally
+
+The Docker containers that we use to run your code runs on CUDA 9.2. 
+To view the nvprof results, you need to install the CUDA tookkit locally. 
+
+You can download the CUDA tookkit from : https://developer.nvidia.com/cuda-92-download-archive 
+Follow the installation instructions. 
+
+If you dont have CUDA enabled (Nvidia GPU), then dont install the driver. Just use the CUDA toolkit and it should work smoothly. 
+If you are stuck on how to use, please visit the TA office hours.
+
+We might consider updating the CUDA tool version inside the Docker container. We will inform  incase if we do. 
+
 ## License
 
 NCSA/UIUC © 2018 [Carl Pearson](https://cwpearson.github.io)
