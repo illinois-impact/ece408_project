@@ -46,7 +46,7 @@ This report should contain your names, netids, rai ids (if different), team name
 | Report: List program run time |
 | Report: Show output of rai running MXNet on the GPU |
 | Report: List program run time |
-| Use `rai -p <project folder> --submit=m1` to mark your job for grading |
+| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m1` to mark your job for grading |
 
 You and your team should agree on a team name and enter it in this [google sheet](https://goo.gl/forms/NsjlmP4IIt1YKCf63)	
 Clone this repository to get the project folder.
@@ -57,11 +57,11 @@ Download the rai binary for your platform.
 You will probably use it for development, and definitely use it for submission.
 
 
-| Operating System | Architecture | Stable Version (0.2.23) Link                                                             | Bet Version (0.2.31) Link                                                                |
+| Operating System | Architecture | Stable Version (0.2.30) Link                                                             | Bet Version (0.2.31 - Not stable) Link                                                                |
 | ---------------- | ------------ | -----------------------------------------------------------------------------------------| ---------------------------------------------------------------------------------------- |
-| Linux            | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.31/linux-amd64.tar.gz)   | [URL](https://github.com/rai-project/rai/releases/download/v0.2.31/linux-amd64.tar.gz) |
-| OSX/Darwin       | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.31/darwin-amd64.tar.gz)  | [URL](https://github.com/rai-project/rai/releases/download/v0.2.31/darwin-amd64.tar.gz) |
-| Windows          | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.31/windows-amd64.tar.gz) | [URL](https://github.com/rai-project/rai/releases/download/v0.2.31/windows-amd64.tar.gz) |
+| Linux            | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/linux-amd64.tar.gz)            | [URL](http://files.rai-project.com/dist/rai/stable/latest/linux-amd64.tar.gz)  |
+| OSX/Darwin       | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/darwin-amd64.tar.gz)           | [URL](http://files.rai-project.com/dist/rai/stable/latest/darwin-amd64.tar.gz)  |
+| Windows          | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/windows-amd64.tar.gz)          | [URL](http://files.rai-project.com/dist/rai/stable/latest/windows-amd64.tar.gz)  |
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
@@ -97,7 +97,7 @@ Consult `m1.1py` to examine the neural-network architecture used in this project
 
 Use RAI to run a batch forward pass on some test data.
 
-    rai -p <project-folder>
+    rai -p <project-folder> --queue rai_amd64_ece408
 
 This will upload your project directory to rai (running on AWS) and move it to `/src`, where the execution specified in `rai_build.yml` will occur. 
 
@@ -129,7 +129,7 @@ Modify `rai_build.yml` to time `python m1.2.py`
 
 Again, submit the job to rai
 
-    rai -p <project-folder>
+    rai -p <project-folder> --queue rai_amd64_ece408
 
 Next, we will learn how to use `nvprof` to profile the execution
 
@@ -174,7 +174,7 @@ You can find more information about nvprof in the [CUDA Toolkit Documentation](h
 
 Use 
 
-    rai -p <project folder> --submit=m1
+    rai -p <project folder> --queue rai_amd64_ece408 --submit=m1
 
 to mark your submission. This will notify the teaching staff of which `report.pdf` draft to consider.
 
@@ -190,7 +190,7 @@ As with all milestones, you will include an updated PDF `report.pdf` with all of
 | Create a  CPU implementation |
 | Report: List whole program execution time |
 | Report: List Op Times |
-| Use `rai -p <project folder> --submit=m2` to mark your job for grading |
+| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m2` to mark your job for grading |
 
 See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information, including the data storage layout of the tensors.
 
@@ -254,7 +254,7 @@ You may modify `m2.1.py` as you please, but check that `--submit=m2` will still 
 
 Use
 
-    rai -p <project folder> --submit=m2
+    rai -p <project folder> --queue rai_amd64_ece408 --submit=m2
 
 to mark your submission.
 
@@ -267,7 +267,7 @@ Due November 16 @ 5pm
 | Everything from Milestone 2 |
 | Implement a GPU Convolution |
 | Report: demonstrate `nvprof` profiling the execution |
-| Use `rai -p <project folder> --submit=m3` to mark your job for grading |
+| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m3` to mark your job for grading |
 
 ### Create a GPU Implementation
 
@@ -288,7 +288,7 @@ The [NVVP on EWS](#nvvp-on-ews) section describes how to install NVVP.
 
 Use
 
-    rai -p <project folder> --submit=m3
+    rai -p <project folder> --queue rai_amd64_ece408 --submit=m3
 
 to mark your submission.
 
@@ -303,7 +303,7 @@ Due December 2 @ 5pm
 | Report: Describe the optimization |
 | Report: demonstrate `nvprof` profiling the execution |
 | Report: use NVVP to analyze your optimization |
-| Use `rai -p <project folder> --submit=m4` to mark your job for grading |
+| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m4` to mark your job for grading |
 
 ### 3.1 Add three GPU Optimization
 
@@ -318,7 +318,7 @@ If possible, you should try to separate the effect of each optimization in your 
 
 Use 
     
-    rai -p <project folder> --submit=m4
+    rai -p <project folder> --queue rai_amd64_ece408 --submit=m4
     
 to submit your project folder.
 
@@ -332,13 +332,13 @@ Due December 14 @ 5pm
 | Implement final GPU optimizations |
 | Report: Describe and analyze the optimizations |
 | Report: demonstrate `nvprof` profiling the execution |
-| Use `rai -p <project folder> --submit=final` to mark your job for grading |
+| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=final` to mark your job for grading |
 
 ### Optimized Layer
 
 Optimize your GPU convolution (see [optimizations](#optimizations)).
 
-Your implementation must work with `rai -p <project-folder> --submit=final`.
+Your implementation must work with `rai -p <project-folder> --queue rai_amd64_ece408 --submit=final`.
 This means all your source files must be in `ece408_src`, and your implementation must work when they are copied to `src/operator/custom` in the MXNet tree, and `make` is invoked on the MXNet tree.
 This is done in the provided `rai_build.yml`.
 Likewise, the provided `final.py` provides an example of the script that will be used to time your implementation.
@@ -347,7 +347,7 @@ All of your code for this and the later milestones must be executed between `aut
 The easiest way to ensure this is that all of your code should be in `forward()` or called by `forward()` from `new-forward.cuh` or `new-forward.h`.
 Do not modify any timing-related code.
 
-Use `rai -p <project folder> --submit=final` to submit your project folder.
+Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=final` to submit your project folder.
 
 ### Final Report
 
