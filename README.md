@@ -145,7 +145,7 @@ You should see something that looks like the following:
 ==15163== NVPROF is profiling process 15163, command: python m1.2.py
 Loading model...[13:14:46] src/operator/././cudnn_algoreg-inl.h:112: Running performance tests to find the best convolution algorithm,this can take a while... (setting env variable MXNET_CUDNN_AUTOTUNE_DEFAULT to 0 to disable)
  done
-EvalMetric: {'accuracy': 0.8177}
+EvalMetric: {'accuracy': 0.8171}
 ==15163== Profiling application: python m1.2.py
 ==15163== Profiling result:
             Type  Time(%)      Time     Calls       Avg       Min       Max  Name
@@ -222,12 +222,11 @@ When your implementation is correct, you should see output like this:
 
     Loading fashion-mnist data... done
     Loading model... done
-    Op Time: [ some time ]
-    Op Time: [ some time ]
-    Correctness: [ some accuracy ] Model: ece408
-    30.70user 1.36system 30.06elapsed
-
-(We have not trained the model yet.)
+    New Inference
+    Op Time: 2.938568
+    Op Time: 11.521546
+    Correctness: 0.8171 Model: ece408
+    14.34user 6.97system 0:19.14elapsed 111%CPU 
 
 Every time your layer is invoked, it will print the "Op Time," the time spent working on that layer.
 Since the network has two convolutional layers, two times will be printed.
@@ -245,7 +244,7 @@ For example, you could modify `rai_build.yml` to run
 
 | Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
-| ece408 | 10000 (default) | 0.8451 |
+| ece408 | 10000 (default) | 0.8171 |
 | ece408 | 100 | 0.88 |
 | ece408 | 10 | 1 |
 
