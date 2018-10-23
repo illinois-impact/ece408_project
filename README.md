@@ -245,8 +245,8 @@ For example, you could modify `rai_build.yml` to run
 | Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
 | ece408 | 10000 (default) | 0.8171 |
-| ece408 | 100 | 0.88 |
-| ece408 | 10 | 1 |
+
+(We can provide another model for correctness check. - probably during ML3. Final model where we will run will be different.)
 
 The provided `m2.1.py` is identical to the one used by `--submit=m2`.
 You may modify `m2.1.py` as you please, but check that `--submit=m2` will still invoke your code correctly.
