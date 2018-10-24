@@ -17,6 +17,7 @@ commands:
     - pip2 install --user -e /mxnet/python   # install python bindings
     - /usr/bin/time python m1.1.py # execute code
       #- /usr/bin/time python m1.2.py # execute code
+    - nvprof python m1.2.py
       #- /usr/bin/time python m2.1.py # execute code
       #- /usr/bin/time python m3.1.py # execute code
       #- /usr/bin/time python m4.1.py # execute code
