@@ -223,10 +223,10 @@ When your implementation is correct, you should see output like this:
     Loading fashion-mnist data... done
     Loading model... done
     New Inference
-    Op Time: 2.938568
-    Op Time: 11.521546
+    Op Time: 21.48
+    Op Time: 101.93
     Correctness: 0.8171 Model: ece408
-    14.34user 6.97system 0:19.14elapsed 111%CPU 
+    
 
 Every time your layer is invoked, it will print the "Op Time," the time spent working on that layer.
 Since the network has two convolutional layers, two times will be printed.
@@ -240,7 +240,7 @@ The correctness does depend on the data size. Check your correctness on the full
 
 For example, you could modify `rai_build.yml` to run
 
-    python m2.1.py 100
+    python m2.1.py 10000
 
 | Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
@@ -526,8 +526,8 @@ The MXNet instructions are available [here](https://mxnet.incubator.apache.org/g
 
     # install  mxnet prereqs
     sudo apt install -y build-essential git libopenblas-dev liblapack-dev libopencv-dev python-pip python-dev python-setuptools python-numpy
-    # download MXNet release 0.11.0
-    git clone --single-branch --depth 1 --branch v0.11.0 --recursive https://github.com/apache/incubator-mxnet
+    # download MXNet release 1.3.0
+    git clone --single-branch --depth 1 --branch v1.3.0 --recursive https://github.com/apache/incubator-mxnet
     # build MXNet
     nice -n20 make -C incubator-mxnet -j`nproc` USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_CUDNN=1 USE_BLAS=openblas
     # install python bindings
@@ -561,7 +561,7 @@ Download the trained models (for the existing MXNet implementation and your impl
         https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/models/ece408-002.params \
         https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/models/ece408-symbol.json
 
-Download the scripts we use for evaluation
+Download the scripts we use for evaluation (needs to be modified to use 74x74 input image size)
 
     wget \
         https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/m1.1.py \
