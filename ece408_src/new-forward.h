@@ -25,9 +25,9 @@ void forward(mshadow::Tensor<cpu, 4, DType> &y, const mshadow::Tensor<cpu, 4, DT
     const int C = x.shape_[1];
     const int H = x.shape_[2];
     const int W = x.shape_[3];
-	const int K = k.shape_[3];
-	const int H_out = H - K + 1;
-	const int W_out = W - K + 1;
+    const int K = k.shape_[3];
+    const int H_out = H - K + 1;
+    const int W_out = W - K + 1;
 
     for (int b = B; --b; )
         for (int m = M; m--; )
