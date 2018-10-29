@@ -57,11 +57,12 @@ Download the rai binary for your platform.
 You will probably use it for development, and definitely use it for submission.
 
 
-| Operating System | Architecture | Stable Version (0.3.0) Link                                                             |
-| ---------------- | ------------ | -----------------------------------------------------------------------------------------|
-| Linux            | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/linux-amd64.tar.gz)            |
-| OSX/Darwin       | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/darwin-amd64.tar.gz)           |
-| Windows          | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/windows-amd64.tar.gz)          |
+| Operating System | Architecture | New rai client (Version- 0.3.0-ece408) | Stable Version (0.3.0) Link (OLD)                                                        |
+| ---------------- | ------------ | ---------------------------------------| -----------------------------------------------------------------------------------------|
+| Linux            | amd64        | [URL](https://drive.google.com/open?id=1_QqqZUeXtkLYZca0wqP4PdmB0Omcw-W9)  | [URL](http://files.rai-project.com/dist/rai/stable/latest/linux-amd64.tar.gz)            |
+| Linux Arch       | amd64        | [URL](https://drive.google.com/open?id=145ZSHq04BtAcwG-eaCy3YunAOvp9KUrV)  | -                                                    |
+| OSX/Darwin       | amd64        | [URL](https://drive.google.com/open?id=1l912xvVitXiYCluccTRIKFf3tw2IqmkB)  | [URL](http://files.rai-project.com/dist/rai/stable/latest/darwin-amd64.tar.gz)           |
+| Windows          | amd64        | [URL](https://drive.google.com/open?id=1F5ccWZSTGdoshXl9k6OEW6OnNAC0HMFu)  | [URL](http://files.rai-project.com/dist/rai/stable/latest/windows-amd64.tar.gz)          |
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
