@@ -268,6 +268,7 @@ Due November 16 @ 5pm
 | ------------ |
 | Everything from Milestone 2 |
 | Implement a GPU Convolution |
+| Correctness and timing with 3 different dataset sizes |
 | Report: demonstrate `nvprof` profiling the execution |
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m3` to mark your job for grading |
 
