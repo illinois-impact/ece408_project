@@ -245,9 +245,11 @@ For example, you could modify `rai_build.yml` to run
 
 | Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
+| ece408 | 100       | 0.85 |
+| ece408 | 1000      | 0.85 |
 | ece408 | 10000 (default) | 0.8171 |
 
-(We dont support any other model for FALL 2018 semester apart from listed above. Dont try with the optional argument. It will not work. We might plan to provide another model for correctness check. - probably during ML3. Final model that will be used for internal evaluation shall be different.)
+(Final model that will be used for internal evaluation shall be different.)
 
 The provided `m2.1.py` is identical to the one used by `--submit=m2`.
 You may modify `m2.1.py` as you please, but check that `--submit=m2` will still invoke your code correctly.
@@ -295,6 +297,22 @@ Use
     rai -p <project folder> --queue rai_amd64_ece408 --submit=m3
 
 to mark your submission.
+
+`m3.1.py` takes one optional argument: the dataset size. 
+If the correctness for each possible model is as below, you can be reasonably confident your implementation is right.
+The correctness does depend on the data size. Check your correctness on the full data size of 10000.
+
+For example, you could modify `rai_build.yml` to run
+
+    python m3.1.py 10000
+
+| Model | Number of Images | Correctness  |
+|-------------| -----| -----  |
+| ece408 | 100       | 0.85 |
+| ece408 | 1000      | 0.827 |
+| ece408 | 10000 (default) | 0.8171 |
+
+(Final model that will be used for internal evaluation shall be different.)
 
 ## Milestone 4
 
