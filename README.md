@@ -300,7 +300,7 @@ to mark your submission.
 
 `m3.1.py` takes one optional argument: the dataset size. 
 If the correctness for each possible model is as below, you can be reasonably confident your implementation is right.
-The correctness does depend on the data size. Check your correctness on the full data size of 10000.
+The correctness does depend on the data size. 
 
 For example, you could modify `rai_build.yml` to run
 
