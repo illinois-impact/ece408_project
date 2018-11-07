@@ -246,7 +246,7 @@ For example, you could modify `rai_build.yml` to run
 | Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
 | ece408 | 100       | 0.85 |
-| ece408 | 1000      | 0.85 |
+| ece408 | 1000      | 0.827 |
 | ece408 | 10000 (default) | 0.8171 |
 
 (Final model that will be used for internal evaluation shall be different.)
