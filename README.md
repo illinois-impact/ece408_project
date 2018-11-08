@@ -474,9 +474,10 @@ This will generate timeline.nvprof.
 You can additionally gather some detailed performance metrics.
 
     nvprof -o timeline.nvprof <your command here>
-    nvprof --analysis-metrics -o analysis.nvprof <the same command>
+    nvprof --kernels "::forward:1" --analysis-metrics -o forward1_analysis.nvprof <the same command>
+    nvprof --kernels "::forward:2" --analysis-metrics -o forward2_analysis.nvprof <the same command>
 
-This will generate `timeline.nvprof` and `analysis.nvprof`.
+This will generate `timeline.nvprof` and `*analysis.nvprof`.
 `--analysis-metrics` significantly slows the run time, you may wish to modify the python scripts to run on smaller datasets during this profiling.
 
 You will need to follow the link rai prints after the execution to retrieve these files.
