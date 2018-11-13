@@ -505,17 +505,17 @@ Download CUDA toolkit for CentOS 7 and install to `~/software/cuda-9.0` (You may
 This takes a while (1GB+ download and install).
 
     mkdir -p $HOME/software \
-    && wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run -O cuda9.run \
-    && chmod +x cuda9.run \
-    && ./cuda9.run --silent --toolkit --toolkitpath=$HOME/software/cuda-9.0
+    && wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux -O cuda10.run \
+    && chmod +x cuda10.run \
+    && ./cuda10.run --silent --toolkit --toolkitpath=$HOME/software/cuda-10.0
 
 Free up your EWS space (I'm not sure what the disk quotas are)
 
-    rm cuda9.run
+    rm cuda10.run
 
-Optional: modify .bashrc to add `~/software/cuda-9.0/bin` to your path. Or, just run it directly
+Optional: modify .bashrc to add `~/software/cuda-10.0/bin` to your path. Or, just run it directly
 
-    ~/software/cuda-9.0/bin/nvvp &
+    ~/software/cuda-10.0/bin/nvvp &
 
 ### Comparing GPU implementation to CPU implementation
 
