@@ -501,7 +501,7 @@ Establish an ssh session with x-forwarding
 
     ssh -Y <netid>@linux.ews.illinois.edu
 
-Download CUDA toolkit for CentOS 7 and install to `~/software/cuda-9.0` (You may choose a different location).
+Download CUDA toolkit for CentOS 7 and install to `~/software/cuda-10.0` (You may choose a different location).
 This takes a while (1GB+ download and install).
 
     mkdir -p $HOME/software \
