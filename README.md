@@ -57,7 +57,7 @@ Download the rai binary for your platform.
 You will probably use it for development, and definitely use it for submission.
 
 
-| Operating System | Architecture | New rai client (Version: 0.3.0-ece408) | Stable Version (0.3.0) Link (OLD)                                                        |
+| Operating System | Architecture | New rai client (Version: 0.3.1-ece408) | Stable Version (0.3.0) Link (OLD)                                                        |
 | ---------------- | ------------ | ---------------------------------------| -----------------------------------------------------------------------------------------|
 | Linux            | amd64        | [URL](https://drive.google.com/open?id=1_QqqZUeXtkLYZca0wqP4PdmB0Omcw-W9)  | [URL](http://files.rai-project.com/dist/rai/stable/latest/linux-amd64.tar.gz)            |
 | Arch Linux       | amd64        | [URL](https://drive.google.com/open?id=145ZSHq04BtAcwG-eaCy3YunAOvp9KUrV)  | -                                                    |
