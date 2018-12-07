@@ -21,7 +21,7 @@ logging.getLogger().setLevel(logging.DEBUG)  # logging to stdout
 
 print "Loading fashion-mnist data..."
 test_images, test_labels = load_mnist(
-    path="/fashion-mnist", rows=64, cols=64, kind="t10k-64")
+    path="/fashion-mnist", rows=72, cols=72, kind="t10k-72")
 print "done"
 
 # Reduce the size of the dataset, if desired

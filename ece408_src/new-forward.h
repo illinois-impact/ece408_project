@@ -46,11 +46,6 @@ void forward(mshadow::Tensor<cpu, 4, DType> &y, const mshadow::Tensor<cpu, 4, DT
    }
  }
 
-        // CHECK_EQ(0,1) << "Remove this line and replace it with your implementation.";
-        //
-        // /* ... a bunch of nested loops later...
-        //     y[b][m][h][w] += x[b][c][h + p][w + q] * k[m][c][p][q];
-        // */
     }
 
 }

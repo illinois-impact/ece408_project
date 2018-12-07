@@ -57,11 +57,12 @@ Download the rai binary for your platform.
 You will probably use it for development, and definitely use it for submission.
 
 
-| Operating System | Architecture | Stable Version (0.3.0) Link                                                             |
-| ---------------- | ------------ | -----------------------------------------------------------------------------------------|
-| Linux            | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/linux-amd64.tar.gz)            |
-| OSX/Darwin       | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/darwin-amd64.tar.gz)           |
-| Windows          | amd64        | [URL](http://files.rai-project.com/dist/rai/stable/latest/windows-amd64.tar.gz)          |
+| Operating System | Architecture | New rai client (Version: 0.3.1-ece408) | Stable Version (0.3.0) Link (OLD)                                                        |
+| ---------------- | ------------ | ---------------------------------------| -----------------------------------------------------------------------------------------|
+| Linux            | amd64        | [URL](https://drive.google.com/open?id=1_QqqZUeXtkLYZca0wqP4PdmB0Omcw-W9)  | [URL](http://files.rai-project.com/dist/rai/stable/latest/linux-amd64.tar.gz)            |
+| Arch Linux       | amd64        | [URL](https://drive.google.com/open?id=145ZSHq04BtAcwG-eaCy3YunAOvp9KUrV)  | -                                                    |
+| OSX/Darwin       | amd64        | [URL](https://drive.google.com/open?id=1l912xvVitXiYCluccTRIKFf3tw2IqmkB)  | [URL](http://files.rai-project.com/dist/rai/stable/latest/darwin-amd64.tar.gz)           |
+| Windows          | amd64        | [URL](https://drive.google.com/open?id=1F5ccWZSTGdoshXl9k6OEW6OnNAC0HMFu)  | [URL](http://files.rai-project.com/dist/rai/stable/latest/windows-amd64.tar.gz)          |
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
@@ -234,7 +235,7 @@ You can time the whole program execution by modifying `rai_build.yml` with
 
     /usr/bin/time python m2.1.py
 
-`m2.1.py` takes one optional argument: the dataset size.
+`m2.1.py` takes one optional argument: the dataset size. It is currently disabled to use for FALL2018 course. 
 If the correctness for each possible model is as below, you can be reasonably confident your implementation is right.
 The correctness does depend on the data size. Check your correctness on the full data size of 10000.
 
@@ -244,9 +245,11 @@ For example, you could modify `rai_build.yml` to run
 
 | Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
+| ece408 | 100       | 0.85 |
+| ece408 | 1000      | 0.827 |
 | ece408 | 10000 (default) | 0.8171 |
 
-(We can provide another model for correctness check. - probably during ML3. Final model where we will run will be different.)
+(Final model that will be used for internal evaluation shall be different.)
 
 The provided `m2.1.py` is identical to the one used by `--submit=m2`.
 You may modify `m2.1.py` as you please, but check that `--submit=m2` will still invoke your code correctly.
@@ -265,6 +268,7 @@ Due November 16 @ 5pm
 | ------------ |
 | Everything from Milestone 2 |
 | Implement a GPU Convolution |
+| Correctness and timing with 3 different dataset sizes |
 | Report: demonstrate `nvprof` profiling the execution |
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m3` to mark your job for grading |
 
@@ -281,6 +285,10 @@ When it is correct, it will show the same correctness as Milestone 2.
 
 ### Use `nvprof` and NVVP for initial Performance Results
 
+First, ensure you are using correct image in rai_build.yml file
+
+`image: illinoisimpact/ece408_mxnet_docker:amd64-gpu-latest`
+
 Modify `rai_build.yml` to use nvprof to save some timeline and analysis information, as described in [nvprof](#profiling).
 Use the NVIDIA Visual Profiler to find the execution of your kernel, and show it in your report.
 The [NVVP on EWS](#nvvp-on-ews) section describes how to install NVVP.
@@ -290,6 +298,22 @@ Use
     rai -p <project folder> --queue rai_amd64_ece408 --submit=m3
 
 to mark your submission.
+
+`m3.1.py` takes one optional argument: the dataset size. 
+If the correctness for each possible model is as below, you can be reasonably confident your implementation is right.
+The correctness does depend on the data size. 
+
+For example, you could modify `rai_build.yml` to run
+
+    python m3.1.py 10000
+
+| Model | Number of Images | Correctness  |
+|-------------| -----| -----  |
+| ece408 | 100       | 0.85 |
+| ece408 | 1000      | 0.827 |
+| ece408 | 10000 (default) | 0.8171 |
+
+(Final model that will be used for internal evaluation shall be different.)
 
 ## Milestone 4
 
@@ -450,9 +474,10 @@ This will generate timeline.nvprof.
 You can additionally gather some detailed performance metrics.
 
     nvprof -o timeline.nvprof <your command here>
-    nvprof --analysis-metrics -o analysis.nvprof <the same command>
+    nvprof --kernels "::forward:1" --analysis-metrics -o forward1_analysis.nvprof <the same command>
+    nvprof --kernels "::forward:2" --analysis-metrics -o forward2_analysis.nvprof <the same command>
 
-This will generate `timeline.nvprof` and `analysis.nvprof`.
+This will generate `timeline.nvprof` and `*analysis.nvprof`.
 `--analysis-metrics` significantly slows the run time, you may wish to modify the python scripts to run on smaller datasets during this profiling.
 
 You will need to follow the link rai prints after the execution to retrieve these files.
@@ -476,21 +501,21 @@ Establish an ssh session with x-forwarding
 
     ssh -Y <netid>@linux.ews.illinois.edu
 
-Download CUDA toolkit for CentOS 7 and install to `~/software/cuda-9.0` (You may choose a different location).
+Download CUDA toolkit for CentOS 7 and install to `~/software/cuda-10.0` (You may choose a different location).
 This takes a while (1GB+ download and install).
 
     mkdir -p $HOME/software \
-    && wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run -O cuda9.run \
-    && chmod +x cuda9.run \
-    && ./cuda9.run --silent --toolkit --toolkitpath=$HOME/software/cuda-9.0
+    && wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux -O cuda10.run \
+    && chmod +x cuda10.run \
+    && ./cuda10.run --silent --toolkit --toolkitpath=$HOME/software/cuda-10.0
 
 Free up your EWS space (I'm not sure what the disk quotas are)
 
-    rm cuda9.run
+    rm cuda10.run
 
-Optional: modify .bashrc to add `~/software/cuda-9.0/bin` to your path. Or, just run it directly
+Optional: modify .bashrc to add `~/software/cuda-10.0/bin` to your path. Or, just run it directly
 
-    ~/software/cuda-9.0/bin/nvvp &
+    ~/software/cuda-10.0/bin/nvvp &
 
 ### Comparing GPU implementation to CPU implementation
 
