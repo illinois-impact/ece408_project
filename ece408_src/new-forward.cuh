@@ -4,12 +4,17 @@
 #include <cmath>
 #include <mxnet/base.h>
 
+
 namespace mxnet
 {
 namespace op
 {
 
-__global__ void forward_kernel(float *y, const float *x, const float *k, const int B, const int M, const int C, const int H, const int W, const int K, const int W_grid)
+__constant__ float constK1[12 * 7 * 7];
+__constant__ float constK2[24 * 12 * 7 * 7];
+
+__global__ void forward_kernel(float *__restrict__  y, const float *__restrict__ x, const int B, const int M, const int C, const int H, 
+                                const int W, const int K, const int W_grid)
 {
 
     /*
@@ -28,7 +33,13 @@ __global__ void forward_kernel(float *y, const float *x, const float *k, const i
 // float a = y4d(0,0,0,0)
 // y4d(0,0,0,0) = a
 
-#define TILE_WIDTH 16
+float * k;
+if (C == 1)
+    k = constK1;
+else
+    k = constK2;
+
+#define TILE_WIDTH 28
 #define y4d(i3, i2, i1, i0) y[(i3) * (M * H_out * W_out) + (i2) * (H_out * W_out) + (i1) * (W_out) + i0]
 #define x4d(i3, i2, i1, i0) x[(i3) * (C * H * W) + (i2) * (H * W) + (i1) * (W) + i0]
 #define k4d(i3, i2, i1, i0) k[(i3) * (C * K * K) + (i2) * (K * K) + (i1) * (K) + i0]
@@ -42,6 +53,7 @@ w = (blockIdx.z % W_grid)*TILE_WIDTH + threadIdx.x;
 
 float acc = 0;
 if(h < H_out && w < W_out) {
+    #pragma unroll
     for(c = 0; c < C; c++ ) {
         for(p=0; p < K; p++) {
             for(q = 0; q < K; q++) {
@@ -63,8 +75,9 @@ if(h < H_out && w < W_out) {
    For ECE408, we only expect the float version of the operator to be called, so here we specialize with only floats.
 */
 template <>
-void forward<gpu, float>(mshadow::Tensor<gpu, 4, float> &y, const mshadow::Tensor<gpu, 4, float> &x, const mshadow::Tensor<gpu, 4, float> &w)
-{
+   void forward<gpu, float>(mshadow::Tensor<gpu, 4, float> &y, const mshadow::Tensor<gpu, 4, float> &x, 
+                            const mshadow::Tensor<gpu, 4, float> &w)
+   {
 
     // Use mxnet's CHECK_EQ to do assertions.
     // Remove this assertion when you do your implementation!
@@ -78,6 +91,11 @@ void forward<gpu, float>(mshadow::Tensor<gpu, 4, float> &y, const mshadow::Tenso
     const int H = x.shape_[2];
     const int W = x.shape_[3];
     const int K = w.shape_[3];
+    if (C == 1)
+        cudaMemcpyToSymbol(constK1, w.dptr_, 12 * 7 * 7 * sizeof(float));
+    else if (C == 12)
+        cudaMemcpyToSymbol(constK2, w.dptr_, 24 * 12 * 7 * 7 * sizeof(float));
+
 
     int H_out = H - K + 1;
     int W_out = W - K + 1;
@@ -88,9 +106,18 @@ void forward<gpu, float>(mshadow::Tensor<gpu, 4, float> &y, const mshadow::Tenso
     // Set the kernel dimensions
     dim3 gridDim(B, M, Z);
     dim3 blockDim(TILE_WIDTH, TILE_WIDTH, 1);
+    // printf("Hello??????????????????????????\n");
+    // printf("B = %d\n", B);
+    // printf("M = %d\n", M);
+    // printf("C = %d\n", C);
+    // printf("H = %d\n", H);
+    // printf("W = %d\n", W);
+    // printf("K = %d\n", K);
+    // printf("W_grid = %d\n", W_grid);
 
     // Call the kernel
-    forward_kernel<<<gridDim, blockDim>>>(y.dptr_,x.dptr_,w.dptr_, B,M,C,H,W,K, W_grid);
+    forward_kernel<<<gridDim, blockDim>>>(y.dptr_,x.dptr_, B,M,C,H,W,K, W_grid);
+    
 
     // Use MSHADOW_CUDA_CALL to check for CUDA runtime errors.
     MSHADOW_CUDA_CALL(cudaDeviceSynchronize());
@@ -102,10 +129,11 @@ void forward<gpu, float>(mshadow::Tensor<gpu, 4, float> &y, const mshadow::Tenso
     This is not used in the ECE408 project
 */
 template <typename gpu, typename DType>
-void forward(mshadow::Tensor<gpu, 4, DType> &y, const mshadow::Tensor<gpu, 4, DType> &x, const mshadow::Tensor<gpu, 4, DType> &w)
-{
-    CHECK_EQ(0,1) << "Remove this line and replace it with your implementation.";
-}
+    void forward(mshadow::Tensor<gpu, 4, DType> &y, const mshadow::Tensor<gpu, 4, DType> &x, 
+                    const mshadow::Tensor<gpu, 4, DType> &w)
+    {
+        CHECK_EQ(0,1) << "Remove this line and replace it with your implementation.";
+    }
 }
 }
 
