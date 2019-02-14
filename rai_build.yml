@@ -1,6 +1,6 @@
 rai:
   version: 0.2
-  image: illinoisimpact/ece408_mxnet_docker:amd64-gpu-latest
+  image: illinoisimpact/ece408_mxnet_docker_2019sp:amd64-gpu-latest
 resources:
   cpu:
     architecture: amd64

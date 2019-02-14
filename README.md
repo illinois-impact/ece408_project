@@ -11,7 +11,7 @@ In this project, you will:
 The project will be broken up into 4 milestones and a final submission. Read the description of the final report before starting, so you can collect the necessary info along the way.
 Each milestone will consist of an updated report (culminating in the final report).
 
-You will be working in teams of 2 or 3. (no excuse here)
+You will be working in teams of 2 or 3. (no excuse here). 
 Chicago city scholars can form teams with on campus students. 
 
 You are expected to adhere to University of Illinois academic integrity standards.
