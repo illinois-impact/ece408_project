@@ -22,7 +22,7 @@ If you are unsure about whether something does not meet those guidelines, ask a 
 
 * [Milestone 1: Due 3/7/2019 @5pm](#milestone-1)
 * [Milestone 2: Due 3/14/2019 @5pm](#milestone-2)
-* [Milestone 3: Due 4/34/2019 @5pm](#milestone-3)
+* [Milestone 3: Due 4/4/2019 @5pm](#milestone-3)
 * [Milestone 4: Due 4/18/2019 @5pm](#milestone-4)
 * [Final Submission: Due 5/2/2019 @5pm (Reading Day)](#final-submission)
 * [Rubric](#rubric)
@@ -35,7 +35,7 @@ Due March 7 @ 5pm
 
 As with all milestones, you will include an updated PDF `report.pdf` in the project directory you submit with rai.
 This report should contain all of the deliverables.
-This report should contain your names, netids, rai ids (if different), team names, and school affiliation (Chicago or UIUC).
+This report should contain your names, netids, rai ids (if different), team names, and school affiliation (Chicago Scholars or on campus students).
 
 | Deliverables |
 | ------------ |
