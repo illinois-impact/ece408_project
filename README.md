@@ -11,7 +11,7 @@ In this project, you will:
 The project will be broken up into 4 milestones and a final submission. Read the description of the final report before starting, so you can collect the necessary info along the way.
 Each milestone will consist of an updated report (culminating in the final report).
 
-You will be working in teams of 2 or 3. (no excuse here). 
+You will be working in teams of 2 or 3 (no excuse here). 
 Chicago city scholars can form teams with on campus students. 
 
 You are expected to adhere to University of Illinois academic integrity standards.
@@ -49,7 +49,7 @@ This report should contain your names, netids, rai ids (if different), team name
 | Report: List program run time |
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m1` to mark your job for grading |
 
-You and your team should agree on a team name and enter it in this [google sheet](https://goo.gl/forms/NsjlmP4IIt1YKCf63)	
+You and your team should agree on a team name and enter it in this [google sheet](https://goo.gl/forms/tMyTnACmhtLnmj5b2)	
 Clone this repository to get the project folder.
 
     git clone https://github.com/illinois-impact/ece408_project.git
@@ -117,7 +117,8 @@ You should see the following output:
 
     Loading fashion-mnist data... done
     Loading model... done
-    EvalMetric: {'accuracy': 0.8177}
+    New Inference
+    EvalMetric: {'accuracy': 0.8236}
 
 Modify `rai_build.yml` to use `/usr/bin/time` to measure the elapsed time of the whole program.
 
@@ -144,25 +145,25 @@ Then, modify `rai_build.yml` to generate a profile instead of just execuing the 
 You should see something that looks like the following:
 
 ~~~bash 
-==15163== NVPROF is profiling process 15163, command: python m1.2.py
-Loading model...[13:14:46] src/operator/././cudnn_algoreg-inl.h:112: Running performance tests to find the best convolution algorithm,this can take a while... (setting env variable MXNET_CUDNN_AUTOTUNE_DEFAULT to 0 to disable)
- done
-EvalMetric: {'accuracy': 0.8171}
+==278== NVPROF is profiling process 278, command: python m1.2.py
+Loading model... done
+New Inference
+EvalMetric: {'accuracy': 0.8236}
 ==15163== Profiling application: python m1.2.py
 ==15163== Profiling result:
             Type  Time(%)      Time     Calls       Avg       Min       Max  Name
- GPU activities:   39.66%  88.817ms      1002  88.639us  67.553us  112.64us  maxwell_scudnn_128x32_relu_interior_nn
-                   30.78%  68.932ms      1000  68.932us  6.4010us  137.51us  sgemm_32x32x32_NT_vec
-                    7.08%  15.849ms      1018  15.569us     608ns  1.0653ms  [CUDA memcpy HtoD]
-                    6.58%  14.726ms      1000  14.725us  3.0080us  30.145us  void 
+ GPU activities:   39.80%  16.602ms        20  830.11us  1.1200us  16.092ms  [CUDA memcpy HtoD]
+                   20.28%  8.4577ms         1  8.4577ms  8.4577ms  8.4577ms  void cudnn::detail::implicit_convolve_sgemm
+                   11.89%  4.9587ms         1  4.9587ms  4.9587ms  4.9587ms  volta_cgemm_64x32_tn
+                    7.11%  2.9642ms         2  1.4821ms  25.760us  2.9384ms  void op_generic_tensor_kernel 
 
 ...
 
-      API calls:   38.57%  1.68099s        22  76.409ms  20.706us  844.45ms  cudaStreamCreateWithFlags
-                   29.08%  1.26736s        50  25.347ms     560ns  328.56ms  cudaFree
-                   20.76%  904.87ms        27  33.514ms  45.260us  902.77ms  cudaMemGetInfo
-                    4.00%  174.45ms      4520  38.595us  1.9200us  1.2852ms  cudaStreamSynchronize
-                    3.03%  131.95ms      1506  87.617us  11.564us  1.3006ms  cudaMemcpy2DAsync
+      API calls:   42.14%  3.03300s        22  137.86ms  13.006us  1.56281s  cudaStreamCreateWithFlags
+                   34.07%  2.45202s        24  102.17ms  117.07us  2.44545s  cudaMemGetInfo
+                   21.32%  1.53449s        19  80.763ms     805ns  407.00ms  cudaFree
+                    1.18%  84.772ms       912  92.951us     308ns  38.118ms  cudaFuncSetAttribute
+                    0.47%  33.977ms         9  3.7753ms  33.322us  16.253ms  cudaMemcpy2DAsync
 
 ...
 ~~~
@@ -225,9 +226,9 @@ When your implementation is correct, you should see output like this:
     Loading fashion-mnist data... done
     Loading model... done
     New Inference
-    Op Time: 21.48
-    Op Time: 101.93
-    Correctness: 0.8171 Model: ece408
+    Op Time: 2.506844
+    Op Time: 7.662763
+    Correctness: 0.8397 Model: ece408
     
 
 Every time your layer is invoked, it will print the "Op Time," the time spent working on that layer.
@@ -236,7 +237,7 @@ You can time the whole program execution by modifying `rai_build.yml` with
 
     /usr/bin/time python m2.1.py
 
-`m2.1.py` takes one optional argument: the dataset size. It is currently disabled to use for FALL2018 course. 
+`m2.1.py` takes one optional argument: the dataset size.  
 If the correctness for each possible model is as below, you can be reasonably confident your implementation is right.
 The correctness does depend on the data size. Check your correctness on the full data size of 10000.
 
@@ -246,9 +247,9 @@ For example, you could modify `rai_build.yml` to run
 
 | Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
-| ece408 | 100       | 0.85 |
-| ece408 | 1000      | 0.827 |
-| ece408 | 10000 (default) | 0.8171 |
+| ece408 | 100       | 0.84 |
+| ece408 | 1000      | 0.852 |
+| ece408 | 10000 (default) | 0.8397 |
 
 (Final model that will be used for internal evaluation shall be different.)
 
@@ -306,13 +307,13 @@ The correctness does depend on the data size.
 
 For example, you could modify `rai_build.yml` to run
 
-    python m3.1.py 10000
+    python m3.1.py
 
 | Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
-| ece408 | 100       | 0.85 |
-| ece408 | 1000      | 0.827 |
-| ece408 | 10000 (default) | 0.8171 |
+| ece408 | 100       | 0.84 |
+| ece408 | 1000      | 0.852 |
+| ece408 | 10000 (default) | 0.8397 |
 
 (Final model that will be used for internal evaluation shall be different.)
 
@@ -434,19 +435,20 @@ That `Op Time` is computed by wrapping the MXNet op that you implement in a time
 ## Optimizations
 
 New from Spring 2019, we are going to suggest a set of possible optimizations for you to attempt.
-Each of these is considered to be "one optimization" for the purpose of grading.
+Each of these is considered to be "one optimization" or "half optimization" for the purpose of grading.
 
-* Unroll / shared-memory Matrix multiply
+* Unroll + shared-memory Matrix multiply
 * Shared Memory convolution
 * Kernel fusion for unrolling and matrix-multiplication
 * Weight matrix (kernel values) in constant memory
-* Tuning with restrict, loop unrolling
+* Tuning with restrict (*)
+* Loop unrolling (*)
 * An advanced matrix multiplication algorithm (register-tiled, for example)
-* Sweeping various parameters to find best values (block sizes, amount of thread coarsening)
+* Sweeping various parameters to find best values (block sizes, amount of thread coarsening) (*)
 * Exploiting parallelism in input images, input channels, and output channels.
-* Input channel reduction: tree
-* Input channel reduction: atomics
-* Multiple kernel implementations for different layer sizes
+* Multiple kernel implementations for different layer sizes (*)
+
+Optimizations with (*) sign are considered as "half optimizations". You need to implement two half optimizations to get the same effect as other optimizations. For example, tuning with restrict and loop unrolling combined is considered the same as shared memory convolution for grading purpose. You'll need to implement 6 full optimizations in total. 
 
 Other optimizations that do not fit in here may also be considered as optimizations.
 If in doubt, contact the course staff.
@@ -656,7 +658,7 @@ You can see this being constructed in `new-inl.h`/`InferShape()`.
 The Docker containers that we use to run your code runs on CUDA 9.2. 
 To view the nvprof results, you need to install the CUDA tookkit locally. 
 
-You can download the CUDA tookkit from : https://developer.nvidia.com/cuda-92-download-archive 
+You can download the CUDA tookkit from : https://developer.nvidia.com/cuda-downloads
 Follow the installation instructions. 
 
 If you dont have CUDA enabled (Nvidia GPU), then dont install the driver. Just use the CUDA toolkit and it should work smoothly. 
@@ -668,4 +670,6 @@ We might consider updating the CUDA tool version inside the Docker container. We
 
 NCSA/UIUC © 2018 [Carl Pearson](https://cwpearson.github.io)
 
-Last Modified [Vikram](https://github.com/msharmavikram/)
+Modified in fall 2018 [Vikram](https://github.com/msharmavikram/)
+
+Last modified by Rui Lan and Zhichun Wan
