@@ -657,7 +657,7 @@ You can see this being constructed in `new-inl.h`/`InferShape()`.
 The Docker containers that we use to run your code runs on CUDA 10.0. 
 To view the nvprof results, you need to install the CUDA tookkit locally. 
 
-You can download the CUDA tookkit from: https://developer.nvidia.com/cuda-downloads. 
+You can download the CUDA toolkit from: https://developer.nvidia.com/cuda-downloads. 
 Follow the installation instructions. 
 
 If you dont have CUDA enabled (Nvidia GPU), then dont install the driver. Just use the CUDA toolkit and it should work smoothly. 
