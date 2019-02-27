@@ -15,7 +15,7 @@ You will be working in teams of 2 or 3 (no excuse here).
 Chicago city scholars can form teams with on campus students. 
 
 You are expected to adhere to University of Illinois academic integrity standards.
-Do not attempt to subvert and of the performance-measurement aspects of the final project.
+Do not attempt to subvert any of the performance-measurement aspects of the final project.
 If you are unsure about whether something does not meet those guidelines, ask a member of the teaching staff.
 
 ## Table of Contents
@@ -655,10 +655,10 @@ You can see this being constructed in `new-inl.h`/`InferShape()`.
 
 ### Installing CUDA locally
 
-The Docker containers that we use to run your code runs on CUDA 9.2. 
+The Docker containers that we use to run your code runs on CUDA 10.0. 
 To view the nvprof results, you need to install the CUDA tookkit locally. 
 
-You can download the CUDA tookkit from : https://developer.nvidia.com/cuda-downloads
+You can download the CUDA tookkit from: https://developer.nvidia.com/cuda-downloads. 
 Follow the installation instructions. 
 
 If you dont have CUDA enabled (Nvidia GPU), then dont install the driver. Just use the CUDA toolkit and it should work smoothly. 
