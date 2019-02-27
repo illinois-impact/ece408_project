@@ -195,9 +195,9 @@ As with all milestones, you will include an updated PDF `report.pdf` with all of
 | Report: List Op Times |
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m2` to mark your job for grading |
 
-See the [description](#markdown-header-skeleton-code-description) of the skeleton code for background information, including the data storage layout of the tensors.
+See the [description](#skeleton-code-description) of the skeleton code for background information, including the data storage layout of the tensors.
 
-Modify `ece408_src/new-forward.h` to implement the forward convolution described in [Chapter 16 of the textbook](https://wiki.illinois.edu/wiki/display/ECE408Fall2017/Textbook+Chapters).
+Modify `ece408_src/new-forward.h` to implement the forward convolution described in Chapter 16 of the textbook.
 The performance of the CPU convolution is not part of the project evaluation.
 The algorithm is also below, for your convenience
 
@@ -435,20 +435,19 @@ That `Op Time` is computed by wrapping the MXNet op that you implement in a time
 ## Optimizations
 
 New from Spring 2019, we are going to suggest a set of possible optimizations for you to attempt.
-Each of these is considered to be "one optimization" or "half optimization" for the purpose of grading.
 
 * Unroll + shared-memory Matrix multiply
 * Shared Memory convolution
 * Kernel fusion for unrolling and matrix-multiplication
 * Weight matrix (kernel values) in constant memory
-* Tuning with restrict (*)
-* Loop unrolling (*)
+* Tuning with restrict and loop unrolling (considered as one optimization only if you do both)
 * An advanced matrix multiplication algorithm (register-tiled, for example)
-* Sweeping various parameters to find best values (block sizes, amount of thread coarsening) (*)
+* Sweeping various parameters to find best values (block sizes, amount of thread coarsening)
 * Exploiting parallelism in input images, input channels, and output channels.
-* Multiple kernel implementations for different layer sizes (*)
-
-Optimizations with (*) sign are considered as "half optimizations". You need to implement two half optimizations to get the same effect as other optimizations. For example, tuning with restrict and loop unrolling combined is considered the same as shared memory convolution for grading purpose. You'll need to implement 6 full optimizations in total. 
+* Multiple kernel implementations for different layer sizes
+* Input channel reduction: tree
+* Input channel reduction: atomics
+* ... 
 
 Other optimizations that do not fit in here may also be considered as optimizations.
 If in doubt, contact the course staff.
