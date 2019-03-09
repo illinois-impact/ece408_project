@@ -58,12 +58,12 @@ Download the rai binary for your platform.
 You will probably use it for development, and definitely use it for submission.
 
 
-| Operating System | Architecture | New rai client (Version: 0.3.1-ece408) | Stable Version (0.3.0) Link (OLD)                                                        |
+| Operating System | Architecture | New rai client, with submit support | Old Version, no submit support (Version: 0.3.1-ece408)                                                        |
 | ---------------- | ------------ | ---------------------------------------| -----------------------------------------------------------------------------------------|
-| Linux            | amd64        | [URL](https://drive.google.com/open?id=1_QqqZUeXtkLYZca0wqP4PdmB0Omcw-W9)  | [URL](http://files.rai-project.com/dist/rai/stable/latest/linux-amd64.tar.gz)            |
-| Arch Linux       | amd64        | [URL](https://drive.google.com/open?id=145ZSHq04BtAcwG-eaCy3YunAOvp9KUrV)  | -                                                    |
-| OSX/Darwin       | amd64        | [URL](https://drive.google.com/open?id=1l912xvVitXiYCluccTRIKFf3tw2IqmkB)  | [URL](http://files.rai-project.com/dist/rai/stable/latest/darwin-amd64.tar.gz)           |
-| Windows          | amd64        | [URL](https://drive.google.com/open?id=1F5ccWZSTGdoshXl9k6OEW6OnNAC0HMFu)  | [URL](http://files.rai-project.com/dist/rai/stable/latest/windows-amd64.tar.gz)          |
+| Linux            | amd64        | [URL](https://drive.google.com/drive/folders/1IHbg6nlDBPHimGjtkWhOmoZEPzeam--W)  | [URL](https://drive.google.com/open?id=1_QqqZUeXtkLYZca0wqP4PdmB0Omcw-W9)   |
+| Arch Linux       | amd64        | -  | [URL](https://drive.google.com/open?id=145ZSHq04BtAcwG-eaCy3YunAOvp9KUrV)   |
+| OSX/Darwin       | amd64        | [URL](https://drive.google.com/drive/folders/1P7LtcCC6VOp5wrNF8FSM5gONvM99mIZC)  | [URL](https://drive.google.com/open?id=1l912xvVitXiYCluccTRIKFf3tw2IqmkB)   |
+| Windows          | amd64        | -  | [URL](https://drive.google.com/open?id=1F5ccWZSTGdoshXl9k6OEW6OnNAC0HMFu)   |
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
@@ -201,7 +201,7 @@ Modify `ece408_src/new-forward.h` to implement the forward convolution described
 The performance of the CPU convolution is not part of the project evaluation.
 The algorithm is also below, for your convenience
 
-    for b = 0 .. B)                    // for each image in the batch 
+    for b = 0 .. B                     // for each image in the batch 
         for m = 0 .. M                 // for each output feature maps
             for h = 0 .. H_out         // for each output element
                 for w = 0 .. W_out
@@ -239,9 +239,9 @@ You can time the whole program execution by modifying `rai_build.yml` with
 
 `m2.1.py` takes one optional argument: the dataset size.  
 If the correctness for each possible model is as below, you can be reasonably confident your implementation is right.
-The correctness does depend on the data size. Check your correctness on the full data size of 10000.
+The correctness does depend on the data size. 
 
-For example, you could modify `rai_build.yml` to run
+For example, to check your correctness on the full data size of 10000, you could modify `rai_build.yml` to run
 
     python m2.1.py 10000
 
