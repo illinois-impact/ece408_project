@@ -571,8 +571,8 @@ The training dataset is a modified version of the mxnet dataset. The scripts to 
     pip3 install --user numpy scikit-image
     mkdir -p fashion-mnist
     wget -P fashion-mnist \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/generate-data.py \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/reader.py
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2019sp/scripts/generate-data.py \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2019sp/scripts/reader.py
 
 Run the generation script. It will download the fashion-mnist dataset and resize it, which may take a few minutes and consume a few hundred megabytes of disk space
 
@@ -583,27 +583,27 @@ Download the trained models (for the existing MXNet implementation and your impl
 
     mkdir -p models \
     && wget -P models \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/models/baseline-0002.params \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/models/baseline-symbol.json \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/models/ece408-002.params \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/models/ece408-symbol.json
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2019sp/models/baseline-0002.params \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2019sp/models/baseline-symbol.json \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2019sp/models/ece408-002.params \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2019sp/models/ece408-symbol.json
 
 Download the scripts we use for evaluation (needs to be modified to use 74x74 input image size)
 
     wget \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/m1.1.py \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/m1.2.py \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/m2.1.py \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/m3.1.py \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/scripts/m4.1.py
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2019sp/scripts/m1.1.py \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2019sp/scripts/m1.2.py \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2019sp/scripts/m2.1.py \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2019sp/scripts/m3.1.py \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2019sp/scripts/m4.1.py
 
 
 Download the skeleton source files into incubator-mxnet. This is also where you will put the skeleton code from `ece408_src`.
 
     wget -P incubator-mxnet/src/operator/custom \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/ece408_src/new.cc \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/ece408_src/new.cu \
-        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2018sp/ece408_src/new-inl.h
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2019sp/ece408_src/new.cc \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2019sp/ece408_src/new.cu \
+        https://github.com/illinois-impact/ece408_mxnet_docker/raw/2019sp/ece408_src/new-inl.h
 
 Modify the python forward convolution scripts to point to where you downloaded fashion-mnist
 
