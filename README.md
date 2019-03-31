@@ -289,7 +289,7 @@ When it is correct, it will show the same correctness as Milestone 2.
 
 First, ensure you are using correct image in rai_build.yml file
 
-`image: illinoisimpact/ece408_mxnet_docker:amd64-gpu-latest`
+`image: illinoisimpact/ece408_mxnet_docker_2019sp:amd64-gpu-latest`
 
 Modify `rai_build.yml` to use nvprof to save some timeline and analysis information, as described in [nvprof](#profiling).
 Use the NVIDIA Visual Profiler to find the execution of your kernel, and show it in your report.
