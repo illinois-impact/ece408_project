@@ -54,16 +54,8 @@ Clone this repository to get the project folder.
 
     git clone https://github.com/illinois-impact/ece408_project.git
 
-Download the rai binary for your platform. 
+Download the rai binary for your platform from [here](https://github.com/rai-project/rai#classes-binaries). 
 You will probably use it for development, and definitely use it for submission.
-
-
-| Operating System | Architecture | New rai client, with submit support | Old Version, no submit support (Version: 0.3.1-ece408)                                                        |
-| ---------------- | ------------ | ---------------------------------------| -----------------------------------------------------------------------------------------|
-| Linux            | amd64        | [URL](https://drive.google.com/drive/folders/1IHbg6nlDBPHimGjtkWhOmoZEPzeam--W)  | [URL](https://drive.google.com/open?id=1_QqqZUeXtkLYZca0wqP4PdmB0Omcw-W9)   |
-| Arch Linux       | amd64        | -  | [URL](https://drive.google.com/open?id=145ZSHq04BtAcwG-eaCy3YunAOvp9KUrV)   |
-| OSX/Darwin       | amd64        | [URL](https://drive.google.com/drive/folders/1P7LtcCC6VOp5wrNF8FSM5gONvM99mIZC)  | [URL](https://drive.google.com/open?id=1l912xvVitXiYCluccTRIKFf3tw2IqmkB)   |
-| Windows          | amd64        | -  | [URL](https://drive.google.com/open?id=1F5ccWZSTGdoshXl9k6OEW6OnNAC0HMFu)   |
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
