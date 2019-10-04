@@ -24,7 +24,7 @@ If you are unsure about whether something does not meet those guidelines, ask a 
 * [Milestone 2: Due 10/12/2019 @5pm](#milestone-2)
 * [Milestone 3: Due 10/19/2019 @5pm](#milestone-3)
 * [Milestone 4: Due 11/21/2019 @5pm](#milestone-4)
-* [Final Submission: Due 12/19/2019 @5pm (Reading Day)](#final-submission)
+* [Final Submission: Due 12/19/2019 @5pm](#final-submission)
 * [Rubric](#rubric)
 * [Final Report](#final-report)
 * [Extras](#extras)
@@ -37,7 +37,7 @@ Due October 06 @ 5pm
 | ------------ |
 | Register your team in the google sheet. |
 
-You and your team should agree on a team name and enter it in this [google sheet](https://goo.gl/forms/tMyTnACmhtLnmj5b2)	
+You and your team should agree on a team name and enter it in this [google sheet](https://docs.google.com/spreadsheets/d/1vhThuFT0isnYPac8Gnh7Pp9FMOTWkZ6RcNq-C8ND9LQ/edit#gid=0). Graduate students can use this [google form](https://docs.google.com/forms/d/e/1FAIpQLScDU5QrC9pKsaI8KGKqT4HjjZodSlcYfr-IlR3d7qxzwpFCeg/viewform?usp=sf_link).
 
 ## Milestone 2
 
@@ -65,7 +65,7 @@ Clone this repository to get the project folder.
 
     git clone https://github.com/illinois-impact/ece408_project.git
 
-Download the rai binary for your platform from [here](https://github.com/rai-project/rai#classes-binaries). 
+Download the rai binary for your platform from [here](https://drive.google.com/drive/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV). 
 You will probably use it for development, and definitely use it for submission.
 
 You should have received a `.rai_profile` file by email.
@@ -274,7 +274,7 @@ When it is correct, it will show the same correctness as Milestone 2.
 
 First, ensure you are using correct image in rai_build.yml file
 
-`image: illinoisimpact/ece408_mxnet_docker_2019sp:amd64-gpu-latest`
+`image: illinoisimpact/ece408_mxnet_docker:amd64-gpu-latest-fa19`
 
 Modify `rai_build.yml` to use nvprof to save some timeline and analysis information, as described in [nvprof](#profiling).
 Use the NVIDIA Visual Profiler to find the execution of your kernel, and show it in your report.
