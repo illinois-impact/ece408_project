@@ -5,7 +5,7 @@ resources:
   cpu:
     architecture: amd64
   gpu:
-    architecture: pascal
+    architecture: volta
     count: 1
   network: false
 commands:
