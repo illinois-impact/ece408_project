@@ -19,9 +19,9 @@ if len(sys.argv) > 2:
 # Log to stdout for MXNet
 logging.getLogger().setLevel(logging.DEBUG)  # logging to stdout
 
-print "Loading fashion-mnist data..."
+print "Loading fashion-mnist data...",
 test_images, test_labels = load_mnist(
-    path="/fashion-mnist", rows=48, cols=48, kind="t10k-48")
+    path="/fashion-mnist", rows=70, cols=70, kind="t10k-70")
 print "done"
 
 # Reduce the size of the dataset, if desired
@@ -37,7 +37,7 @@ test_iter = mx.io.NDArrayIter(
     test_images, test_labels, batch_size)
 
 # Evaluate the network
-print "Loading model..."
+print "Loading model...",
 lenet_model = mx.mod.Module.load(
     prefix=MODEL_DIR + "/" + model_prefix, epoch=2, context=mx.gpu())
 lenet_model.bind(data_shapes=test_iter.provide_data,
