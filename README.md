@@ -2,16 +2,16 @@
 
 ## Introduction
 
-This is the skeleton code for the Spring 2019 ECE408 / CS483 course project.
+This is the skeleton code for the Fall 2019 ECE408 / CS483 / CSE408 course project.
 In this project, you will:
 
 * Get practical experience by using, profiling, and modifying MXNet, a standard open-source neural-network framework.
 * Demonstrate command of CUDA and optimization approaches by designing and implementing an optimized neural-network convolution layer forward pass.
 
 The project will be broken up into 4 milestones and a final submission. Read the description of the final report before starting, so you can collect the necessary info along the way.
-Each milestone will consist of an updated report (culminating in the final report).
+Each milestone (except milestone 1) will consist of an updated report (culminating in the final report). Append each milestone's deliverable at the beginning of the document such that your latest milestone is at the beginning of the report.
 
-You will be working in teams of 2 or 3 (no excuse here). 
+You will be working in teams of 3 (no excuse here). 
 Chicago city scholars can form teams with on campus students. 
 
 You are expected to adhere to University of Illinois academic integrity standards.
@@ -20,18 +20,28 @@ If you are unsure about whether something does not meet those guidelines, ask a 
 
 ## Table of Contents
 
-* [Milestone 1: Due 3/7/2019 @5pm](#milestone-1)
-* [Milestone 2: Due 3/14/2019 @5pm](#milestone-2)
-* [Milestone 3: Due 4/4/2019 @5pm](#milestone-3)
-* [Milestone 4: Due 4/18/2019 @5pm](#milestone-4)
-* [Final Submission: Due 5/2/2019 @5pm (Reading Day)](#final-submission)
+* [Milestone 1: Due 10/06/2019 @5pm](#milestone-1)
+* [Milestone 2: Due 10/12/2019 @5pm](#milestone-2)
+* [Milestone 3: Due 10/19/2019 @5pm](#milestone-3)
+* [Milestone 4: Due 11/21/2019 @5pm](#milestone-4)
+* [Final Submission: Due 12/19/2019 @5pm](#final-submission)
 * [Rubric](#rubric)
 * [Final Report](#final-report)
 * [Extras](#extras)
 
 ## Milestone 1
 
-Due March 7 @ 5pm
+Due October 06 @ 5pm
+
+| Deliverables |
+| ------------ |
+| Register your team in the google sheet. |
+
+You and your team should agree on a team name and enter it in this [google sheet](https://docs.google.com/spreadsheets/d/1vhThuFT0isnYPac8Gnh7Pp9FMOTWkZ6RcNq-C8ND9LQ/edit#gid=0). Graduate students can use this [google form](https://docs.google.com/forms/d/e/1FAIpQLScDU5QrC9pKsaI8KGKqT4HjjZodSlcYfr-IlR3d7qxzwpFCeg/viewform?usp=sf_link).
+
+## Milestone 2
+
+Due October 12 @ 5pm
 
 As with all milestones, you will include an updated PDF `report.pdf` in the project directory you submit with rai.
 This report should contain all of the deliverables.
@@ -39,7 +49,6 @@ This report should contain your names, netids, rai ids (if different), team name
 
 | Deliverables |
 | ------------ |
-| Register your team in the google sheet. |
 | Report: Include a list of all kernels that collectively consume more than 90% of the program time. |
 | Report: Include a list of all CUDA API calls that collectively consume more than 90% of the program time. |
 | Report: Include an explanation of the difference between kernels and API calls |
@@ -47,18 +56,20 @@ This report should contain your names, netids, rai ids (if different), team name
 | Report: List program run time |
 | Report: Show output of rai running MXNet on the GPU |
 | Report: List program run time |
-| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m1` to mark your job for grading |
+| Create a  CPU implementation |
+| Report: List whole program execution time |
+| Report: List Op Times |
+| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m2` to mark your job for grading |
 
-You and your team should agree on a team name and enter it in this [google sheet](https://goo.gl/forms/tMyTnACmhtLnmj5b2)	
 Clone this repository to get the project folder.
 
     git clone https://github.com/illinois-impact/ece408_project.git
 
-Download the rai binary for your platform from [here](https://github.com/rai-project/rai#classes-binaries). 
+Download the rai binary for your platform from [here](https://drive.google.com/drive/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV). 
 You will probably use it for development, and definitely use it for submission.
 
 You should have received a `.rai_profile` file by email.
-Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
+Put that file in `~/.rai_profile` (Linux/macOS).
 Your `.rai_profile` should look something like this (indented with space!)
 
     profile:
@@ -110,7 +121,7 @@ You should see the following output:
     Loading fashion-mnist data... done
     Loading model... done
     New Inference
-    EvalMetric: {'accuracy': 0.8236}
+    EvalMetric: {'accuracy': 0.8154}
 
 Modify `rai_build.yml` to use `/usr/bin/time` to measure the elapsed time of the whole program.
 
@@ -140,7 +151,7 @@ You should see something that looks like the following:
 ==278== NVPROF is profiling process 278, command: python m1.2.py
 Loading model... done
 New Inference
-EvalMetric: {'accuracy': 0.8236}
+EvalMetric: {'accuracy': 0.8154}
 ==15163== Profiling application: python m1.2.py
 ==15163== Profiling result:
             Type  Time(%)      Time     Calls       Avg       Min       Max  Name
@@ -167,25 +178,7 @@ The CUDA documentation describes [kernels](http://docs.nvidia.com/cuda/cuda-c-pr
 
 You can find more information about nvprof in the [CUDA Toolkit Documentation](http://docs.nvidia.com/cuda/profiler-users-guide/index.html#nvprof-overview)
 
-Use 
-
-    rai -p <project folder> --queue rai_amd64_ece408 --submit=m1
-
-to mark your submission. This will notify the teaching staff of which `report.pdf` draft to consider.
-
-## Milestone 2
-
-Due March 14 @ 5pm
-
-As with all milestones, you will include an updated PDF `report.pdf` with all of the required deliverables for this and preceeding milestones.
-
-| Deliverables |
-| ------------ |
-| Everything from Milestone 1 |
-| Create a  CPU implementation |
-| Report: List whole program execution time |
-| Report: List Op Times |
-| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m2` to mark your job for grading |
+### Create a CPU Implementation
 
 See the [description](#skeleton-code-description) of the skeleton code for background information, including the data storage layout of the tensors.
 
@@ -218,9 +211,9 @@ When your implementation is correct, you should see output like this:
     Loading fashion-mnist data... done
     Loading model... done
     New Inference
-    Op Time: 2.506844
-    Op Time: 7.662763
-    Correctness: 0.8397 Model: ece408
+    Op Time: 10.906517
+    Op Time: 58.887046
+    Correctness: 0.7653 Model: ece408
     
 
 Every time your layer is invoked, it will print the "Op Time," the time spent working on that layer.
@@ -239,9 +232,9 @@ For example, to check your correctness on the full data size of 10000, you could
 
 | Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
-| ece408 | 100       | 0.84 |
-| ece408 | 1000      | 0.852 |
-| ece408 | 10000 (default) | 0.8397 |
+| ece408 | 100       | 0.76 |
+| ece408 | 1000      | 0.767 |
+| ece408 | 10000 (default) | 0.7653 |
 
 (Final model that will be used for internal evaluation shall be different.)
 
@@ -256,7 +249,7 @@ to mark your submission.
 
 ## Milestone 3
 
-Due April 4 @ 5pm
+Due October 19 @ 5pm
 
 | Deliverables |
 | ------------ |
@@ -281,7 +274,7 @@ When it is correct, it will show the same correctness as Milestone 2.
 
 First, ensure you are using correct image in rai_build.yml file
 
-`image: illinoisimpact/ece408_mxnet_docker_2019sp:amd64-gpu-latest`
+`image: illinoisimpact/ece408_mxnet_docker:amd64-gpu-latest-fa19`
 
 Modify `rai_build.yml` to use nvprof to save some timeline and analysis information, as described in [nvprof](#profiling).
 Use the NVIDIA Visual Profiler to find the execution of your kernel, and show it in your report.
@@ -303,15 +296,15 @@ For example, you could modify `rai_build.yml` to run
 
 | Model | Number of Images | Correctness  |
 |-------------| -----| -----  |
-| ece408 | 100       | 0.84 |
-| ece408 | 1000      | 0.852 |
-| ece408 | 10000 (default) | 0.8397 |
+| ece408 | 100       | 0.76 |
+| ece408 | 1000      | 0.767 |
+| ece408 | 10000 (default) | 0.7653 |
 
 (Final model that will be used for internal evaluation shall be different.)
 
 ## Milestone 4
 
-Due April 18 @ 5pm
+Due November 21 @ 5pm
 
 | Deliverables |
 | ------------ |
@@ -341,7 +334,7 @@ to submit your project folder.
 
 ## Final Submission
 
-Due May 2 @ 5pm
+Due December 19 @ 5pm
 
 | Deliverables |
 | ------------ |
@@ -426,7 +419,7 @@ That `Op Time` is computed by wrapping the MXNet op that you implement in a time
 
 ## Optimizations
 
-New from Spring 2019, we are going to suggest a set of possible optimizations for you to attempt.
+We are going to suggest a set of possible optimizations for you to attempt.
 
 * Unroll + shared-memory Matrix multiply
 * Shared Memory convolution
