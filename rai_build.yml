@@ -1,6 +1,6 @@
 rai:
   version: 0.2
-  image: illinoisimpact/ece408_mxnet_docker_2019sp:amd64-gpu-latest
+  image: illinoisimpact/ece408_mxnet_docker:amd64-gpu-latest-fa19
 resources:
   cpu:
     architecture: amd64
@@ -15,11 +15,9 @@ commands:
     - /bin/bash -c "for src in ece408_src/*; do cp -v $src /mxnet/src/operator/custom/.; done" # copy source files to mxnet tree
     - nice -n20 make -C /mxnet # build mxnet
     - pip2 install --user -e /mxnet/python   # install python bindings
-    # <----Don't change the code above---->
     - /usr/bin/time python m1.1.py # execute code
-    # - /usr/bin/time python m1.2.py # execute code
-    # - /usr/bin/time python m2.1.py # execute code
-    # - /usr/bin/time python m3.1.py # execute code
-    # - /usr/bin/time python m4.1.py # execute code
-    # - nvprof -f -o timeline.nvvp python m1.2.py # execute code
-    # - nvprof -f --analysis-metrics -o analysis.nvvp python m1.2.py # execute code
+    - /usr/bin/time python m1.2.py # execute code
+    - /usr/bin/time python m2.1.py # execute code
+    - /usr/bin/time python m3.1.py # execute code
+    - /usr/bin/time python m4.1.py # execute code
+    - /usr/bin/time python final.py # execute code

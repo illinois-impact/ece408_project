@@ -9,7 +9,7 @@ logging.getLogger().setLevel(logging.DEBUG)  # logging to stdout
 
 print "Loading fashion-mnist data...",
 test_images, test_labels = load_mnist(
-    path="/fashion-mnist", rows=48, cols=48, kind="t10k-48")
+    path="/fashion-mnist", rows=70, cols=70, kind="t10k-70")
 print "done"
 
 # Do everything in a single batch
