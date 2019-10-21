@@ -686,6 +686,10 @@ NCSA/UIUC © 2019 [Carl Pearson](https://cwpearson.github.io)
 
 * [Carl Pearson](https://cwpearson.github.io)
 * [Vikram Mailthody](https://github.com/msharmavikram/)
+* Andrew Schuh
+* Abdul Dakkak
+* Zaid Qureshi
 * Rui Lan
 * Zhicun Wan
+* Ben Schreiber
 
