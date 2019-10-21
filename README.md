@@ -598,7 +598,7 @@ Build your modified MXNet
 
 #### Instructions For Other Platforms
 
-**\[Ed.\] This section was contributed by a past student of the course, any may not be up to date.**
+**\[Ed.\] This section was contributed by a past student of the course and may not be up to date.**
 
 If you own a device with an NVIDIA graphics card but are not using Ubuntu, this solution should get you up and running on your current OS with no issues at all.
 
