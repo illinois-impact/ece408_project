@@ -479,30 +479,23 @@ To import the files:
 
 ### NVVP on EWS
 
-The process will be similar for any machine without an NVIDIA GPU (like your linux laptop).
-
-If you wish to install it on Windows or macOS, the CUDA Toolkit installer may partially fail if you do not have an NVIDIA GPU.
-The teaching staff doesn't support this, but you may be able to figure it out.
+EWS provides various CUDA environments that include NVVP.
 
 Establish an ssh session with x-forwarding
 
     ssh -Y <netid>@linux.ews.illinois.edu
+    
+Load the most recent CUDA module:
 
-Download CUDA toolkit for CentOS 7 and install to `~/software/cuda-10.0` (You may choose a different location).
-This takes a while (1GB+ download and install).
+    module load cuda-toolkit/10
+    
+Run nvvp with
 
-    mkdir -p $HOME/software \
-    && wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux -O cuda10.run \
-    && chmod +x cuda10.run \
-    && ./cuda10.run --silent --toolkit --toolkitpath=$HOME/software/cuda-10.0
+    nvvp
 
-Free up your EWS space (I'm not sure what the disk quotas are)
+### NVVP on your own Machine
 
-    rm cuda10.run
-
-Optional: modify .bashrc to add `~/software/cuda-10.0/bin` to your path. Or, just run it directly
-
-    ~/software/cuda-10.0/bin/nvvp &
+NVVP is part of the CUDA Toolkiit. Please see [Installing CUDA Locally](#installing-cuda-locally)
 
 ### Comparing GPU implementation to CPU implementation
 
@@ -639,21 +632,28 @@ You can see this being constructed in `new-inl.h`/`InferShape()`.
 
 ### Installing CUDA locally
 
-The Docker containers that we use to run your code runs on CUDA 10.0. 
+Installing CUDA allows you to do two things:
+1) If you have a GPU, you could develop and test GPU code without rai.
+2) Even if you do not have an Nivida GPU, you can run `nvvp` to view the profiling results.
+
 To view the nvprof results, you need to install the CUDA tookkit locally. 
 
 You can download the CUDA toolkit from: https://developer.nvidia.com/cuda-downloads. 
 Follow the installation instructions. 
+For the best results, either match the CUDA version we use for the course (10.0), or the latest supported CUDA for your platform.
 
-If you dont have CUDA enabled (Nvidia GPU), then dont install the driver. Just use the CUDA toolkit and it should work smoothly. 
+If you dont have CUDA-enabled GPU (Nvidia GPU), ensure that you do not install the drive during the installation step.
+Just use the CUDA toolkit and it should work smoothly. 
 If you are stuck on how to use, please visit the TA office hours.
-
-We might consider updating the CUDA tool version inside the Docker container. We will inform  incase if we do. 
 
 ## License
 
-NCSA/UIUC © 2018 [Carl Pearson](https://cwpearson.github.io)
+NCSA/UIUC © 2019 [Carl Pearson](https://cwpearson.github.io)
 
-Modified in fall 2018 [Vikram](https://github.com/msharmavikram/)
+## Contributors
 
-Last modified by Rui Lan and Zhichun Wan
+* [Carl Pearson](https://cwpearson.github.io)
+* [Vikram Mailthody](https://github.com/msharmavikram/)
+* Rui Lan
+* Zhicun Wan
+
