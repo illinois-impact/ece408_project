@@ -1,3 +1,8 @@
+## NOTE FROM THE TEACHING STAFF
+## This Docker file was contributed by a past student in the course.
+## It may not be up to date. Consult the docker files at
+## https://github.com/illinois-impact/ece408_mxnet_docker
+
 #import nvidia-docker image with latest cudnn
 FROM nvidia/cuda:9.1-cudnn7-devel
 
