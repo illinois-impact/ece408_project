@@ -334,7 +334,7 @@ to submit your project folder.
 
 ## Final Submission
 
-Due December 19 @ 5pm
+Due December 17 @ 5pm
 
 | Deliverables |
 | ------------ |
