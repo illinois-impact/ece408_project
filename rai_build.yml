@@ -1,0 +1,22 @@
+rai:
+  version: 0.2
+  image: illinoisimpact/ece408_minidnn_docker:amd64-gpu-cu10.2-fa20
+resources:
+  cpu:
+    architecture: amd64
+  gpu:
+    architecture: volta
+    count: 1
+  network: false
+commands:
+  build:
+      # Do not modify the following commands
+      - /bin/bash -c "mkdir /build/student_code && cp -rv /src/* /build/student_code" # copy the project folder to /build so everything appears in the upload
+      - /bin/bash -c "cp /ece408/project/build/weights-86.bin /build" # Copy pretrained weights
+      - /bin/bash -c "cp -rv /src/custom/* /ece408/project/src/layer/custom" # copy custom layers to mini-dnn file tree
+      - /bin/bash -c "cmake /ece408/project/ && make -j8"
+      # You may modify the commands below. Uncomment/Comment lines based on the milestone
+      - /bin/bash -c "./m2 100"
+      #- /bin/bash -c "./m3"
+      #- /bin/bash -c "./m4"
+      #- /bin/bash -c "./final"
