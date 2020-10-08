@@ -44,6 +44,8 @@ You and your team should agree on a team name and enter it in this [google sheet
 
 ## Milestone 2: Rai Installation, CPU convolution
 
+***Individual Submission***
+
 As with all milestones, you will include an updated PDF `report.pdf` in the project directory you submit with rai.
 This report should contain all of the deliverables.
 This report should contain your names, netids, rai ids (if different), team names, and school affiliation (Illinois or ZJUI students). Please read the [Final Report](#final-report) section before submitting your report for the milestones.
@@ -61,7 +63,13 @@ Clone this repository to get the project folder.
     git clone -b 2020fa https://github.com/illinois-impact/ece408_project.git
 
 Download the rai binary for your platform from [here](https://drive.google.com/drive/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV). 
-You will probably use it for development, and definitely use it for submission. After downloading the rai binary, rename it to `rai` so that it is consistent with the instructions in this document. Note that you will have to run `rai` from wherever you placed it in your filesystem.
+You will probably use it for development, and definitely use it for submission. After downloading the rai binary, rename it to `rai` so that it is consistent with the instructions in this document. Also give `rai` execute permission by running in the folder you placed it.
+
+    chmod +x rai
+
+Note that you will have to run `rai` from wherever you placed it in your filesystem. For e.g., if you are running it from the same directory it is placed, run
+
+    ./rai
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS).
@@ -75,19 +83,10 @@ Your `.rai_profile` should look something like this (indented with space!)
         access_key: <your-access-key>
         secret_key: <your-secret-key>
         affiliation: uiuc
-
-You will need to add your team name in the following way:
-
-    profile:
-        firstname: <your-given-name>
-        lastname: <your-surname>
-        username: <your-username>
-        email: <your-institution-email>
-        access_key: <your-access-key>
-        secret_key: <your-secret-key>
-        affiliation: uiuc
         team:
-            name: <your-team-name>
+            name: ""
+
+*Note that it is okay for your team name to be blank. We track your team assignments using a database in the backend*
 
 Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
 
@@ -204,6 +203,8 @@ to mark your submission. Make sure to include your `report.pdf` in your `<projec
 
 ## Milestone 3: Baseline Convolutional Kernel
 
+***Individual Submission***
+
 | Deliverables |
 | ------------ |
 | Everything from Milestone 2 |
@@ -308,6 +309,8 @@ to mark your submission. Make sure to include your `report.pdf` in your `<projec
 
 ## Milestone 4: Three Optimizations
 
+***Group Submission***
+
 | Deliverables |
 | ------------ |
 | Everything from Milestone 3 |
@@ -335,6 +338,8 @@ Use
 to submit your project folder. Make sure to include your `report.pdf` in your `<project folder>`.
 
 ## Final Submission
+
+***Group Submission***
 
 | Deliverables |
 | ------------ |
@@ -472,35 +477,10 @@ For a high-level overview of the Nsight software, visit [here](https://developer
 
 Nsight-Compute can be installed as a standalone application. You do not need CUDA to be installed. You can download the installer from NVIDIA's [website](https://developer.nvidia.com/gameworksdownload#?dn=nsight-compute-2020-2-0)
 
-<!--
-### Offline Development
-
-
-#### Instructions For Other Platforms
--->
-
 ### Skeleton Code Description
 `custom/cpu-new-forward.cc` and `custom/new-forward.cu` containes skeleton implementations for the CPU and CPU convolutions respectively. You can complete the project by modifying these two files only. `custom/cpu-new-forward.h` and `custom/gpu-new-forward.h` are the respective header files. You need not modify these files unless you need to declare your own functions.
 
 The code in `m2.cc`, `m3.cc`, `m4.cc` and `final.cc` are the top level files that are executed for each milestone. You should not be modifying these files.
-
-<!--
-### Installing CUDA locally
-
-Installing CUDA allows you to do two things:
-1) If you have a GPU, you could develop and test GPU code without rai.
-2) Even if you do not have an Nivida GPU, you can run `nvvp` to view the profiling results.
-
-To view the nvprof results, you need to install the CUDA tookkit locally. 
-
-You can download the CUDA toolkit from: https://developer.nvidia.com/cuda-downloads. 
-Follow the installation instructions. 
-For the best results, either match the CUDA version we use for the course (10.2), or the latest supported CUDA for your platform.
-
-If you dont have CUDA-enabled GPU (Nvidia GPU), ensure that you do not install the drive during the installation step.
-Just use the CUDA toolkit and it should work smoothly. 
-If you are stuck on how to use, please visit the TA office hours.
--->
 
 ## License
 
