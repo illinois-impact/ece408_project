@@ -48,14 +48,14 @@ You and your team should agree on a team name and enter it in this [google sheet
 
 As with all milestones, you will include an updated PDF `report.pdf` in the project directory you submit with rai.
 This report should contain all of the deliverables.
-This report should contain your names, netids, rai ids (if different), team names, and school affiliation (Illinois or ZJUI students). Please read the [Final Report](#final-report) section before submitting your report for the milestones.
+This report should contain your names, netids, team names, and school affiliation (Illinois or ZJUI students). Please read the [Final Report](#final-report) section before submitting your report for the milestones.
 
 | Deliverables |
 | ------------ |
 | Create a CPU convolution implementation |
-| Report: Show output of rai running Mini-DNN on the CPU (CPU convolution implemented)|
-| Report: List Op Times (CPU convolution implemented)|
-| Report: List whole program execution time (CPU convolution implemented)|
+| Report: Show output of rai running Mini-DNN on the CPU (CPU convolution implemented) for batch size of 10k images|
+| Report: List Op Times (CPU convolution implemented) for batch size of 10k images|
+| Report: List whole program execution time (CPU convolution implemented) for batch size of 10k images|
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m2` to mark your job for grading |
 
 Clone this repository to get the project folder.
@@ -363,10 +363,10 @@ Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=final` to submit 
 You've been building this final report through all the milestones.
 Keep the content from the earlier milestones, but be sure to include the following:
 
-* Your team name
 * Your team member names
-* your netids
-* your UINs
+* Your netids
+* Your team name
+* Your school affiliation (Illinois or ZJUI students)
 
 The final report should include at least the following information for each optimization
 
