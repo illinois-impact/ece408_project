@@ -478,7 +478,7 @@ For a high-level overview of the Nsight software, visit [here](https://developer
 Nsight-Compute can be installed as a standalone application. You do not need CUDA to be installed. You can download the installer from NVIDIA's [website](https://developer.nvidia.com/gameworksdownload#?dn=nsight-compute-2020-2-0)
 
 ### Skeleton Code Description
-`custom/cpu-new-forward.cc` and `custom/new-forward.cu` containes skeleton implementations for the CPU and CPU convolutions respectively. You can complete the project by modifying these two files only. `custom/cpu-new-forward.h` and `custom/gpu-new-forward.h` are the respective header files. You need not modify these files unless you need to declare your own functions.
+`custom/cpu-new-forward.cc` and `custom/new-forward.cu` containes skeleton implementations for the CPU and GPU convolutions respectively. You can complete the project by modifying these two files only. `custom/cpu-new-forward.h` and `custom/gpu-new-forward.h` are the respective header files. You need not modify these files unless you need to declare your own functions.
 
 The code in `m2.cc`, `m3.cc`, `m4.cc` and `final.cc` are the top level files that are executed for each milestone. You should not be modifying these files.
 
