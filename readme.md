@@ -210,7 +210,7 @@ to mark your submission. Make sure to include your `report.pdf` in your `<projec
 | Everything from Milestone 2 |
 | Implement a GPU Convolution |
 | Correctness and timing with 3 different dataset sizes |
-| Report: Show output of rai running your GPU implementation of convolution |
+| Report: Show output of rai running your GPU implementation of convolution (including the OpTimes) |
 | Report: Demonstrate `nsys` profiling the GPU execution |
 | Report: Include a list of all kernels that collectively consume more than 90% of the program time. |
 | Report: Include a list of all CUDA API calls that collectively consume more than 90% of the program time. |
@@ -227,13 +227,15 @@ Modify `rai_build.yml` to run
     - /bin/bash -c "./m3"
 
 to use your GPU implementation.
-When it is correct, it will show the same correctness as Milestone 2. To quicken development time, `m3.cc` takes one optional argument: the dataset size. See [Specifying Batch Size](#specifying-batch-size). 
+When it is correct, it will show the same correctness as Milestone 2. To quicken development time, `m3.cc` takes one optional argument: the dataset size. See [Specifying Batch Size](#specifying-batch-size).
 
 ### Use Nsight-Systems and Nsight-Compute for initial Performance Results
 
 First, ensure you are using correct image in rai_build.yml file
 
 `image: illinoisimpact/ece408_minidnn_docker:amd64-gpu-cu10.2-fa20`
+
+**Before you do any profiling, make sure you do not have any memory errors by running `cuda-memcheck`. See [Checking for Errors](#checking-for-errors) on how to run this.**
 
 ***System level profiling using Nsight-Systems***
 
@@ -315,10 +317,40 @@ to mark your submission. Make sure to include your `report.pdf` in your `<projec
 | ------------ |
 | Everything from Milestone 3 |
 | Implement three GPU optimizations |
-| Report: Describe the optimization |
-| Report: Demonstrate `nsys` profiling the execution |
-| Report: Use `nv-nsight-cu-cli` to analyze your optimization |
+| Report: Describe the optimizations as specified [here](#final-report) |
+| Report: Use data from `nsys` and/or `nv-nsight-cu-cli` to analyze your optimizations and justify the effects of your optimizations |
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m4` to mark your job for grading |
+
+### Interpreting the timing output from rai
+
+You will see three types of times reported per layer as follows
+
+    ✱ Running bin/bash -c "./m4 1000"   \\ Output will appear after run is complete.
+    Test batch size: 1000
+    Loading fashion-mnist data...Done
+    Loading model...Done
+    Conv-GPU==
+    Conv-GPU==
+
+    Test Accuracy: 0.886
+    --------------------------------
+    -           TIMINGS
+    --------------------------------
+    Layer 1 GPUTime: 4.862905 ms
+    Layer 1 OpTime: 4.882009 ms
+    Layer 1 LayerTime: 63.512461 ms
+    Layer 2 GPUTime: 16.523901 ms
+    Layer 2 OpTime: 16.544541 ms
+    Layer 2 LayerTime: 59.37215 ms
+
+
+1. GPUTime - This is the total time your kernel code takes to execute on the GPU. It does not include any CUDA API calls
+2. OpTime - This is time between the last cudaMemcpy call before your first kernel call and the first cudaMemcpy after your last kernel call in `new-forward.cu -> conv_forward_gpu()`. It does not include the cudaMemcpy times. **This is the time that will be used for rankings**
+3. LayerTime - This is the total time taken to execute `new-forward.cu -> conv_forward_gpu()`. It includes all the times for all kernel and CUDA API calls as well as the CPU time to run `conv_forward_gpu()`.
+
+*Note: We will check that GPUTime < OpTime < LayerTime and that the GPUTime and OpTime should be simillar. Also LayerTime should not differ from OpTime by more than 1000 ms.*
+
+*Only OpTImes of runs with batch size set as 10k images will be considered for ranking.*
 
 ### 4.1 Add three GPU Optimization
 
@@ -346,7 +378,7 @@ to submit your project folder. Make sure to include your `report.pdf` in your `<
 | Everything from Milestone 4 |
 | Implement final GPU optimizations  (total of 6) |
 | Report: Describe and analyze the optimizations |
-| Report: Demonstrate `nsys` and `nv-nsight-cu-cli` profiling the execution |
+| Report: Use `nsys` and/or `nv-nsight-cu-cli` to justify the effects of your optimiatization on performance |
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=final` to mark your job for grading |
 
 ### Optimized Layer
@@ -413,8 +445,7 @@ The Performance Ranking will be graded as follows:
 The ranking is determined by the total run time of the two layer invocations.
 If your implementation is not correct, you will get a 0 for this component of the grade.
 The `rai ranking` command is not the final word: the staff will re-run all final submissions multiple times and choose the fastest result as your time.
-THe ranking is determined solely by the values printed by `Op Time:` during your run.
-That `Op Time` is computed by wrapping your implementation in `custom/new-forward.cu` in a timer.
+The ranking is determined solely by the values printed by `Op Time:` during your run. See [here](#Interpreting-the-timing-output-from-rai) for details.
 
 ## Optimizations
 
@@ -440,7 +471,7 @@ If in doubt, contact the course staff.
 
 ### Checking for Errors
 
-Within `custon/new-forward.cu`, you can use the predefined error handling code to catch CUDA errors or, you can define a macro/function similar to `wbCheck` used in WebGPU.
+Within `custom/new-forward.cu`, you can use the predefined error handling code to catch CUDA errors or, you can define a macro/function similar to `wbCheck` used in WebGPU.
 
 To catch memory errors, prepend your command with `cuda-memcheck`
 
@@ -457,10 +488,10 @@ You can see some simple information like so (as we did in milestone 3):
 
 You can additionally gather some detailed kernel level performance metrics.
 
-    nv-nsight-cu-cli --section ".*" -o analysis_file <your command here>
+    nv-nsight-cu-cli --section '.*' -o analysis_file <your command here>
 
 This will generate `analysis_file.ncu-rep`.
-`--section ".*"` may significantly slow the run time since it is profiling all the metrics. You may wish to modify the command to run on smaller datasets during this profiling.
+`--section '.*'` may significantly slow the run time since it is profiling all the metrics. You may wish to modify the command to run on smaller datasets during this profiling.
 
 You will need to follow the link rai prints after the execution to retrieve these files.
 You can use the NVIDIA Nsight Compute GUI (`nv-nsight-cu`) to import those files.
@@ -470,6 +501,9 @@ To import the files:
 * Launch the GUI `/usr/local/NVIDIA-Nsight-Compute/nv-nsight-cu` (or from wherever you installed it)
 * Close the intial Quick Launch menu
 * Go to File > Open File and select the `.ncu-rep` file from the `\build` folder you downloaded from rai.
+
+*OR*
+* Directly launch from the terminal `/usr/local/NVIDIA-Nsight-Compute/nv-nsight-cu <filename>.ncu-rep`
 
 For a high-level overview of the Nsight software, visit [here](https://developer.nvidia.com/tools-overview).
 
