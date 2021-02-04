@@ -74,6 +74,7 @@ Your `.rai_profile` should look something like this (indented with space!)
         access_key: <your-access-key>
         secret_key: <your-secret-key>
         affiliation: uiuc
+        role: ece408
         team:
             name: ""
 
