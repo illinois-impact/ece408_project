@@ -35,11 +35,11 @@ You will be working on this project individually.
 
 ## Milestone 1: Rai Installation, CPU convolution, Profiling
 
-***Individual Submission***
+***Deadline: March 19th, 8 PM CST***
 
 As with all milestones, you will include an updated PDF `report.pdf` in the project directory you submit with rai.
 This report should contain all of the deliverables.
-This report should contain your names, netids, team names, and school affiliation (Illinois or ZJUI students). Please read the [Final Report](#final-report) section before submitting your report for the milestones.
+This report should contain your name, netid, and school affiliation (Illinois or ZJUI students). Please read the [Final Report](#final-report) section before submitting your report for the milestones.
 
 | Deliverables |
 | ------------ |
@@ -194,7 +194,7 @@ to mark your submission. Make sure to include your `report.pdf` in your `<projec
 
 ## Milestone 2: Baseline Convolutional Kernel
 
-***Individual Submission***
+***Deadline: April 9th, 8 PM CST***
 
 | Deliverables |
 | ------------ |
@@ -302,7 +302,7 @@ to mark your submission. Make sure to include your `report.pdf` in your `<projec
 
 ## Milestone 3: Three Optimizations
 
-***Group Submission***
+***Deadline: April 30th, 8 PM CST***
 
 | Deliverables |
 | ------------ |
@@ -362,7 +362,7 @@ to submit your project folder. Make sure to include your `report.pdf` in your `<
 
 ## Final Submission
 
-***Group Submission***
+***Deadline: May 14th, 8 PM CST***
 
 | Deliverables |
 | ------------ |
