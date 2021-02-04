@@ -47,7 +47,7 @@ This report should contain your name, netid, and school affiliation (Illinois or
 | Report: Show output of rai running Mini-DNN on the CPU (CPU convolution implemented) for batch size of 10k images|
 | Report: List Op Times (CPU convolution implemented) for batch size of 10k images|
 | Report: List whole program execution time (CPU convolution implemented) for batch size of 10k images|
-| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m2` to mark your job for grading |
+| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m1` to mark your job for grading |
 
 Clone this repository to get the project folder.
 
@@ -75,8 +75,6 @@ Your `.rai_profile` should look something like this (indented with space!)
         secret_key: <your-secret-key>
         affiliation: uiuc
         role: ece408
-
-*Note that it is okay for your team name to be blank. We track your team assignments using a database in the backend*
 
 Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
 
@@ -206,7 +204,7 @@ to mark your submission. Make sure to include your `report.pdf` in your `<projec
 | Report: Include a list of all CUDA API calls that collectively consume more than 90% of the program time. |
 | Report: Include an explanation of the difference between kernels and API calls |
 | Report: Screenshot of the GPU SOL utilization in Nsight-Compute GUI for your kernel profiling data|
-| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m3` to mark your job for grading |
+| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m2` to mark your job for grading |
 
 ### Create a GPU Implementation
 
