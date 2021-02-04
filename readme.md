@@ -26,12 +26,12 @@ You will be working on this project individually.
 
 ## Table of Contents
 
-* [Milestone 1: Rai Installation, CPU Convolution](#milestone-1-rai-installation-cpu-convolution)
+* [Milestone 1: Rai Installation, CPU Convolution, Profiling](#milestone-1-rai-installation-cpu-convolution-profiling)
 * [Milestone 2: Baseline Convolutional Kernel](#milestone-2-baseline-convolutional-kernel)
 * [Milestone 3: Three Optimizations](#milestone-3-three-optimizations)
 * [Final Submission](#final-submission)
-* [Rubric](#rubric)
 * [Final Report](#final-report)
+* [Rubric](#rubric)
 
 ## Milestone 1: Rai Installation, CPU convolution, Profiling
 
