@@ -8,7 +8,7 @@ void inference_only(int batch_size) {
   std::cout<<"Done"<<std::endl;
   
   std::cout<<"Loading model...";
-  Network dnn = createNetwork_CPU(true);
+  Network dnn = createNetwork_GPU();
   std::cout<<"Done"<<std::endl;
 
   dnn.forward(dataset.test_data);

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is the skeleton code for the Fall 2020 ECE408 / CS483 / CSE408 course project.
+This is the skeleton code for the Spring 2021 ECE408 / CS483 / CSE408 course project.
 
 In this final project, you will be implementing and optimizing the forward-pass of a convolutional layer using CUDA. Convolutional layers are the primary building blocks of convolutional neural networks (CNNs), which are used in many machine learning tasks like image classification, object detection, natural language processing, and recommendation systems. In general, CNNs work well on tasks where the data/input features have some level of spatial relationship.
 
@@ -20,29 +20,20 @@ The overall learning objectives for this project are:
 * Demonstrating command of CUDA and optimization approaches by designing and implementing an optimized neural-network convolutional layer forward pass
 * Obtaining practical experience in analyzing and fine tuning CUDA kernels through the use of profiling tools like Nsight Systems (`nsys`) and Nsight-Compute (`nv-nsight-cu`)
 
-You will be working in teams of 3 (no exceptions unless approved by the course staff).
+You will be working on this project individually.
 
 *You are expected to adhere to University of Illinois academic integrity standards. Do not attempt to subvert any of the performance-measurement aspects of the final project. If you are unsure about whether something does not meet those guidelines, ask a member of the teaching staff.*
 
 ## Table of Contents
 
-* [Milestone 1: Team Registration](#milestone-1-team-registration)
-* [Milestone 2: Rai installation, CPU convolution](#milestone-2-rai-installation-cpu-convolution)
-* [Milestone 3: Baseline Convolutional Kernel](#milestone-3-baseline-convolutional-kernel)
-* [Milestone 4: Three Optimizations](#milestone-4-three-optimizations)
+* [Milestone 1: Rai Installation, CPU Convolution](#milestone-1-rai-installation-cpu-convolution)
+* [Milestone 2: Baseline Convolutional Kernel](#milestone-2-baseline-convolutional-kernel)
+* [Milestone 3: Three Optimizations](#milestone-3-three-optimizations)
 * [Final Submission](#final-submission)
 * [Rubric](#rubric)
 * [Final Report](#final-report)
 
-## Milestone 1: Team Registration
-
-| Deliverables |
-| ------------ |
-| Register your team in the google sheet. |
-
-You and your team should agree on a team name and enter it in this [google sheet](https://forms.gle/7UU8X3wNvVGaV5ae6)
-
-## Milestone 2: Rai Installation, CPU convolution
+## Milestone 1: Rai Installation, CPU convolution, Profiling
 
 ***Individual Submission***
 
@@ -60,7 +51,7 @@ This report should contain your names, netids, team names, and school affiliatio
 
 Clone this repository to get the project folder.
 
-    git clone -b 2020fa https://github.com/illinois-impact/ece408_project.git
+    git clone -b 2021sp https://github.com/illinois-impact/ece408_project.git
 
 Download the rai binary for your platform from [here](https://drive.google.com/drive/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV). 
 You will probably use it for development, and definitely use it for submission. After downloading the rai binary, rename it to `rai` so that it is consistent with the instructions in this document. Also give `rai` execute permission by running in the folder you placed it.
@@ -111,11 +102,11 @@ The `resources:` key specifies what computation resources will be available to t
 The `commands:` key specifies the recipe that rai will execute. First, the project files are copied to the `/build/student_code` directory so that we have a record of your code along with your performance.
 Then the files in `custom` are copied to `/ece408/project/src/layer/custom` in the Mini-DNN source tree and the pretrained weights are copied to `/build`. Finally, Mini-DNN is recompiled with your custom code.
 
-`./m2 100` runs the code specified in `m2.cc` program for a batch of 100 input images. 
+`./m1 100` runs the code specified in `m1.cc` program for a batch of 100 input images. 
 
 You should see the following output:
 
-    ✱ Running /bin/bash -c "./m2 100"
+    ✱ Running /bin/bash -c "./m1 100"
     Test batch size: 100
     Loading fashion-mnist data...Done
     Loading model...Done
@@ -129,7 +120,7 @@ It is okay for the accuracy is low here since you haven't implemented the convol
 
 Modify `rai_build.yml` to use `time` to measure the elapsed time of the whole program.
 
-    - /bin/bash -c "time ./m2 100"
+    - /bin/bash -c "time ./m1 100"
 
 ### Create a CPU Implementation
 
@@ -160,7 +151,7 @@ Unlike the convolutions described in the class, note that this one is not center
 
 Modify `rai_build.yml` to invoke
 
-    - /bin/bash -c "./m2"
+    - /bin/bash -c "./m1"
 
 Please be patient as the CPU implementation with 10k images is slow. A correct implementation may take around 6-7 mins to run. If you want to iterate quickly when developing code using smaller batch sizes, see [Specifying Batch Size](#specifying-batch-size). When your implementation is correct, you should see output like this:
 
@@ -177,15 +168,15 @@ Every time your layer is invoked, it will print the "Op Time," the time spent wo
 Since the network has two convolutional layers, two times will be printed.
 You can time the whole program execution by modifying `rai_build.yml` with
 
-    - /bin/bash -c "time ./m2"
+    - /bin/bash -c "time ./m1"
 
 ### Specifying Batch Size
-`./m2`, `./m3`, `./m4` and `./final` all take one optional argument: the dataset size.  
+`./m1`, `./m2`, `./m3` and `./final` all take one optional argument: the dataset size.  
 If the correctness for each possible batch size is as below, you can be reasonably confident your implementation is right. The correctness does depend on the data size. 
 
 For example, to check your accuracy on the full data size of 10,000, you could modify `rai_build.yml` to run
 
-    - /bin/bash -c "./m2 10000"
+    - /bin/bash -c "./m1 10000"
 
 | Number of Images | Accuracy  |
 | -----------------| --------- |
@@ -193,21 +184,21 @@ For example, to check your accuracy on the full data size of 10,000, you could m
 | 1000             | 0.886 |
 | 10000 (default)  | 0.8714 |
 
-The provided `m2.cc` is identical to the one used by `--submit=m2`.
+The provided `m1.cc` is identical to the one used by `--submit=m1`.
 
 Use
 
-    rai -p <project folder> --queue rai_amd64_ece408 --submit=m2
+    rai -p <project folder> --queue rai_amd64_ece408 --submit=m1
 
 to mark your submission. Make sure to include your `report.pdf` in your `<project folder>`.
 
-## Milestone 3: Baseline Convolutional Kernel
+## Milestone 2: Baseline Convolutional Kernel
 
 ***Individual Submission***
 
 | Deliverables |
 | ------------ |
-| Everything from Milestone 2 |
+| Everything from Milestone 1 |
 | Implement a GPU Convolution |
 | Correctness and timing with 3 different dataset sizes |
 | Report: Show output of rai running your GPU implementation of convolution (including the OpTimes) |
@@ -224,10 +215,10 @@ Modify `custom/new-forward.cu` to create GPU implementation of the forward convo
 
 Modify `rai_build.yml` to run
 
-    - /bin/bash -c "./m3"
+    - /bin/bash -c "./m2"
 
 to use your GPU implementation.
-When it is correct, it will show the same correctness as Milestone 2. To quicken development time, `m3.cc` takes one optional argument: the dataset size. See [Specifying Batch Size](#specifying-batch-size).
+When it is correct, it will show the same correctness as Milestone 1. To quicken development time, `m2.cc` takes one optional argument: the dataset size. See [Specifying Batch Size](#specifying-batch-size).
 
 ### Use Nsight-Systems and Nsight-Compute for initial Performance Results
 
@@ -243,7 +234,7 @@ We will learn how to use `nsys` (Nsight Systems) to profile the execution at the
 
 Once you've gotten the appropriate accuracy results, generate a profile using `nsys`. Make sure `rai_build.yml` is configured for a GPU run. Then, modify `rai_build.yml` to generate a profile instead of just executing the code.
 
-    - nsys profile --stats=true ./m3
+    - nsys profile --stats=true ./m2
 
 You should see something that looks like the following (but not identical):
 
@@ -305,27 +296,27 @@ The [Nsight Compute installation](#nsight-compute-installation) section describe
 
 Use
 
-    rai -p <project folder> --queue rai_amd64_ece408 --submit=m3
+    rai -p <project folder> --queue rai_amd64_ece408 --submit=m2
 
 to mark your submission. Make sure to include your `report.pdf` in your `<project folder>`.
 
-## Milestone 4: Three Optimizations
+## Milestone 3: Three Optimizations
 
 ***Group Submission***
 
 | Deliverables |
 | ------------ |
-| Everything from Milestone 3 |
+| Everything from Milestone 2 |
 | Implement three GPU optimizations |
 | Report: Describe the optimizations as specified [here](#final-report) |
 | Report: Use data from `nsys` and/or `nv-nsight-cu-cli` to analyze your optimizations and justify the effects of your optimizations |
-| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m4` to mark your job for grading |
+| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m3` to mark your job for grading |
 
 ### Interpreting the timing output from rai
 
 You will see three types of times reported per layer as follows
 
-    ✱ Running bin/bash -c "./m4 1000"   \\ Output will appear after run is complete.
+    ✱ Running bin/bash -c "./m3 1000"   \\ Output will appear after run is complete.
     Test batch size: 1000
     Loading fashion-mnist data...Done
     Loading model...Done
@@ -352,20 +343,20 @@ You will see three types of times reported per layer as follows
 
 *Only OpTImes of runs with batch size set as 10k images will be considered for ranking.*
 
-### 4.1 Add three GPU Optimization
+### 3.1 Add three GPU Optimization
 
 For this milestone, you should attempt at least three GPU optimizations (see [optimizations](#optimizations)).
 
 Describe the optimizations in your `report.pdf`. Read the [Final Report](#final-report) section to see what is expected for the description of each optimization.
 
-### 4.2 Performance Analysis with Nsight-Systems and Nsight-Compute
+### 3.2 Performance Analysis with Nsight-Systems and Nsight-Compute
 
 Use the NVIDIA Nsight-Systems(`nsys`) and Nsight-Compute(`nv-nsight-cu-cli`) and your analysis information to describe the effect that your optimizations had on the performance of your convolution.
 If possible, you should try to separate the effect of each optimization in your analysis.
 
 Use 
     
-    rai -p <project folder> --queue rai_amd64_ece408 --submit=m4
+    rai -p <project folder> --queue rai_amd64_ece408 --submit=m3
     
 to submit your project folder. Make sure to include your `report.pdf` in your `<project folder>`.
 
@@ -375,7 +366,7 @@ to submit your project folder. Make sure to include your `report.pdf` in your `<
 
 | Deliverables |
 | ------------ |
-| Everything from Milestone 4 |
+| Everything from Milestone 3 |
 | Implement final GPU optimizations  (total of 6) |
 | Report: Describe and analyze the optimizations |
 | Report: Use `nsys` and/or `nv-nsight-cu-cli` to justify the effects of your optimiatization on performance |
@@ -395,9 +386,8 @@ Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=final` to submit 
 You've been building this final report through all the milestones.
 Keep the content from the earlier milestones, but be sure to include the following:
 
-* Your team member names
-* Your netids
-* Your team name
+* Your name
+* Your netid
 * Your school affiliation (Illinois or ZJUI students)
 
 The final report should include at least the following information for each optimization
@@ -407,7 +397,6 @@ The final report should include at least the following information for each opti
     * why you thought the approach would be fruitful
     * the effect of the optimization. was it fruitful, and why or why not. Use `nsys` and `nv-nsight-cu` to justify your explanation.
     * Any external references used during identification or development of the optimization
-    * How  your team organized and divided up this work.
 2. **References** (as needed)
 3. **(Optional) Suggestions for Improving Next Year**
 
@@ -509,12 +498,12 @@ For a high-level overview of the Nsight software, visit [here](https://developer
 
 ### Nsight-compute Installation
 
-Nsight-Compute can be installed as a standalone application. You do not need CUDA to be installed. You can download the installer from NVIDIA's [website](https://developer.nvidia.com/gameworksdownload#?dn=nsight-compute-2020-2-0)
+Nsight-Compute can be installed as a standalone application. You do not need CUDA to be installed. You can download the installer from NVIDIA's [website](https://developer.nvidia.com/gameworksdownload#?dn=nsight-compute-2020-3-0)
 
 ### Skeleton Code Description
 `custom/cpu-new-forward.cc` and `custom/new-forward.cu` containes skeleton implementations for the CPU and GPU convolutions respectively. You can complete the project by modifying these two files only. `custom/cpu-new-forward.h` and `custom/gpu-new-forward.h` are the respective header files. You need not modify these files unless you need to declare your own functions.
 
-The code in `m2.cc`, `m3.cc`, `m4.cc` and `final.cc` are the top level files that are executed for each milestone. You should not be modifying these files.
+The code in `m1.cc`, `m2.cc`, `m3.cc` and `final.cc` are the top level files that are executed for each milestone. You should not be modifying these files.
 
 ## License
 

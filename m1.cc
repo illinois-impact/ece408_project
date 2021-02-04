@@ -8,7 +8,7 @@ void inference_only(int batch_size) {
   std::cout<<"Done"<<std::endl;
   
   std::cout<<"Loading model...";
-  Network dnn = createNetwork_GPU();
+  Network dnn = createNetwork_CPU(true);
   std::cout<<"Done"<<std::endl;
 
   dnn.forward(dataset.test_data);
@@ -19,7 +19,7 @@ void inference_only(int batch_size) {
 }
 
 int main(int argc, char* argv[]) {
-  
+
   int batch_size = 10000;
   
   if(argc == 2){
