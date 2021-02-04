@@ -75,8 +75,6 @@ Your `.rai_profile` should look something like this (indented with space!)
         secret_key: <your-secret-key>
         affiliation: uiuc
         role: ece408
-        team:
-            name: ""
 
 *Note that it is okay for your team name to be blank. We track your team assignments using a database in the backend*
 
