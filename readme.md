@@ -39,7 +39,7 @@ You will be working on this project individually.
 
 As with all milestones, you will include an updated PDF `report.pdf` in the project directory you submit with rai.
 This report should contain all of the deliverables.
-This report should contain your name, netid, and school affiliation (Illinois or ZJUI students). Please read the [Final Report](#final-report) section before submitting your report for the milestones.
+This report should contain your name, and netid. Please read the [Final Report](#final-report) section before submitting your report for the milestones.
 
 | Deliverables |
 | ------------ |
@@ -385,7 +385,6 @@ Keep the content from the earlier milestones, but be sure to include the followi
 
 * Your name
 * Your netid
-* Your school affiliation (Illinois or ZJUI students)
 
 The final report should include at least the following information for each optimization
 
