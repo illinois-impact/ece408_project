@@ -37,16 +37,17 @@ You will be working on this project individually.
 
 ***Deadline: March 19th, 8 PM CST***
 
-As with all milestones, you will include an updated PDF `report.pdf` in the project directory you submit with rai.
+For each milestone, you will include a PDF `report.pdf` in the project directory you submit with rai.
 This report should contain all of the deliverables.
-This report should contain your name, and netid. Please read the [Final Report](#final-report) section before submitting your report for the milestones.
+This report should contain your name and netid. Please read the [Final Report](#final-report) section before submitting your report for the milestones.
 
 | Deliverables |
 | ------------ |
 | Create a CPU convolution implementation |
 | Report: Show output of rai running Mini-DNN on the CPU (CPU convolution implemented) for batch size of 10k images|
 | Report: List Op Times (CPU convolution implemented) for batch size of 10k images|
-| Report: List whole program execution time (CPU convolution implemented) for batch size of 10k images|
+| Report: List whole program execution time (CPU convolution implemented) for batch size of 10k images (hint: use `time`)|
+| Report: Show output of `gprof` on your CPU implementation|
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m1` to mark your job for grading |
 
 Clone this repository to get the project folder.
@@ -69,12 +70,13 @@ Your `.rai_profile` should look something like this (indented with space!)
     profile:
         firstname: <your-given-name>
         lastname: <your-surname>
-        username: <your-username>
+        username: <your-netid>
         email: <your-institution-email>
         access_key: <your-access-key>
         secret_key: <your-secret-key>
         affiliation: uiuc
         role: ece408
+            team: <your-netid>
 
 Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
 
@@ -181,13 +183,22 @@ For example, to check your accuracy on the full data size of 10,000, you could m
 | 1000             | 0.886 |
 | 10000 (default)  | 0.8714 |
 
+
+### Use Gprof to profile your CPU implementation
+
+You will use `gprof` to profile the execution of your CPU forward convolution implementation.
+
+We compile and link your `cpu-new-forward.cc` with the `-pg` flag, which creates a `gmon.out` artifact containing profile information when the binary `m1` is executed.  To analyze this information in human readable form, modify `rai_build.yml` and add the line
+` 
+    - gprof m1 gmon.out
+
 The provided `m1.cc` is identical to the one used by `--submit=m1`.
 
 Use
 
     rai -p <project folder> --queue rai_amd64_ece408 --submit=m1
 
-to mark your submission. Make sure to include your `report.pdf` in your `<project folder>`.
+to mark your submission. Make sure to include your `report.pdf` in your `<project folder>`.  Make sure you include all items listed in the Deliverables for this milestone.
 
 ## Milestone 2: Baseline Convolutional Kernel
 
@@ -295,7 +306,8 @@ Use
 
     rai -p <project folder> --queue rai_amd64_ece408 --submit=m2
 
-to mark your submission. Make sure to include your `report.pdf` in your `<project folder>`.
+to mark your submission. Make sure to include your `report.pdf` in your `<project folder>`. Make sure you include all items listed in the Deliverables for this milestone.
+
 
 ## Milestone 3: Three Optimizations
 
@@ -353,7 +365,8 @@ Use
     
     rai -p <project folder> --queue rai_amd64_ece408 --submit=m3
     
-to submit your project folder. Make sure to include your `report.pdf` in your `<project folder>`.
+to submit your project folder. Make sure to include your `report.pdf` in your `<project folder>`. Make sure you include all items listed in the Deliverables for this milestone.
+
 
 ## Final Submission
 
@@ -452,6 +465,7 @@ To catch memory errors, prepend your command with `cuda-memcheck`
 ### Profiling
 
 You can gather system level performance information using `nsys`.
+
 For detailed kernel level GPU profiling, use `nv-nsight-cu-cli` and view that information with `nv-nsight-cu`.
 
 You can see some simple information like so (as we did in milestone 3):

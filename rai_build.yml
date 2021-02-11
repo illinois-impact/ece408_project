@@ -16,7 +16,7 @@ commands:
       - /bin/bash -c "cp -rv /src/custom/* /ece408/project/src/layer/custom" # copy custom layers to mini-dnn file tree
       - /bin/bash -c "cmake /ece408/project/ && make -j8"
       # You may modify the commands below. Uncomment/Comment lines based on the milestone
-      - /bin/bash -c "./m2 100"
+      - /bin/bash -c "./m1 100"
       #- /bin/bash -c "./m2"
       #- /bin/bash -c "./m3"
       #- /bin/bash -c "./final"
