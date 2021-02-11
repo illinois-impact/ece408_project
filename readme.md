@@ -400,21 +400,18 @@ The final report should include at least the following information for each opti
 
 The overall project score will be computed as follows:
 
-1. Milestone 1 ( 5% )
-2. Milestone 2 ( 10% )
-3. Milestone 3 ( 10% )
-4. Milestone 4 ( 30% )
-    * Optimization 1 ( 10% )
-    * Optimization 2 ( 10% )
-    * Optimization 3 ( 10% )
-5. Final Optimizations ( 30% )
-    * Optimization 4 ( 10% )
-    * Optimization 5 ( 10% )
-    * Optimization 6 ( 10% )
-    * Additional Optimizations / detailed insights ( up to +10% extra!!! )
-6. Performance Ranking ( 10% )
-7. Report Style (5 %)
-    * Clear, concise writing, good layout, and good organization will be rewarded.
+1. Milestone 1 ( 20% )
+2. Milestone 2 ( 20% )
+3. Milestone 3 ( 40% )
+    * Optimization 1 ( 13.3% )
+    * Optimization 2 ( 13.3% )
+    * Optimization 3 ( 13.3% )
+4. Final Optimizations ( 20% )
+    * Optimization 4 ( 5% )
+    * Optimization 5 ( 5% )
+    * Optimization 6 ( 5% )
+    * Performance Ranking ( 5% )
+    * Additional Optimizations ( +2% extra each! )
 
 Each optimization will be graded as follows:
 
