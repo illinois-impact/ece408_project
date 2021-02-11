@@ -338,8 +338,6 @@ You will see three types of times reported per layer as follows
 
 *Note: We will check that GPUTime < OpTime < LayerTime and that the GPUTime and OpTime should be simillar. Also LayerTime should not differ from OpTime by more than 1000 ms.*
 
-*Only OpTImes of runs with batch size set as 10k images will be considered for ranking.*
-
 ### 3.1 Add three GPU Optimization
 
 For this milestone, you should attempt at least three GPU optimizations (see [optimizations](#optimizations)).
@@ -407,10 +405,9 @@ The overall project score will be computed as follows:
     * Optimization 2 ( 13.3% )
     * Optimization 3 ( 13.3% )
 4. Final Optimizations ( 20% )
-    * Optimization 4 ( 5% )
-    * Optimization 5 ( 5% )
-    * Optimization 6 ( 5% )
-    * Performance Ranking ( 5% )
+    * Optimization 4 ( 6.6% )
+    * Optimization 5 ( 6.6% )
+    * Optimization 6 ( 6.6% )
     * Additional Optimizations ( +2% extra each! )
 
 Each optimization will be graded as follows:
@@ -418,16 +415,9 @@ Each optimization will be graded as follows:
 1. Explanation of Performance Impact ( 40% )
 2. Correctness ( 60% )
 
-The Performance Ranking will be graded as follows:
+*Note: In order to receive an extra 2% counting toward the overall project score for an optimization beyond the six required optimizations, the optimization must result in a faster runtime.*
 
-1. The median performance will be determined (how well the class did as a whole)
-2. Your performance will be converted to a number of standard deviations above/below that median (how well you did compared to the class).
-3. That value will be linearly mapped into the space of 0-10 to determine the ranking grade.
-
-The ranking is determined by the total run time of the two layer invocations.
-If your implementation is not correct, you will get a 0 for this component of the grade.
-The `rai ranking` command is not the final word: the staff will re-run all final submissions multiple times and choose the fastest result as your time.
-The ranking is determined solely by the values printed by `Op Time:` during your run. See [here](#Interpreting-the-timing-output-from-rai) for details.
+This semester, ranking will be made available, via the `rai ranking` command, but will not be assigned a grade.
 
 ## Optimizations
 
