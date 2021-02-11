@@ -46,7 +46,7 @@ This report should contain your name and netid. Please read the [Final Report](#
 | Create a CPU convolution implementation |
 | Report: Show output of rai running Mini-DNN on the CPU (CPU convolution implemented) for batch size of 10k images|
 | Report: List Op Times (CPU convolution implemented) for batch size of 10k images|
-| Report: List whole program execution time (CPU convolution implemented) for batch size of 10k images (hint: use `time`)|
+| Report: List whole program execution time (CPU convolution implemented) for batch size of 10k images|
 | Report: Show output of `gprof` on your CPU implementation|
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m1` to mark your job for grading |
 
@@ -189,7 +189,7 @@ For example, to check your accuracy on the full data size of 10,000, you could m
 You will use `gprof` to profile the execution of your CPU forward convolution implementation.
 
 We compile and link your `cpu-new-forward.cc` with the `-pg` flag, which creates a `gmon.out` artifact containing profile information when the binary `m1` is executed.  To analyze this information in human readable form, modify `rai_build.yml` and add the line
-` 
+ 
     - gprof m1 gmon.out
 
 The provided `m1.cc` is identical to the one used by `--submit=m1`.
