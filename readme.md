@@ -190,7 +190,7 @@ We compile and link your `cpu-new-forward.cc` with the `-pg` flag, which creates
  
     - gprof m1 gmon.out
 
-See "Interpreting gprof's Output" in the [GNU gprof Documentation](https://sourceware.org/binutils/docs/gprof/index.html).
+By default, `gprof` prints both a flat profile and a call graph. See "Interpreting gprof's Output" in the [GNU gprof Documentation](https://sourceware.org/binutils/docs/gprof/index.html).
 
 The provided `m1.cc` is identical to the one used by `--submit=m1`.
 
@@ -360,13 +360,13 @@ You will see three types of times reported per layer as follows
 
 *Note: We will check that GPUTime < OpTime < LayerTime and that the GPUTime and OpTime should be similar. Also LayerTime should not differ from OpTime by more than 1000 ms.*
 
-### 3.1 Add three GPU Optimization
+### Add three GPU Optimization
 
 For this milestone, you should attempt at least three GPU optimizations (see [optimizations](#optimizations)).
 
 Describe the optimizations in your `report.pdf`. Read the [Final Report](#final-report) section to see what is expected for the description of each optimization.
 
-### 3.2 Performance Analysis with Nsight-Systems and Nsight-Compute
+### Performance Analysis with Nsight-Systems and Nsight-Compute
 
 Use the NVIDIA Nsight-Systems(`nsys`) and Nsight-Compute(`nv-nsight-cu-cli`) and your analysis information to describe the effect that your optimizations had on the performance of your convolution.
 If possible, you should try to separate the effect of each optimization in your analysis.
