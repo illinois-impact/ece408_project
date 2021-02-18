@@ -39,15 +39,13 @@ You will be working on this project individually.
 
 For each milestone, you will include a PDF `report.pdf` in the project directory you submit with rai.
 This report should contain all of the deliverables.
-This report should contain your name and netid. Please read the [Final Report](#final-report) section before submitting your report for the milestones.
+This report should contain your name and netid.
 
 | Deliverables |
 | ------------ |
 | Create a CPU convolution implementation |
-| Report: Show output of rai running Mini-DNN on the CPU (CPU convolution implemented) for batch size of 10k images|
-| Report: List Op Times (CPU convolution implemented) for batch size of 10k images|
-| Report: List whole program execution time (CPU convolution implemented) for batch size of 10k images|
-| Report: Show output of `gprof` on your CPU implementation|
+| Profile your implementation with `gprof` |
+| Write your report |
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m1` to mark your job for grading |
 
 Clone this repository to get the project folder.
@@ -192,13 +190,22 @@ We compile and link your `cpu-new-forward.cc` with the `-pg` flag, which creates
  
     - gprof m1 gmon.out
 
+See "Interpreting gprof's Output" in the [GNU gprof Documentation](https://sourceware.org/binutils/docs/gprof/index.html).
+
 The provided `m1.cc` is identical to the one used by `--submit=m1`.
+
+| Report  |
+| ------------ |
+| Show output of rai running Mini-DNN on the CPU (CPU convolution implemented) for batch size of 10k images|
+| List Op Times (CPU convolution implemented) for batch size of 10k images|
+| List whole program execution time (CPU convolution implemented) for batch size of 10k images|
+| Show percentage of total execution time of your program spent in your forward pass function with `gprof`|
 
 Use
 
     rai -p <project folder> --queue rai_amd64_ece408 --submit=m1
 
-to mark your submission. Make sure to include your `report.pdf` in your `<project folder>`.  Make sure you include all items listed in the Deliverables for this milestone.
+to mark your submission for grading. Make sure to include your `report.pdf` in your `<project folder>`.  Make sure you include all items listed above for this milestone.
 
 ## Milestone 2: Baseline Convolutional Kernel
 
@@ -209,12 +216,7 @@ to mark your submission. Make sure to include your `report.pdf` in your `<projec
 | Everything from Milestone 1 |
 | Implement a GPU Convolution |
 | Correctness and timing with 3 different dataset sizes |
-| Report: Show output of rai running your GPU implementation of convolution (including the OpTimes) |
-| Report: Demonstrate `nsys` profiling the GPU execution |
-| Report: Include a list of all kernels that collectively consume more than 90% of the program time. |
-| Report: Include a list of all CUDA API calls that collectively consume more than 90% of the program time. |
-| Report: Include an explanation of the difference between kernels and API calls |
-| Report: Screenshot of the GPU SOL utilization in Nsight-Compute GUI for your kernel profiling data|
+| Write your report |
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m2` to mark your job for grading |
 
 ### Create a GPU Implementation
@@ -302,11 +304,20 @@ Modify `rai_build.yml` to use `nv-nsight-cu-cli` to save some timeline and analy
 Use the NVIDIA Nsight Compute GUI to find the execution of your kernel, and show a screen shot of the GPU SOL utilization in your report.
 The [Nsight Compute installation](#nsight-compute-installation) section describes how to install Nsight-Compute GUI on your personal machine. Note that you do not need CUDA to be installed. 
 
+| Report  |
+| ------------ |
+| Show output of rai running your GPU implementation of convolution (including the OpTimes) |
+| Demonstrate `nsys` profiling the GPU execution |
+| Include a list of all kernels that collectively consume more than 90% of the program time. |
+| Include a list of all CUDA API calls that collectively consume more than 90% of the program time. |
+| Include an explanation of the difference between kernels and API calls |
+| Screenshot of the GPU SOL utilization in Nsight-Compute GUI for your kernel profiling data|
+
 Use
 
     rai -p <project folder> --queue rai_amd64_ece408 --submit=m2
 
-to mark your submission. Make sure to include your `report.pdf` in your `<project folder>`. Make sure you include all items listed in the Deliverables for this milestone.
+to mark your submission for grading. Make sure to include your `report.pdf` in your `<project folder>`. Make sure you include all items listed in the Deliverables for this milestone.
 
 
 ## Milestone 3: Three Optimizations
@@ -317,8 +328,7 @@ to mark your submission. Make sure to include your `report.pdf` in your `<projec
 | ------------ |
 | Everything from Milestone 2 |
 | Implement three GPU optimizations |
-| Report: Describe the optimizations as specified [here](#final-report) |
-| Report: Use data from `nsys` and/or `nv-nsight-cu-cli` to analyze your optimizations and justify the effects of your optimizations |
+| Write your report |
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m3` to mark your job for grading |
 
 ### Interpreting the timing output from rai
@@ -348,7 +358,7 @@ You will see three types of times reported per layer as follows
 2. OpTime - This is time between the last cudaMemcpy call before your first kernel call and the first cudaMemcpy after your last kernel call in `new-forward.cu -> conv_forward_gpu()`. It does not include the cudaMemcpy times. **This is the time that will be used for rankings**
 3. LayerTime - This is the total time taken to execute `new-forward.cu -> conv_forward_gpu()`. It includes all the times for all kernel and CUDA API calls as well as the CPU time to run `conv_forward_gpu()`.
 
-*Note: We will check that GPUTime < OpTime < LayerTime and that the GPUTime and OpTime should be simillar. Also LayerTime should not differ from OpTime by more than 1000 ms.*
+*Note: We will check that GPUTime < OpTime < LayerTime and that the GPUTime and OpTime should be similar. Also LayerTime should not differ from OpTime by more than 1000 ms.*
 
 ### 3.1 Add three GPU Optimization
 
@@ -360,6 +370,11 @@ Describe the optimizations in your `report.pdf`. Read the [Final Report](#final-
 
 Use the NVIDIA Nsight-Systems(`nsys`) and Nsight-Compute(`nv-nsight-cu-cli`) and your analysis information to describe the effect that your optimizations had on the performance of your convolution.
 If possible, you should try to separate the effect of each optimization in your analysis.
+
+| Report |
+| ------------ |
+| Describe the optimizations as specified [here](#final-report) |
+| Use data from `nsys` and/or `nv-nsight-cu-cli` to analyze your optimizations and justify the effects of your optimizations |
 
 Use 
     
@@ -376,8 +391,7 @@ to submit your project folder. Make sure to include your `report.pdf` in your `<
 | ------------ |
 | Everything from Milestone 3 |
 | Implement final GPU optimizations  (total of 6) |
-| Report: Describe and analyze the optimizations |
-| Report: Use `nsys` and/or `nv-nsight-cu-cli` to justify the effects of your optimiatization on performance |
+| Write your report |
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=final` to mark your job for grading |
 
 ### Optimized Layer
@@ -387,7 +401,16 @@ Optimize your GPU convolution (see [optimizations](#optimizations)).
 Your implementation must work with `rai -p <project-folder> --queue rai_amd64_ece408 --submit=final`.
 This means all your source files must be in `custom/`, and your implementation must work when they are copied to `/ece408/project/src/layer/custom` in the Mini-DNN tree, and `make` is invoked on the Mini-DNN tree. This is done in the provided `rai_build.yml`.
 
-Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=final` to submit your project folder. Make sure to include your `report.pdf` in your `<project folder>`.
+| Report |
+| ------------ |
+| Describe the optimizations as specified [here](#final-report) |
+| Use `nsys` and/or `nv-nsight-cu-cli` to justify the effects of your optimiatization on performance |
+
+Use
+
+    rai -p <project folder> --queue rai_amd64_ece408 --submit=final
+
+to submit your project folder. Make sure to include your `report.pdf` in your `<project folder>`.
 
 ### Final Report
 
