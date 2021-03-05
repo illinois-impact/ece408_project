@@ -1,6 +1,6 @@
 rai:
   version: 0.2
-  image: jnativ/ece408_minidnn_sp21_test:latest
+  image: jnativ/ece408_minidnn_docker_sp21:latest
 resources:
   cpu:
     architecture: amd64

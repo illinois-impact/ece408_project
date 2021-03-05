@@ -37,7 +37,7 @@ You will be working on this project individually.
 
 ***Deadline: March 19th, 8 PM CST***
 
-For each milestone, you will include a PDF `report.pdf` in the project directory you submit with rai.
+For each milestone, you will include a PDF `report.pdf` in the project directory you submit with rai (though we ask you to submit a TXT `report.txt` for this milestone).
 This report should contain all of the deliverables.
 This report should contain your name and netid.
 
@@ -188,11 +188,11 @@ You will use `gprof` to profile the execution of your CPU forward convolution im
 
 We compile and link your `cpu-new-forward.cc` with the `-pg` flag, which creates a `gmon.out` artifact containing profile information when the binary `m1` is executed.  To analyze this information in human readable form, modify `rai_build.yml` and add the line
  
-    - gprof m1 gmon.out
+    - /bin/bash -c "gprof -Q m1 gmon.out"
 
-By default, `gprof` prints both a flat profile and a call graph. See "Interpreting gprof's Output" in the [GNU gprof Documentation](https://sourceware.org/binutils/docs/gprof/index.html).
+By default, `gprof` prints both a flat profile and a call graph (see "Interpreting gprof's Output" in the [GNU gprof Documentation](https://sourceware.org/binutils/docs/gprof/index.html)).  With the `-Q` flag, we only print the flat profile.  The information you need should be near the beginning of `gprof`'s output, so you can pipe the output to `grep` (with your function's name) or `head` to find the information you need.
 
-The provided `m1.cc` is identical to the one used by `--submit=m1`.
+The provided `m1.cc` is identical to the one used by `--submit=m1`.  For this milestone, submit a text file `report.txt`.
 
 | Report  |
 | ------------ |
@@ -205,7 +205,7 @@ Use
 
     rai -p <project folder> --queue rai_amd64_ece408 --submit=m1
 
-to mark your submission for grading. Make sure to include your `report.pdf` in your `<project folder>`.  Make sure you include all items listed above for this milestone.
+to mark your submission for grading. Make sure to include your `report.txt` in your `<project folder>`.  Make sure you include all items listed above for this milestone.
 
 ## Milestone 2: Baseline Convolutional Kernel
 
@@ -234,7 +234,7 @@ When it is correct, it will show the same correctness as Milestone 1. To quicken
 
 First, ensure you are using correct image in rai_build.yml file
 
-`image: illinoisimpact/ece408_minidnn_docker:amd64-gpu-cu10.2-fa20`
+`image: jnativ/ece408_minidnn_docker_sp21:latest`
 
 **Before you do any profiling, make sure you do not have any memory errors by running `cuda-memcheck`. See [Checking for Errors](#checking-for-errors) on how to run this.**
 
@@ -509,7 +509,7 @@ You will need to install NVIDIA NSight Compute on your own machine. It can be do
 To import the files:
 * Launch the GUI `/usr/local/NVIDIA-Nsight-Compute/nv-nsight-cu` (or from wherever you installed it)
 * Close the intial Quick Launch menu
-* Go to File > Open File and select the `.ncu-rep` file from the `\build` folder you downloaded from rai.
+* Go to File > Open File and select the `.ncu-rep` file from the `\build` folder you downloaded from rai (note that the downloaded file is a `TAR` file, not a `TAR.GZ` as the name implies).
 
 *OR*
 * Directly launch from the terminal `/usr/local/NVIDIA-Nsight-Compute/nv-nsight-cu <filename>.ncu-rep`
