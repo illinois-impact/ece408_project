@@ -150,16 +150,16 @@ Modify `rai_build.yml` to invoke
 
     - /bin/bash -c "./m1"
 
-Please be patient as the CPU implementation with 10k images is slow. A correct implementation may take around 6-7 mins to run. If you want to iterate quickly when developing code using smaller batch sizes, see [Specifying Batch Size](#specifying-batch-size). When your implementation is correct, you should see output like this:
+Please be patient as the CPU implementation is slow and will take several minutes to run. (For instance, a correct implementation with 10k images may take 13+ mins to run). If you want to iterate quickly when developing code using smaller batch sizes, see [Specifying Batch Size](#specifying-batch-size). When your implementation is correct, you should see output like this:
 
-    Test batch size: 10000
+    Test batch size: 1000
     Loading fashion-mnist data...Done
     Loading model...Done
     Conv-CPU==
-    Op Time: 74253.3 ms
+    Op Time: 7425.3 ms
     Conv-CPU==
-    Op Time: 213714 ms
-    Test Accuracy: 0.8714
+    Op Time: 21371.4 ms
+    Test Accuracy: 0.886
 
 Every time your layer is invoked, it will print the "Op Time," the time spent working on that layer.
 Since the network has two convolutional layers, two times will be printed.
@@ -179,8 +179,9 @@ For example, to check your accuracy on the full data size of 10,000, you could m
 | -----------------| --------- |
 | 100              | 0.86 |
 | 1000             | 0.886 |
-| 10000 (default)  | 0.8714 |
+| 10000            | 0.8714 |
 
+Note: Due to the limited capacity of our RAI servers, in order to ensure RAI job submissions take a reasonable amount of time, we are only requiring you to run and profile your CPU implementation with a batch size of 1000 images for this milestone.
 
 ### Use Gprof to profile your CPU implementation
 
@@ -190,15 +191,15 @@ We compile and link your `cpu-new-forward.cc` with the `-pg` flag, which creates
  
     - /bin/bash -c "gprof -Q m1 gmon.out"
 
-By default, `gprof` prints both a flat profile and a call graph (see "Interpreting gprof's Output" in the [GNU gprof Documentation](https://sourceware.org/binutils/docs/gprof/index.html)).  With the `-Q` flag, we only print the flat profile.  The information you need should be near the beginning of `gprof`'s output, so you can pipe the output to `grep` (with your function's name) or `head` to find the information you need.
+By default, `gprof` prints both a flat profile and a call graph (see "Interpreting gprof's Output" in the [GNU gprof Documentation](https://sourceware.org/binutils/docs/gprof/index.html)).  With the `-Q` flag, we only print the flat profile.  The information you need can be found near the beginning of `gprof`'s output, so you can pipe the output to `grep` (with your function's name) or `head`.
 
 The provided `m1.cc` is identical to the one used by `--submit=m1`.  For this milestone, submit a text file `report.txt`.
 
 | Report  |
 | ------------ |
-| Show output of rai running Mini-DNN on the CPU (CPU convolution implemented) for batch size of 10k images|
-| List Op Times (CPU convolution implemented) for batch size of 10k images|
-| List whole program execution time (CPU convolution implemented) for batch size of 10k images|
+| Show output of rai running Mini-DNN on the CPU (CPU convolution implemented) for batch size of 1k images|
+| List Op Times (CPU convolution implemented) for batch size of 1k images|
+| List whole program execution time (CPU convolution implemented) for batch size of 1k images|
 | Show percentage of total execution time of your program spent in your forward pass function with `gprof`|
 
 Use
