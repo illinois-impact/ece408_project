@@ -43,17 +43,13 @@ __global__ void conv_forward_kernel(float *y, const float *x, const float *k, co
 #undef k4d
 }
 
-__host__ void GPUInterface::conv_forward_gpu(float *host_y, const float *host_x, const float *host_k, const int B, const int M, const int C, const int H, const int W, const int K)
+	
+__host__ void GPUInterface::conv_forward_gpu_prolog(const float *host_y, const float *host_x, const float *host_k, float **device_y_ptr, float **device_x_ptr, float **device_k_ptr, const int B, const int M, const int C, const int H, const int W, const int K)
 {
-    // Declare relevant device pointers
-
     // Allocate memory and copy over the relevant data structures to the GPU
 
-    // Set the kernel dimensions and call the kernel
-
-    // Copy the output back to host
-
-    // Free device memory
+    // We pass double pointers for you to initialize the relevant device pointers,
+    //  which are passed to the other two functions.
 
     // Useful snippet for error checking
     // cudaError_t error = cudaGetLastError();
@@ -62,7 +58,25 @@ __host__ void GPUInterface::conv_forward_gpu(float *host_y, const float *host_x,
     //     std::cout<<"CUDA error: "<<cudaGetErrorString(error)<<std::endl;
     //     exit(-1);
     // }
+
 }
+
+
+__host__ void GPUInterface::conv_forward_gpu(float *device_y, const float *device_x, const float *device_k, const int B, const int M, const int C, const int H, const int W, const int K)
+{
+    // Set the kernel dimensions and call the kernel
+
+}
+
+
+__host__ void GPUInterface::conv_forward_gpu_epilog(float *host_y, float *device_y, float *device_x, float *device_k, const int B, const int M, const int C, const int H, const int W, const int K)
+{
+    // Copy the output back to host
+
+    // Free device memory
+
+}
+
 
 __host__ void GPUInterface::get_device_properties()
 {

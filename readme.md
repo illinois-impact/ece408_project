@@ -215,7 +215,7 @@ to mark your submission for grading. Make sure to include your `report.txt` in y
 | Deliverables |
 | ------------ |
 | Everything from Milestone 1 |
-| Implement a GPU Convolution |
+| Implement a GPU Convolution kernel |
 | Correctness and timing with 3 different dataset sizes |
 | Write your report |
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m2` to mark your job for grading |
@@ -230,6 +230,8 @@ Modify `rai_build.yml` to run
 
 to use your GPU implementation.
 When it is correct, it will show the same correctness as Milestone 1. To quicken development time, `m2.cc` takes one optional argument: the dataset size. See [Specifying Batch Size](#specifying-batch-size).
+
+Note: We have updated the docker container and the source files for GPU convolution to measure "Op Time"s for only your kernel, not including any cudaMemcpys.  You will need to `git fetch origin 2021sp && git merge origin/2021sp` to get the latest versions of the source files `custom/new-forward.cu` and `custom/gpu-new-forward.h`.  If you have already started working on your GPU implementation, be sure to save your work in these two files before doing this.
 
 ### Use Nsight-Systems and Nsight-Compute for initial Performance Results
 
