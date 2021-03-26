@@ -292,7 +292,7 @@ CUDA Memory Operation Statistics (KiB)
 ~~~
 
 The CUDA API Statistics section shows the CUDA API calls that are executed. The CUDA Kernel Statistics lists all the kernels that were executed during the profiling session. There are also more details on the CUDA memory operations (CudaMemcpy) listed.
-There are columns corresponding to percentage of time consumed, total time, number of calls, and average/min/max time of those calls. Answer the questions stated in the deliverables using **your** `nsys` profiling result in the report as well as the `nsys` output corresponding to the section shown above.
+There are columns corresponding to percentage of time consumed, total time, number of calls, and average/min/max time of those calls. Use **your** `nsys` profiling output corresponding to the section above to answer the questions for your report.
 
 Think about the distinction between a CUDA API call and a kernel launch, and describe it briefly in your report.
 The CUDA documentation describes [kernels](http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#kernels) and the [programming interface](http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#programming-interface).
@@ -304,17 +304,17 @@ You can find more information about `nsys` in the [Nsight Systems Documentation]
 Nsight-Systems does not give you detailed kernel level performance metrics. For that, we will need to use `nv-nsight-cu-cli` (Nsight-Compute). 
 
 Modify `rai_build.yml` to use `nv-nsight-cu-cli` to save some timeline and analysis information, as described in [profiling](#profiling).
-Use the NVIDIA Nsight Compute GUI to find the execution of your kernel, and show a screen shot of the GPU SOL utilization in your report.
+Use the NVIDIA Nsight Compute GUI to find the execution of your kernel, and show a screen shot of the GPU SOL utilization in your report.  You will see performance metrics for two kernel launches, one for each layer.
 The [Nsight Compute installation](#nsight-compute-installation) section describes how to install Nsight-Compute GUI on your personal machine. Note that you do not need CUDA to be installed. 
 
 | Report  |
 | ------------ |
 | Show output of rai running your GPU implementation of convolution (including the OpTimes) |
 | Demonstrate `nsys` profiling the GPU execution |
-| Include a list of all kernels that collectively consume more than 90% of the program time. |
-| Include a list of all CUDA API calls that collectively consume more than 90% of the program time. |
+| Include a list of all kernels that collectively consume more than 90% of the program time |
+| Include a list of all CUDA API calls that collectively consume more than 90% of the program time |
 | Include an explanation of the difference between kernels and API calls |
-| Screenshot of the GPU SOL utilization in Nsight-Compute GUI for your kernel profiling data|
+| Screenshot of the GPU SOL utilization in Nsight-Compute GUI for your kernel profiling data (for both kernel launches) |
 
 Use
 
