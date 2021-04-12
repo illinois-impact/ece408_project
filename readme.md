@@ -336,36 +336,29 @@ to mark your submission for grading. Make sure to include your `report.pdf` in y
 
 ### Interpreting the timing output from rai
 
-You will see three types of times reported per layer as follows
+You will see two types of times reported per layer as follows
 
-    ✱ Running bin/bash -c "./m3 1000"   \\ Output will appear after run is complete.
+
+    ✱ Running bash -c "./m3 1000"   \\ Output will appear after run is complete.
     Test batch size: 1000
     Loading fashion-mnist data...Done
     Loading model...Done
     Conv-GPU==
+    Layer Time: 61.1231 ms
+    Op Time: 4.82135 ms
     Conv-GPU==
-
+    Layer Time: 55.4437 ms
+    Op Time: 16.6154 ms
+    
     Test Accuracy: 0.886
-    --------------------------------
-    -           TIMINGS
-    --------------------------------
-    Layer 1 GPUTime: 4.862905 ms
-    Layer 1 OpTime: 4.882009 ms
-    Layer 1 LayerTime: 63.512461 ms
-    Layer 2 GPUTime: 16.523901 ms
-    Layer 2 OpTime: 16.544541 ms
-    Layer 2 LayerTime: 59.37215 ms
 
 
-1. GPUTime - This is the total time your kernel code takes to execute on the GPU. It does not include any CUDA API calls
-2. OpTime - This is time between the last cudaMemcpy call before your first kernel call and the first cudaMemcpy after your last kernel call in `new-forward.cu -> conv_forward_gpu()`. It does not include the cudaMemcpy times. **This is the time that will be used for rankings**
-3. LayerTime - This is the total time taken to execute `new-forward.cu -> conv_forward_gpu()`. It includes all the times for all kernel and CUDA API calls as well as the CPU time to run `conv_forward_gpu()`.
-
-*Note: We will check that GPUTime < OpTime < LayerTime and that the GPUTime and OpTime should be similar. Also LayerTime should not differ from OpTime by more than 1000 ms.*
+1. "Op Time" - This is time between the last cudaMemcpy call before your first kernel call and the first cudaMemcpy after your last kernel call (i.e. just `new-forward.cu -> conv_forward_gpu()`). It does not include the cudaMemcpy times.
+2. "Layer Time" - This is the total time taken to perform the convolution layer (C1 or C3). It includes the times for all kernel and CUDA API calls (i.e. the total time of all three `new-forward.cu -> conv_forward_gpu*` functions).
 
 ### Add three GPU Optimization
 
-For this milestone, you should attempt at least three GPU optimizations (see [optimizations](#optimizations)).
+For this milestone, you should attempt at least three GPU optimizations (see [optimizations](#optimizations)), excluding the ones related to matrix multiplication, as we are asking you to implement this for the final milestone.
 
 Describe the optimizations in your `report.pdf`. Read the [Final Report](#final-report) section to see what is expected for the description of each optimization.
 
@@ -393,21 +386,20 @@ to submit your project folder. Make sure to include your `report.pdf` in your `<
 | Deliverables |
 | ------------ |
 | Everything from Milestone 3 |
-| Implement final GPU optimizations  (total of 6) |
+| Implement final GPU optimization(s) |
 | Write your report |
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=final` to mark your job for grading |
 
-### Optimized Layer
-
-Optimize your GPU convolution (see [optimizations](#optimizations)).
+### Matrix Multiplication
+For the final checkpoint, you will implement the forward convolution layers using a different approach: shared memory matrix multiplication and input matrix unrolling.
 
 Your implementation must work with `rai -p <project-folder> --queue rai_amd64_ece408 --submit=final`.
 This means all your source files must be in `custom/`, and your implementation must work when they are copied to `/ece408/project/src/layer/custom` in the Mini-DNN tree, and `make` is invoked on the Mini-DNN tree. This is done in the provided `rai_build.yml`.
 
 | Report |
 | ------------ |
-| Describe the optimizations as specified [here](#final-report) |
-| Use `nsys` and/or `nv-nsight-cu-cli` to justify the effects of your optimiatization on performance |
+| Describe the optimization(s) as specified [here](#final-report) |
+| Use `nsys` and/or `nv-nsight-cu-cli` to analyze the effects of your optimization on performance |
 
 Use
 
@@ -444,17 +436,15 @@ The overall project score will be computed as follows:
     * Optimization 2 ( 13.3% )
     * Optimization 3 ( 13.3% )
 4. Final Optimizations ( 20% )
-    * Optimization 4 ( 6.6% )
-    * Optimization 5 ( 6.6% )
-    * Optimization 6 ( 6.6% )
+    * Optimization 4 ( 20% )
     * Additional Optimizations ( +2% extra each! )
 
 Each optimization will be graded as follows:
 
-1. Explanation of Performance Impact ( 40% )
-2. Correctness ( 60% )
+1. Explanation of Performance Impact ( 50% )
+2. Correctness ( 50% )
 
-*Note: In order to receive an extra 2% counting toward the overall project score for an optimization beyond the six required optimizations, the optimization must result in a faster runtime.*
+*Note: In order to receive an extra 2% counting toward the overall project score for an optimization beyond the four required optimizations, the optimization must be applied to the matrix multiplication optimization from the final checkpoint and result in a faster runtime.*
 
 This semester, ranking will be made available, via the `rai ranking` command, but will not be assigned a grade.
 
@@ -462,18 +452,18 @@ This semester, ranking will be made available, via the `rai ranking` command, bu
 
 We are going to suggest a set of possible optimizations for you to attempt.
 
-* Unroll + shared-memory Matrix multiply
 * Shared Memory convolution
-* Kernel fusion for unrolling and matrix-multiplication
 * Weight matrix (kernel values) in constant memory
 * Tuning with restrict and loop unrolling (considered as one optimization only if you do both)
-* An advanced matrix multiplication algorithm (register-tiled, for example)
 * Sweeping various parameters to find best values (block sizes, amount of thread coarsening)
 * Exploiting parallelism in input images, input channels, and output channels.
 * Multiple kernel implementations for different layer sizes
 * Input channel reduction: tree
 * Input channel reduction: atomics
 * Fixed point (FP16) arithmetic
+* Using Streams to overlap computation with data transfer
+* Kernel fusion for unrolling and matrix-multiplication
+* An advanced matrix multiplication algorithm (register-tiled, for example)
 * Using Tensor Cores to speed up matrix multiplication
 * ...
 
@@ -494,7 +484,7 @@ You can gather system level performance information using `nsys`.
 
 For detailed kernel level GPU profiling, use `nv-nsight-cu-cli` and view that information with `nv-nsight-cu`.
 
-You can see some simple information like so (as we did in milestone 3):
+You can see some simple information like so (as we did in milestone 2):
 
     nsys profile --stats=true <your command here>
 
@@ -543,4 +533,5 @@ NCSA/UIUC © 2020 [Carl Pearson](https://cwpearson.github.io)
 * Zhicun Wan
 * Ben Schreiber
 * James Cyriac
+* Jonathan Nativ
 
