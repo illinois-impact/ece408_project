@@ -444,7 +444,7 @@ Each optimization will be graded as follows:
 1. Explanation of Performance Impact ( 50% )
 2. Correctness ( 50% )
 
-*Note: In order to receive an extra 2% counting toward the overall project score for an optimization beyond the four required optimizations, the optimization must be applied to the matrix multiplication optimization from the final checkpoint and result in a faster runtime.*
+*Note: In order to receive an extra 2% counting toward your overall course grade for an optimization beyond the four required optimizations, the optimization must be applied to the matrix multiplication optimization from the final checkpoint and result in a faster runtime.  You can receive extra credit for up to 3 additional optimizations.*
 
 This semester, ranking will be made available, via the `rai ranking` command, but will not be assigned a grade.
 
