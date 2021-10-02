@@ -1,6 +1,6 @@
 rai:
   version: 0.2
-  image: jnativ/ece408_minidnn_docker_sp21:latest
+  image: henryh2/ece408_minidnn_docker_fa21:latest
 resources:
   cpu:
     architecture: amd64
@@ -19,4 +19,3 @@ commands:
       - /bin/bash -c "./m1 100"
       #- /bin/bash -c "./m2"
       #- /bin/bash -c "./m3"
-      #- /bin/bash -c "./final"

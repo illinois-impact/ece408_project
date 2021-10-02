@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is the skeleton code for the Spring 2021 ECE408 / CS483 / CSE408 course project.
+This is the skeleton code for the Fall 2021 ECE408 / CS483 / CSE408 course project.
 
 In this final project, you will be implementing and optimizing the forward-pass of a convolutional layer using CUDA. Convolutional layers are the primary building blocks of convolutional neural networks (CNNs), which are used in many machine learning tasks like image classification, object detection, natural language processing, and recommendation systems. In general, CNNs work well on tasks where the data/input features have some level of spatial relationship.
 
@@ -28,18 +28,17 @@ You will be working on this project individually.
 
 * [Milestone 1: Rai Installation, CPU Convolution, Profiling](#milestone-1-rai-installation-cpu-convolution-profiling)
 * [Milestone 2: Baseline Convolutional Kernel](#milestone-2-baseline-convolutional-kernel)
-* [Milestone 3: Three Optimizations](#milestone-3-three-optimizations)
-* [Final Submission](#final-submission)
-* [Final Report](#final-report)
+* [Milestone 3: GPU Convolution Kernel Optimizations](#milestone-3-gpu-convolution-kernel-optimizations)
 * [Rubric](#rubric)
+* [Optimizations](#optimizations)
+* [Appendix](#appendix)
 
 ## Milestone 1: Rai Installation, CPU convolution, Profiling
 
-***Deadline: March 19th, 8 PM CST***
+***Deadline: October 15th, 8 PM CST***
 
-For each milestone, you will include a PDF `report.pdf` in the project directory you submit with rai (though we ask you to submit a TXT `report.txt` for this milestone).
-This report should contain all of the deliverables.
-This report should contain your name and netid.
+For each milestone, you will include a PDF `report.pdf` file in the project directory you submit with rai. You can create this report by filling out the template report (.docx) that we have provided for each milestone and exporting it as a PDF file.
+
 
 | Deliverables |
 | ------------ |
@@ -50,7 +49,7 @@ This report should contain your name and netid.
 
 Clone this repository to get the project folder.
 
-    git clone -b 2021sp https://github.com/illinois-impact/ece408_project.git
+    git clone -b 2021fa https://github.com/illinois-impact/ece408_project.git
 
 Download the rai binary for your platform from [here](https://drive.google.com/drive/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV). 
 You will probably use it for development, and definitely use it for submission. After downloading the rai binary, rename it to `rai` so that it is consistent with the instructions in this document. Also give `rai` execute permission by running in the folder you placed it.
@@ -162,13 +161,13 @@ Please be patient as the CPU implementation is slow and will take several minute
     Test Accuracy: 0.886
 
 Every time your layer is invoked, it will print the "Op Time," the time spent working on that layer.
-Since the network has two convolutional layers, two times will be printed.
+Since the network has two convolutional layers, two times will be printed. Note, these times will vary slightly between every run due to several factors, such as RAI server use.
 You can time the whole program execution by modifying `rai_build.yml` with
 
     - /bin/bash -c "time ./m1"
 
 ### Specifying Batch Size
-`./m1`, `./m2`, `./m3` and `./final` all take one optional argument: the dataset size.  
+`./m1`, `./m2`, and `./m3` all take one optional argument: the dataset size.  
 If the correctness for each possible batch size is as below, you can be reasonably confident your implementation is right. The correctness does depend on the data size. 
 
 For example, to check your accuracy on the full data size of 10,000, you could modify `rai_build.yml` to run
@@ -181,7 +180,7 @@ For example, to check your accuracy on the full data size of 10,000, you could m
 | 1000             | 0.886 |
 | 10000            | 0.8714 |
 
-Note: Due to the limited capacity of our RAI servers, in order to ensure RAI job submissions take a reasonable amount of time, we are only requiring you to run and profile your CPU implementation with a batch size of 1000 images for this milestone.
+Note: Due to the limited capacity of our RAI servers, in order to ensure RAI job submissions take a reasonable amount of time, we are only requiring you to run and profile your CPU implementation with a batch size of 1000 images for this milestone. Please do not run milestone one with a batch size of 10000.
 
 ### Use Gprof to profile your CPU implementation
 
@@ -193,34 +192,37 @@ We compile and link your `cpu-new-forward.cc` with the `-pg` flag, which creates
 
 By default, `gprof` prints both a flat profile and a call graph (see "Interpreting gprof's Output" in the [GNU gprof Documentation](https://sourceware.org/binutils/docs/gprof/index.html)).  With the `-Q` flag, we only print the flat profile.  The information you need can be found near the beginning of `gprof`'s output, so you can pipe the output to `grep` (with your function's name) or `head`.
 
-The provided `m1.cc` is identical to the one used by `--submit=m1`.  For this milestone, submit a text file `report.txt`.
+For this milestone, edit the responses in the given `m1_report_template.docx` file, export the report as a PDF, and name the PDF as `report.pdf`.
 
 | Report  |
 | ------------ |
 | Show output of rai running Mini-DNN on the CPU (CPU convolution implemented) for batch size of 1k images|
-| List Op Times (CPU convolution implemented) for batch size of 1k images|
-| List whole program execution time (CPU convolution implemented) for batch size of 1k images|
+| List Op Times (CPU convolution implemented), whole program execution time, and accuracy for batch size of 1k images|
 | Show percentage of total execution time of your program spent in your forward pass function with `gprof`|
 
 Use
 
     rai -p <project folder> --queue rai_amd64_ece408 --submit=m1
 
-to mark your submission for grading. Make sure to include your `report.txt` in your `<project folder>`.  Make sure you include all items listed above for this milestone.
+to mark your submission for grading. Make sure to include your `report.pdf` in your `<project folder>`. Make sure you answer all items listed above for this milestone, and include your name, NetID, and class section.
 
 ## Milestone 2: Baseline Convolutional Kernel
 
-***Deadline: April 9th, 8 PM CST***
+***Deadline: November 5th, 8 PM CST***
 
 | Deliverables |
 | ------------ |
-| Everything from Milestone 1 |
 | Implement a GPU Convolution kernel |
-| Correctness and timing with 3 different dataset sizes |
+| Verify correctness and record timing with 3 different dataset sizes |
 | Write your report |
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m2` to mark your job for grading |
 
 ### Create a GPU Implementation
+
+First, make sure you have the most up-to-date version of the project repository by going to the project root directory and running:
+
+    git fetch origin 2021fa
+    git merge origin/2021fa
 
 Modify `custom/new-forward.cu` to create GPU implementation of the forward convolution.
 
@@ -231,13 +233,11 @@ Modify `rai_build.yml` to run
 to use your GPU implementation.
 When it is correct, it will show the same correctness as Milestone 1. To quicken development time, `m2.cc` takes one optional argument: the dataset size. See [Specifying Batch Size](#specifying-batch-size).
 
-Note: We have updated the docker container and the source files for GPU convolution to measure "Op Time"s for only your kernel, not including any cudaMemcpys.  You will need to `git fetch origin 2021sp && git merge origin/2021sp` to get the latest versions of the source files `custom/new-forward.cu` and `custom/gpu-new-forward.h`.  If you have already started working on your GPU implementation, be sure to save your work in these two files before doing this.
-
 ### Use Nsight-Systems and Nsight-Compute for initial Performance Results
 
 First, ensure you are using correct image in rai_build.yml file
 
-`image: jnativ/ece408_minidnn_docker_sp21:latest`
+`image: henryh2/ece408_minidnn_docker_fa21:latest`
 
 **Before you do any profiling, make sure you do not have any memory errors by running `cuda-memcheck`. See [Checking for Errors](#checking-for-errors) on how to run this.**
 
@@ -307,6 +307,8 @@ Modify `rai_build.yml` to use `nv-nsight-cu-cli` to save some timeline and analy
 Use the NVIDIA Nsight Compute GUI to find the execution of your kernel, and show a screen shot of the GPU SOL utilization in your report.  You will see performance metrics for two kernel launches, one for each layer.
 The [Nsight Compute installation](#nsight-compute-installation) section describes how to install Nsight-Compute GUI on your personal machine. Note that you do not need CUDA to be installed. 
 
+For this milestone, edit the responses in the given `m2_report_template.docx` file, export the report as a PDF, and name the PDF as `report.pdf`.
+
 | Report  |
 | ------------ |
 | Show output of rai running your GPU implementation of convolution (including the OpTimes) |
@@ -320,19 +322,29 @@ Use
 
     rai -p <project folder> --queue rai_amd64_ece408 --submit=m2
 
-to mark your submission for grading. Make sure to include your `report.pdf` in your `<project folder>`. Make sure you include all items listed in the Deliverables for this milestone.
+to mark your submission for grading. Make sure to include your `report.pdf` in your `<project folder>`. Make sure you answer all items listed above for this milestone, and include your name, NetID, and class section.
 
 
-## Milestone 3: Three Optimizations
+## Milestone 3: GPU Convolution Kernel Optimizations
 
-***Deadline: April 30th, 8 PM CST***
+***Deadline: December 3rd, 8 PM CST***
 
 | Deliverables |
 | ------------ |
-| Everything from Milestone 2 |
-| Implement three GPU optimizations |
+| Implement multiple GPU optimizations |
 | Write your report |
 | Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m3` to mark your job for grading |
+
+### Add GPU Optimizations
+
+First, make sure you have the most up-to-date version of the project repository by going to the project root directory and running:
+
+    git fetch origin 2021fa
+    git merge origin/2021fa
+
+You should attempt to implement at least 10 points of GPU optimizations (as seen in [optimizations](#optimizations)). You can implement these optimizations separately from each other or stack each optimization in order to maximize performance. If you implement your optimization separately, you must still include the code for each optimization in your submission even if it is unused in the final result. In this case it is recommended to create different methods and kernels to clarify what sections of the code apply to each optimization. 
+
+You must also make sure to clarify which baseline is used when analyzing the performance for a new optimization. If you are analyzing a result with a single optimization implemented, you should compare against your basic convolution kernel in Milestone 2. If you begin to stack multiple optimizations, for each optimization you add should be compared against the previous version without said optimization. This way you can most efficently analyse the effects of adding the given optimization.
 
 ### Interpreting the timing output from rai
 
@@ -356,119 +368,64 @@ You will see two types of times reported per layer as follows
 1. "Op Time" - This is time between the last cudaMemcpy call before your first kernel call and the first cudaMemcpy after your last kernel call (i.e. just `new-forward.cu -> conv_forward_gpu()`). It does not include the cudaMemcpy times.
 2. "Layer Time" - This is the total time taken to perform the convolution layer (C1 or C3). It includes the times for all kernel and CUDA API calls (i.e. the total time of all three `new-forward.cu -> conv_forward_gpu*` functions).
 
-### Add three GPU Optimization
-
-For this milestone, you should attempt at least three GPU optimizations (see [optimizations](#optimizations)), excluding the ones related to matrix multiplication, as we are asking you to implement this for the final milestone.
-
-Describe the optimizations in your `report.pdf`. Read the [Final Report](#final-report) section to see what is expected for the description of each optimization.
-
 ### Performance Analysis with Nsight-Systems and Nsight-Compute
 
 Use the NVIDIA Nsight-Systems(`nsys`) and Nsight-Compute(`nv-nsight-cu-cli`) and your analysis information to describe the effect that your optimizations had on the performance of your convolution.
 If possible, you should try to separate the effect of each optimization in your analysis.
 
+For this milestone, edit the responses in the given `m3_report_template.docx` file, export the report as a PDF, and name the PDF as `report.pdf`. Describe in detail each optimization you implement, including how and why you choose to implement that specific optimization, why you thought the optimization may be fruitful, the actual results of the optimization and whether it was fruitful (use quantitative data from `nsys` and `nv-nsight-cu` to justify your explanation), and include any external references used during identification or development of the optimization.
+
 | Report |
 | ------------ |
-| Describe the optimizations as specified [here](#final-report) |
+| Describe the optimizations as specified |
 | Use data from `nsys` and/or `nv-nsight-cu-cli` to analyze your optimizations and justify the effects of your optimizations |
 
 Use 
     
     rai -p <project folder> --queue rai_amd64_ece408 --submit=m3
     
-to submit your project folder. Make sure to include your `report.pdf` in your `<project folder>`. Make sure you include all items listed in the Deliverables for this milestone.
+to submit your project folder. Make sure to include your `report.pdf` in your `<project folder>`. Make sure you answer all items listed above for this milestone, and include your name, NetID, and class section.
 
-
-## Final Submission
-
-***Deadline: May 14th, 8 PM CST***
-
-| Deliverables |
-| ------------ |
-| Everything from Milestone 3 |
-| Implement final GPU optimization(s) |
-| Write your report |
-| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=final` to mark your job for grading |
-
-### Matrix Multiplication
-For the final checkpoint, you will implement the forward convolution layers using a different approach: shared memory matrix multiplication and input matrix unrolling.
-
-Your implementation must work with `rai -p <project-folder> --queue rai_amd64_ece408 --submit=final`.
-This means all your source files must be in `custom/`, and your implementation must work when they are copied to `/ece408/project/src/layer/custom` in the Mini-DNN tree, and `make` is invoked on the Mini-DNN tree. This is done in the provided `rai_build.yml`.
-
-| Report |
-| ------------ |
-| Describe the optimization(s) as specified [here](#final-report) |
-| Use `nsys` and/or `nv-nsight-cu-cli` to analyze the effects of your optimization on performance |
-
-Use
-
-    rai -p <project folder> --queue rai_amd64_ece408 --submit=final
-
-to submit your project folder. Make sure to include your `report.pdf` in your `<project folder>`.
-
-### Final Report
-
-You've been building this final report through all the milestones.
-Keep the content from the earlier milestones, but be sure to include the following:
-
-* Your name
-* Your netid
-
-The final report should include at least the following information for each optimization
-
-1. **Optimization Approach and Results**
-    * how you identified the optimization opportunity
-    * why you thought the approach would be fruitful
-    * the effect of the optimization. was it fruitful, and why or why not. Use `nsys` and `nv-nsight-cu` to justify your explanation.
-    * Any external references used during identification or development of the optimization
-2. **References** (as needed)
-3. **(Optional) Suggestions for Improving Next Year**
-
-### Rubric
+## Rubric
 
 The overall project score will be computed as follows:
 
 1. Milestone 1 ( 20% )
+    * Correctness ( 15% )
+    * Report ( 5% )
 2. Milestone 2 ( 20% )
-3. Milestone 3 ( 40% )
-    * Optimization 1 ( 13.3% )
-    * Optimization 2 ( 13.3% )
-    * Optimization 3 ( 13.3% )
-4. Final Optimizations ( 20% )
-    * Optimization 4 ( 20% )
-    * Additional Optimizations ( +2% extra each! )
+    * Correctness ( 15% )
+    * Report( 5% )
+3. Milestone 3 ( 60% )
+    * Correctness ( 4% for each optimization point )
+    * Report ( 2% for each optimization point )
+4. Extra Credit ( up to +5% maximum )
+    * Top 10 on leaderboard ( +5% )
+    * Top 30 on leaderboard ( +3% )
+    * Top 50 on leaderboard ( +1% )
 
-Each optimization will be graded as follows:
-
-1. Explanation of Performance Impact ( 50% )
-2. Correctness ( 50% )
-
-*Note: In order to receive an extra 2% counting toward your overall course grade for an optimization beyond the four required optimizations, the optimization must be applied to the matrix multiplication optimization from the final checkpoint and result in a faster runtime.  You can receive extra credit for up to 3 additional optimizations.*
-
-This semester, ranking will be made available, via the `rai ranking` command, but will not be assigned a grade.
+This semester, ranking will be made available, via the `rai ranking` command.
 
 ## Optimizations
 
-We are going to suggest a set of possible optimizations for you to attempt.
+These are the list of optimizations we will consider valid for Milestone 3. You should implement 10 points worth of optimizations in order to recieve full credit for Milestone 3. If you would like to impelement a potential optimization that is not on this list, please consult a TA or instructor beforehand to verify that the optimization is valid and to assign it a point value.
 
-* Shared Memory convolution
-* Weight matrix (kernel values) in constant memory
-* Tuning with restrict and loop unrolling (considered as one optimization only if you do both)
-* Sweeping various parameters to find best values (block sizes, amount of thread coarsening)
-* Exploiting parallelism in input images, input channels, and output channels.
-* Multiple kernel implementations for different layer sizes
-* Input channel reduction: tree
-* Input channel reduction: atomics
-* Fixed point (FP16) arithmetic
-* Using Streams to overlap computation with data transfer
-* Kernel fusion for unrolling and matrix-multiplication
-* An advanced matrix multiplication algorithm (register-tiled, for example)
-* Using Tensor Cores to speed up matrix multiplication
-* ...
+* Tiled shared memory convolution (**2 points**)
+* Shared memory matrix multiplication and input matrix unrolling (**3 points**)
+* Kernel fusion for unrolling and matrix-multiplication (requires previous optimization) (**2 points**)
+* Weight matrix (kernel values) in constant memory (**1 point**)
+* Tuning with restrict and loop unrolling (considered as one optimization only if you do both) (**3 points**)
+* Sweeping various parameters to find best values (block sizes, amount of thread coarsening) (**1 point**)
+* Multiple kernel implementations for different layer sizes (**1 point**)
+* Input channel reduction: tree (**3 point**)
+* Input channel reduction: atomics (**2 point**)
+* Fixed point (FP16) arithmetic. (note this can modify model accuracy slightly) (**4 point**)
+* Using Streams to overlap computation with data transfer (**4 point**)
+* An advanced matrix multiplication algorithm (register-tiled, for example) (**5 points**)
+* Using Tensor Cores to speed up matrix multiplication (**5 points**)
+* Overlap-Add method for FFT-based convolution (note this is **very** hard, and may not yeild a large performace increase due to mask size) (**8 points**)
 
-Other optimizations that do not fit in here may also be considered as optimizations.
-If in doubt, contact the course staff.
+## Appendix
 
 ### Checking for Errors
 
@@ -516,7 +473,7 @@ Nsight-Compute can be installed as a standalone application. You do not need CUD
 ### Skeleton Code Description
 `custom/cpu-new-forward.cc` and `custom/new-forward.cu` containes skeleton implementations for the CPU and GPU convolutions respectively. You can complete the project by modifying these two files only. `custom/cpu-new-forward.h` and `custom/gpu-new-forward.h` are the respective header files. You need not modify these files unless you need to declare your own functions.
 
-The code in `m1.cc`, `m2.cc`, `m3.cc` and `final.cc` are the top level files that are executed for each milestone. You should not be modifying these files.
+The code in `m1.cc`, `m2.cc`, and `m3.cc` are the top level files that are executed for each milestone. You should not be modifying these files.
 
 ## License
 
@@ -534,4 +491,5 @@ NCSA/UIUC © 2020 [Carl Pearson](https://cwpearson.github.io)
 * Ben Schreiber
 * James Cyriac
 * Jonathan Nativ
+* Henry Haase
 
