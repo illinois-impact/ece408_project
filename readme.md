@@ -45,7 +45,7 @@ For each milestone, you will include a PDF `report.pdf` file in the project dire
 | Create a CPU convolution implementation |
 | Profile your implementation with `gprof` |
 | Write your report |
-| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m1` to mark your job for grading |
+| Use `./rai -p <project folder> --queue rai_amd64_ece408 --submit=m1` to mark your job for grading |
 
 Clone this repository to get the project folder.
 
@@ -82,7 +82,7 @@ Run the default Mini-DNN forward pass using rai without any CPU/GPU implementati
 
 Use RAI to run a batch forward pass on some test data.
 
-    rai -p <project-folder> --queue rai_amd64_ece408
+    ./rai -p <project-folder> --queue rai_amd64_ece408
 
 Note that the `<project-folder>` path should point to the root of this repository.
 
@@ -202,7 +202,7 @@ For this milestone, edit the responses in the given `m1_report_template.docx` fi
 
 Use
 
-    rai -p <project folder> --queue rai_amd64_ece408 --submit=m1
+    ./rai -p <project folder> --queue rai_amd64_ece408 --submit=m1
 
 to mark your submission for grading. Make sure to include your `report.pdf` in your `<project folder>`. Make sure you answer all items listed above for this milestone, and include your name, NetID, and class section.
 
@@ -215,7 +215,7 @@ to mark your submission for grading. Make sure to include your `report.pdf` in y
 | Implement a GPU Convolution kernel |
 | Verify correctness and record timing with 3 different dataset sizes |
 | Write your report |
-| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m2` to mark your job for grading |
+| Use `./rai -p <project folder> --queue rai_amd64_ece408 --submit=m2` to mark your job for grading |
 
 ### Create a GPU Implementation
 
@@ -224,7 +224,7 @@ First, make sure you have the most up-to-date version of the project repository 
     git fetch origin 2021fa
     git merge origin/2021fa
 
-Modify `custom/new-forward.cu` to create GPU implementation of the forward convolution.
+Modify `custom/new-forward.cu` to create GPU implementation of the forward convolution. This should be a basic convolution implement that does not include shared-memory or tiling.
 
 Modify `rai_build.yml` to run
 
@@ -237,7 +237,7 @@ When it is correct, it will show the same correctness as Milestone 1. To quicken
 
 First, ensure you are using correct image in rai_build.yml file
 
-`image: henryh2/ece408_minidnn_docker_fa21:latest`
+`image: jnativ/ece408_minidnn_docker_sp21:latest`
 
 **Before you do any profiling, make sure you do not have any memory errors by running `cuda-memcheck`. See [Checking for Errors](#checking-for-errors) on how to run this.**
 
@@ -313,14 +313,14 @@ For this milestone, edit the responses in the given `m2_report_template.docx` fi
 | ------------ |
 | Show output of rai running your GPU implementation of convolution (including the OpTimes) |
 | Demonstrate `nsys` profiling the GPU execution |
-| Include a list of all kernels that collectively consume more than 90% of the program time |
-| Include a list of all CUDA API calls that collectively consume more than 90% of the program time |
+| Include a list of all kernels that collectively consume more than 90% of the kernel time |
+| Include a list of all CUDA API calls that collectively consume more than 90% of the API time |
 | Include an explanation of the difference between kernels and API calls |
 | Screenshot of the GPU SOL utilization in Nsight-Compute GUI for your kernel profiling data (for both kernel launches) |
 
 Use
 
-    rai -p <project folder> --queue rai_amd64_ece408 --submit=m2
+    ./rai -p <project folder> --queue rai_amd64_ece408 --submit=m2
 
 to mark your submission for grading. Make sure to include your `report.pdf` in your `<project folder>`. Make sure you answer all items listed above for this milestone, and include your name, NetID, and class section.
 
@@ -333,7 +333,7 @@ to mark your submission for grading. Make sure to include your `report.pdf` in y
 | ------------ |
 | Implement multiple GPU optimizations |
 | Write your report |
-| Use `rai -p <project folder> --queue rai_amd64_ece408 --submit=m3` to mark your job for grading |
+| Use `./rai -p <project folder> --queue rai_amd64_ece408 --submit=m3` to mark your job for grading |
 
 ### Add GPU Optimizations
 
