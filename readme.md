@@ -45,7 +45,7 @@ For each milestone, you will include a PDF `report.pdf` file in the project dire
 | Create a CPU convolution implementation |
 | Profile your implementation with `gprof` |
 | Write your report |
-| Use `./rai -p <project folder> --queue rai_amd64_ece408 --submit=m1` to mark your job for grading |
+| Use `./rai -p <project folder> --submit=m1` to mark your job for grading |
 
 Clone this repository to get the project folder.
 
@@ -202,7 +202,7 @@ For this milestone, edit the responses in the given `m1_report_template.docx` fi
 
 Use
 
-    ./rai -p <project folder> --queue rai_amd64_ece408 --submit=m1
+    ./rai -p <project folder> --submit=m1
 
 to mark your submission for grading. Make sure to include your `report.pdf` in your `<project folder>`. Make sure you answer all items listed above for this milestone, and include your name, NetID, and class section.
 
@@ -215,7 +215,7 @@ to mark your submission for grading. Make sure to include your `report.pdf` in y
 | Implement a GPU Convolution kernel |
 | Verify correctness and record timing with 3 different dataset sizes |
 | Write your report |
-| Use `./rai -p <project folder> --queue rai_amd64_ece408 --submit=m2` to mark your job for grading |
+| Use `./rai -p <project folder> --submit=m2` to mark your job for grading |
 
 ### Create a GPU Implementation
 
@@ -320,7 +320,7 @@ For this milestone, edit the responses in the given `m2_report_template.docx` fi
 
 Use
 
-    ./rai -p <project folder> --queue rai_amd64_ece408 --submit=m2
+    ./rai -p <project folder> --submit=m2
 
 to mark your submission for grading. Make sure to include your `report.pdf` in your `<project folder>`. Make sure you answer all items listed above for this milestone, and include your name, NetID, and class section.
 
@@ -333,7 +333,7 @@ to mark your submission for grading. Make sure to include your `report.pdf` in y
 | ------------ |
 | Implement multiple GPU optimizations |
 | Write your report |
-| Use `./rai -p <project folder> --queue rai_amd64_ece408 --submit=m3` to mark your job for grading |
+| Use `./rai -p <project folder> --submit=m3` to mark your job for grading |
 
 ### Add GPU Optimizations
 
@@ -344,7 +344,11 @@ First, make sure you have the most up-to-date version of the project repository 
 
 You should attempt to implement at least 10 points of GPU optimizations (as seen in [optimizations](#optimizations)). You can implement these optimizations separately from each other or stack each optimization in order to maximize performance. If you implement your optimization separately, you must still include the code for each optimization in your submission even if it is unused in the final result. In this case it is recommended to create different methods and kernels to clarify what sections of the code apply to each optimization. 
 
-You must also make sure to clarify which baseline is used when analyzing the performance for a new optimization. If you are analyzing a result with a single optimization implemented, you should compare against your basic convolution kernel in Milestone 2. If you begin to stack multiple optimizations, for each optimization you add should be compared against the previous version without said optimization. This way you can most efficently analyse the effects of adding the given optimization.
+You must also make sure to clarify which baseline is used when analyzing the performance for a new optimization. If you are analyzing a result with a single optimization implemented, you should compare against your basic convolution kernel in Milestone 2. If you begin to stack multiple optimizations, for each optimization you add should be compared against the previous version without said optimization. This way you can most efficently analyse the effects of adding the given optimization. Also please remember when profiling your optimizations to use the `--queue rai_amd64_exclusive` flag to run your code on the exclusive server so that it doesn't contest with other students submissions and you can have the most accurate timing results.
+
+Part of the grade for this milestone is whether or not you can achieve a reasonable overall performance, which we will measure as the sum of the first and second layer OP Times. If you have done milestone 2 correctly, for a batch size of 10000, the sum between the first and second layer OP Times (on the exclusive queue) should equal about **170ms**. If this is not the case, you may want to examine your milestone 2 code. In order to achieve full credit for the performace grade this milestone, we ask that you bring the sum of the first and second layer OP Times down to **70ms** or less for a batch size of 10000. Any submissions between **70ms** and **170ms** will be given a performance grade linearly extrapolated from the performance relative to these two values. Any submission slower than **170ms** will recieve no credit for the performance grade.
+
+It should also be noted that the there is a certain amount of extra credit available depending on whether you have placed in the top 10, 30, or 50 in performance among the class. The metric used for this will be the same as above (sum of OP Times), and you can see the current standings using the `./rai -p <project_directory> ranking` command. Note that the only submissions that will be counted towards the ranking are ones that run the network with a batch size of 10000 (no profiling). Using the `--submit=m3` flag will also count the submission towards the rankings.
 
 ### Interpreting the timing output from rai
 
@@ -382,7 +386,7 @@ For this milestone, edit the responses in the given `m3_report_template.docx` fi
 
 Use 
     
-    rai -p <project folder> --queue rai_amd64_ece408 --submit=m3
+    rai -p <project folder> --submit=m3
     
 to submit your project folder. Make sure to include your `report.pdf` in your `<project folder>`. Make sure you answer all items listed above for this milestone, and include your name, NetID, and class section.
 
@@ -397,7 +401,8 @@ The overall project score will be computed as follows:
     * Correctness ( 15% )
     * Report( 5% )
 3. Milestone 3 ( 60% )
-    * Correctness ( 4% for each optimization point )
+    * Overall Performance ( 10% )
+    * Correctness ( 3% for each optimization point )
     * Report ( 2% for each optimization point )
 4. Extra Credit ( up to +5% maximum )
     * Top 10 on leaderboard ( +5% )
@@ -477,7 +482,7 @@ The code in `m1.cc`, `m2.cc`, and `m3.cc` are the top level files that are execu
 
 ## License
 
-NCSA/UIUC © 2020 [Carl Pearson](https://cwpearson.github.io)
+NCSA/UIUC © 2021 [Carl Pearson](https://cwpearson.github.io)
 
 ## Contributors
 
